@@ -3,19 +3,12 @@
 #include "hardware/pwm.h"
 #include "hardware/clocks.h"
 
-#define BUZZER_LEFT_1 21  
-#define BUZZER_RIGHT_1 10
-
-#define A0_FREQUENCY 27.5
-#define A0_WRAP 65530
+#include "./constants/GPIO_Constants.h"
+#include "./constants/Musical_Note_Constants.h"
+#include "./types/Adjustment.h"
+// #include "./headers/play_note.h"
 
 uint32_t pwm_clock_hz;
-
-typedef struct {
-    uint16_t wrap;
-    float divisor;
-} Adjustment;
-
 
 Adjustment get_divisor_wrap_from_note(char note[3]){
 
@@ -68,6 +61,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
 }
 
+
 void play_note(uint buzzer_id, char note[3], float duty_cycle, float time_ms){
 
     printf("Dentro de playnote\n");
@@ -92,6 +86,8 @@ void play_note(uint buzzer_id, char note[3], float duty_cycle, float time_ms){
 
 }
 
+
+
 int main() {
 
     stdio_init_all();
@@ -109,7 +105,7 @@ int main() {
 
     printf("Antes de playnote \n");
 
-    play_note(BUZZER_RIGHT_1, "A-0", 0.5, 10000);
+    play_note(BUZZER_RIGHT_1, "A-0", 0.5, 3000);
 
     // O loop vazio. 
     while (true) {
