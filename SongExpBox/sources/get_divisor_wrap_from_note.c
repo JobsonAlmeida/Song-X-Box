@@ -10,7 +10,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
     if(note[2] == '0'){
 
         if(note[0] == 'C'){
-                 if(note[1] == '-') {    }
+                 if(note[1] == '-') {adjustment.wrap = C_0_WRAP; adjustment.divisor = C_0_DIVIDER;}
             else if(note[1] == '#') {}
             else                    {  }
         }
@@ -36,7 +36,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
             else {}
         }
         else if(note[0] == 'A'){
-                 if(note[1] == '-') { adjustment.wrap = A0_WRAP; adjustment.divisor = pwm_clock_hz/(A0_FREQUENCY * (adjustment.wrap+1)); printf("encontrou nota A-0\n"); }
+                 if(note[1] == '-') {  }
             else if(note[1] == '#') {}
             else {}
         }

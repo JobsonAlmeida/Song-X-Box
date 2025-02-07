@@ -35,7 +35,11 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(SongExpBox SongExpBox.c)
+add_executable(SongExpBox 
+               SongExpBox.c
+               ########## Passo 2 ########## sources/play_note.c
+               
+)
 
 pico_set_program_name(SongExpBox "SongExpBox")
 pico_set_program_version(SongExpBox "0.1")
@@ -50,15 +54,13 @@ target_link_libraries(SongExpBox
 
 # Add the standard include files to the build
 target_include_directories(SongExpBox PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}/headers
-        ${CMAKE_CURRENT_LIST_DIR}/types
+        ########## Passo 1 ###############  ${CMAKE_CURRENT_LIST_DIR}/headers
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
 target_link_libraries(SongExpBox 
         hardware_i2c
-        
         )
 
 pico_add_extra_outputs(SongExpBox)
