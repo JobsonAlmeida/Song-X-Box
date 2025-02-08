@@ -272,11 +272,26 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
 }
 
-void play_note(uint buzzer_id, char note[3], float duty_cycle, float time_ms){
+// Struct para ser passada para a função de callback repeating_timer_callback
+struct Data_Struct{
+    uint slice;
+};
+struct Data_Struct data_note;
 
-    printf("Dentro de playnote\n");
+int64_t stop_note(alarm_id_t id, void *user_data) {
 
-    // static varibale so the they are not created every time
+    struct Data_Struct* data = (struct Data_Struct*) user_data;
+
+    pwm_set_enabled(data->slice, false);
+
+    return 0;
+
+}
+
+
+void play_note(uint buzzer_id, char note[3], float duty_cycle, uint32_t time_ms){
+
+    // static varibale so that they are not created every time
     static uint slice = 2;
     static uint channel = 1;
     static Adjustment adjustement = {0, 0.0f};
@@ -291,14 +306,19 @@ void play_note(uint buzzer_id, char note[3], float duty_cycle, float time_ms){
 
     pwm_set_chan_level(slice, channel, duty_cycle*(adjustement.wrap+1));
 
-    pwm_set_enabled(slice, true);
-    sleep_ms(time_ms);
-    pwm_set_enabled(slice, false);
+    data_note.slice = slice;
 
+    pwm_set_enabled(slice, true);
+
+    add_alarm_in_ms(time_ms, stop_note, &data_note, false);
+
+    return;
 }
 
 
 int main() {
+
+    irq_set_enabled(PWM_IRQ_WRAP, true);  // Habilitar as interrupções de PWM (se necessário)
 
     stdio_init_all();
     sleep_ms(10000);
@@ -311,16 +331,18 @@ int main() {
     gpio_set_function(BUZZER_LEFT_1, GPIO_FUNC_PWM);
     gpio_set_function(BUZZER_RIGHT_1, GPIO_FUNC_PWM);
 
-    sleep_ms(4000);
+    // sleep_ms(4000);
 
     printf("Antes de playnote \n");
 
-    play_note(BUZZER_RIGHT_1, "B#4", 0.5, 3000);
+    play_note(BUZZER_RIGHT_1, "A-4", 0.005, 2000);
 
     // O loop vazio. 
     while (true) {
-         printf("A frequência do clock do PWM (clk_sys) é: %u Hz\n", pwm_clock_hz);
-         sleep_ms(1000);
+        //  printf("A frequência do clock do PWM (clk_sys) é: %u Hz\n", pwm_clock_hz);
+        //  sleep_ms(1000);
+
+        tight_loop_contents(); // Função que otimiza o loop vazio para evitar consumo excessivo de CPU.
     }
 
     return 0;
