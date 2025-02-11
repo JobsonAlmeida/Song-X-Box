@@ -38,6 +38,7 @@ pico_sdk_init()
 add_executable(SongExpBox 
                SongExpBox.c
                inc/ssd1306_i2c.c
+               sources/ADC/ADC_functions
                ########## Passo 2 ########## sources/play_note.c
                
 )
@@ -51,7 +52,12 @@ pico_enable_stdio_usb(SongExpBox 1)
 
 # Add the standard library to the build
 target_link_libraries(SongExpBox
-        pico_stdlib hardware_i2c hardware_pwm)
+        pico_stdlib
+        hardware_i2c 
+        hardware_pwm
+        hardware_adc
+        hardware_dma        
+)
 
 # Add the standard include files to the build
 target_include_directories(SongExpBox PRIVATE

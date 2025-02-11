@@ -40,6 +40,9 @@
         "stdio.h": "c",
         "clocks.h": "c",
         "play_note.h": "c",
-        "get_divisor_wrap_from_note.h": "c"
+        "get_divisor_wrap_from_note.h": "c",
+        "adc.h": "c",
+        "adc_functions": "cpp",
+        "stdlib.h": "c"
     }
 }
