@@ -38,7 +38,7 @@ pico_sdk_init()
 add_executable(SongExpBox 
                SongExpBox.c
                inc/ssd1306_i2c.c
-               sources/ADC/ADC_functions
+               peripherals/ADC_DMA/ADC_DMA_functions.c
                ########## Passo 2 ########## sources/play_note.c
                
 )

@@ -3,25 +3,28 @@
 #include "hardware/adc.h"
 #include "hardware/dma.h"
 
-#include "sources/ADC/ADC_functions.h"
+#include "peripherals/ADC_DMA/ADC_DMA_functions.h"
 
-extern uint16_t buffer_adc_x[];
-extern int dma_chan;
+extern uint16_t x_axis_buffer[];
+extern uint16_t y_axis_buffer[];
+
+extern int dma_chan_0;
+extern int dma_chan_1;
 
 int main() {
 
     stdio_init_all();
-    setup_adc_and_dma(); // Inicia o adc e o dma correpondente ao adc
+    setup_adc_and_dma(); // Inicia o adc e o dma correpondente ao adc  
 
     while (true) {
 
-        joystick_data joystick_data = velocity_and_direction(buffer_adc_x);
+        joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+        // dma_channel_start(dma_chan_1);
+
         
-        printf("joystick_data.velocity: %d\n", joystick_data.velocity);
+        printf("joystick_data.velocity: %d\n", joystick_data.velocity_x);        
 
-        dma_channel_start(dma_chan);
-
-        sleep_ms(50);                  
+        sleep_ms(10);                  
           
     };
 
@@ -43,7 +46,7 @@ int main() {
         //     dma_channel_start(dma_chan);
         // }
         
-        sleep_ms(50);
+        sleep_ms(10);
     
 
     return 0;

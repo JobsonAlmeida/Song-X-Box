@@ -1,4 +1,4 @@
-#include "ADC_types.h"
+#include "ADC_DMA_types.h"
 
 // Configura o adc
 void setup_adc();
@@ -12,4 +12,7 @@ void setup_adc_and_dma();
 
 // Retorna a velocidade e a direção informada pelo joysctick do movimento que será 
 // realizado pelo cursor no display
-joystick_data velocity_and_direction(uint16_t buffer_adc_x[]);
+joystick_data velocity_and_direction(uint16_t buffer_adc_x[], uint16_t buffer_adc_y[]);
+
+//Confgura a inicialização da interrupção do DMA
+void inicia_interrupcao_dma();

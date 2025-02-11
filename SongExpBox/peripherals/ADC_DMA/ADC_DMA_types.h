@@ -1,5 +1,5 @@
 // definindo o tipo joystick_data
 typedef struct {
-    int velocity;
-    char direction;
+    int velocity_x;
+    int velocity_y;
 } joystick_data;

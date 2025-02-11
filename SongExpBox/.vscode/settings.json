@@ -43,6 +43,7 @@
         "get_divisor_wrap_from_note.h": "c",
         "adc.h": "c",
         "adc_functions": "cpp",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "adc_dma_functions.h": "c"
     }
 }
