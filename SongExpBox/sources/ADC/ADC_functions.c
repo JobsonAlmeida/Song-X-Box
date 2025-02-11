@@ -1,5 +1,6 @@
 #include "hardware/adc.h"
 #include "hardware/dma.h"
+#include "ADC_types.h"
 
 #define PIN_JOYSTICK_X 27
 
@@ -59,4 +60,69 @@ void setup_adc_and_dma(){
     setup_dma_adc();
 
     return;
+}
+
+
+joystick_data velocity_and_direction(uint16_t buffer_adc_x[]){
+
+    static joystick_data joystick_data;
+
+    // velocidade para a esquerda      
+    if(buffer_adc_x[0]>= 0 && buffer_adc_x[0] <=255 ){
+        joystick_data.velocity = -7;                
+    }
+    else  if(buffer_adc_x[0]>= 256 && buffer_adc_x[0] <=511 ){
+        joystick_data.velocity = -6;                
+    }
+    else  if(buffer_adc_x[0]>= 512 && buffer_adc_x[0] <=767 ){
+        joystick_data.velocity = -5;                
+    }
+    else  if(buffer_adc_x[0]>= 768 && buffer_adc_x[0] <=1023 ){
+        joystick_data.velocity = -4;                
+    }
+    else  if(buffer_adc_x[0]>= 1024 && buffer_adc_x[0] <=1279 ){
+        joystick_data.velocity = -3;                
+    }
+    else  if(buffer_adc_x[0]>= 1280 && buffer_adc_x[0] <=1535 ){
+        joystick_data.velocity = -2;                
+    }
+    else  if(buffer_adc_x[0]>= 1536 && buffer_adc_x[0] <=1791 ){
+        joystick_data.velocity = -1;                
+    }
+    else  if(buffer_adc_x[0]>= 1792 && buffer_adc_x[0] <=2047 ){
+        joystick_data.velocity = 0;                
+    }
+
+    // velocidade para a direita      
+    else if(buffer_adc_x[0]>= 2048 && buffer_adc_x[0] <=2303 ){
+        joystick_data.velocity = 0;                
+    }
+    else  if(buffer_adc_x[0]>= 2304 && buffer_adc_x[0] <=2559 ){
+        joystick_data.velocity = +1;                
+    }
+    else  if(buffer_adc_x[0]>= 2560 && buffer_adc_x[0] <=2815 ){
+        joystick_data.velocity = +2;                
+    }
+    else  if(buffer_adc_x[0]>= 2816 && buffer_adc_x[0] <=3071 ){
+        joystick_data.velocity = +3;                
+    }
+    else  if(buffer_adc_x[0]>= 3072 && buffer_adc_x[0] <=3327 ){
+        joystick_data.velocity = +4;                
+    }
+    else  if(buffer_adc_x[0]>= 3328 && buffer_adc_x[0] <=3583 ){
+        joystick_data.velocity = +5;                
+    }
+    else  if(buffer_adc_x[0]>= 3584 && buffer_adc_x[0] <=3839 ){
+        joystick_data.velocity = +6;                
+    }
+    else  if(buffer_adc_x[0]>= 3840 && buffer_adc_x[0] <=4095 ){
+        joystick_data.velocity = +7;                
+    }
+
+    else {
+        joystick_data.velocity = 0;
+    }
+
+    return joystick_data;
+    
 }

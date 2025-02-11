@@ -15,26 +15,36 @@ int main() {
 
     while (true) {
 
-        const uint bar_width = 40;
-        const uint adc_max = (1 << 12) - 1;
-        uint bar_x_pos = buffer_adc_x[0] * bar_width / adc_max;
+        joystick_data joystick_data = velocity_and_direction(buffer_adc_x);
         
-        if (adc_fifo_is_empty() == 0) { // Verifica se há dado no FIFO
-            uint16_t adc_value = adc_fifo_get(); // Lê o valor convertido
-            printf("ADC Value: %d\n", adc_value);
-        }
+        printf("joystick_data.velocity: %d\n", joystick_data.velocity);
 
-        printf("buffer_adc_x[0]: %d\n", buffer_adc_x[0]);
+        dma_channel_start(dma_chan);
 
-        if (dma_channel_is_busy(dma_chan)) {
-            printf("DMA está transferindo dados...\n");
-        } else {
-            printf("DMA não está ativo! Reiniciando DMA...\n");
-            dma_channel_start(dma_chan);
-        }
+        sleep_ms(50);                  
+          
+    };
+
+        // const uint bar_width = 10;
+        // const uint adc_max = (1 << 12) - 1;
+        // uint bar_x_pos = buffer_adc_x[0] * bar_width / adc_max;
+        
+        // if (adc_fifo_is_empty() == 0) { // Verifica se há dado no FIFO
+        //     uint16_t adc_value = adc_fifo_get(); // Lê o valor convertido
+        //     printf("ADC Value: %d\n", adc_value);
+        // }
+
+        // printf("buffer_adc_x[0]: %d\n", buffer_adc_x[0]);
+
+        // if (dma_channel_is_busy(dma_chan)) {
+        //     printf("DMA está transferindo dados...\n");
+        // } else {
+        //     printf("DMA não está ativo! Reiniciando DMA...\n");
+        //     dma_channel_start(dma_chan);
+        // }
         
         sleep_ms(50);
-    }
+    
 
     return 0;
  
