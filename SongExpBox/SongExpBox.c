@@ -19,10 +19,8 @@ int main() {
     while (true) {
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
-        // dma_channel_start(dma_chan_1);
 
-        
-        printf("joystick_data.velocity: %d\n", joystick_data.velocity_x);        
+        printf("joystick_data.velocity: %d\n", joystick_data.velocity_y);        
 
         sleep_ms(10);                  
           
