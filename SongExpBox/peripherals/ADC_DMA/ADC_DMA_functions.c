@@ -12,13 +12,15 @@
 uint16_t x_axis_buffer[NUM_AMOSTRAS];
 uint16_t y_axis_buffer[NUM_AMOSTRAS];
 
+int dma_chan_0, dma_chan_1;
+
 void setup_adc() {
 
     adc_init();
     adc_gpio_init(PIN_JOYSTICK_X);  
     adc_gpio_init(PIN_JOYSTICK_Y);
 
-    adc_select_input(0);
+    adc_select_input(1);
 
     adc_set_clkdiv(480);  // Reduz a frequência da conversão.
 
@@ -33,43 +35,23 @@ void setup_adc() {
     adc_run(true);  // Inicia conversão contínua
 }
 
-
-int dma_chan_0, dma_chan_1;
-
 void adc_dma_irq_handler() {
 
     // Identifica qual canal DMA terminou a transferência
     if (dma_channel_get_irq0_status(dma_chan_0)) {
         dma_channel_acknowledge_irq0(dma_chan_0); //reconhece e limpa a interrupção gerada por um canal específico do DMA.
-        // adc_select_input(1);  // Troca para ADC1
-        // dma_channel_start(dma_chan_1);
-
-        dma_channel_start(dma_chan_0);
-
-        // printf("Entrou por dma_cha_0 \n");
+        adc_select_input(1);  // Troca para ADC1
+        dma_channel_start(dma_chan_1);
      } 
 
     if (dma_channel_get_irq0_status(dma_chan_1)) {
-        dma_channel_acknowledge_irq0(dma_chan_1);
-
-        dma_channel_start(dma_chan_1);
-
-
-    //     adc_select_input(0);  // Troca para ADC0
-    //     dma_channel_start(dma_chan_0);
+        dma_channel_acknowledge_irq0(dma_chan_1); //reconhece e limpa a interrupção gerada por um canal específico do DMA.
+        adc_select_input(0);  // Troca para ADC0
+        dma_channel_start(dma_chan_0);
     }
-
-    // if (dma_channel_get_irq1_status(dma_chan_0)) {
-    //     dma_channel_acknowledge_irq1(dma_chan_0); //reconhece e limpa a interrupção gerada por um canal específico do DMA.
-    //     // adc_select_input(1);  // Troca para ADC1
-    //     // dma_channel_start(dma_chan_1);
-
-    //     // printf("Entrou por dma_cha_0 \n");
-    //  } 
 
     return;
 }
-
 
 void setup_dma_adc() {
 
@@ -108,12 +90,11 @@ void setup_dma_adc() {
 
     // Configura interrupções
     dma_channel_set_irq0_enabled(dma_chan_0, true); //configura o canal 0 do DMA para disparar IRQ0
-    // dma_channel_set_irq0_enabled(dma_chan_1, true); //configura o canal 1 do DMA para disparar IRQ0
+    dma_channel_set_irq0_enabled(dma_chan_1, true); //configura o canal 1 do DMA para disparar IRQ0
     irq_set_exclusive_handler(DMA_IRQ_0, adc_dma_irq_handler);
     irq_set_enabled(DMA_IRQ_0, true);
 
-    dma_channel_start(dma_chan_0);  // Inicia a conversão pelo canal 0
-    // dma_channel_start(dma_chan_1);  // Inicia a conversão pelo canal 1
+    dma_channel_start(dma_chan_1);  // Inicia a conversão pelo canal 1
 
     return;
 

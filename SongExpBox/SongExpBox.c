@@ -20,7 +20,7 @@ int main() {
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
-        printf("joystick_data.velocity: %d\n", joystick_data.velocity_y);        
+        printf("joystick_data.velocity_x %d - joystick_data.velocit_y: %d\n", joystick_data.velocity_x, joystick_data.velocity_y);        
 
         sleep_ms(10);                  
           
