@@ -51,7 +51,7 @@ pico_enable_stdio_usb(SongExpBox 1)
 
 # Add the standard library to the build
 target_link_libraries(SongExpBox
-        pico_stdlib hardware_pwm)
+        pico_stdlib hardware_i2c hardware_pwm)
 
 # Add the standard include files to the build
 target_include_directories(SongExpBox PRIVATE
@@ -60,9 +60,9 @@ target_include_directories(SongExpBox PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(SongExpBox 
-        hardware_i2c
-        )
+# target_link_libraries(SongExpBox 
+#         hardware_i2c
+#         )
 
 pico_add_extra_outputs(SongExpBox)
 
