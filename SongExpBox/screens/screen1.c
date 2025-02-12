@@ -9,7 +9,7 @@
 #define LIMITE_INFERIOR_Y 23
 #define LIMITE_SUPERIOR_Y 39
 #define BASE_TIME_MS 200
- 
+
 extern int screen;
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
