@@ -44,6 +44,7 @@
         "adc.h": "c",
         "adc_functions": "cpp",
         "stdlib.h": "c",
-        "adc_dma_functions.h": "c"
+        "adc_dma_functions.h": "c",
+        "GPIO_BTUTTONS_A_B.C": "cpp"
     }
 }

@@ -24,7 +24,9 @@
  #include "pico/binary_info.h"
  #include "peripherals/I2C_Display/ssd1306.h"
  #include "hardware/i2c.h"
+ #include "peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.h"
  
+
  const uint I2C_SDA = 14;
  const uint I2C_SCL = 15;
  
@@ -68,11 +70,16 @@
      // ---------- REFERENTE À INICIALIZAÇÃO DO ADC -------------
      stdio_init_all();
      setup_adc_and_dma(); // Inicia o adc e o dma correpondente ao adc  
+
+     /// gpio BUTTONS A E B
+     gpio_init_buttons();
+
+     #include "hardware/gpio.h"
  
      while (true) {
  
-        if (screen == 1) screen1();
-         // else if (screen == 2) screen2();
+            if (screen == 1) screen1();
+        else if (screen == 2) screen2();
          // else screen3();   
  
          sleep_ms(100);    

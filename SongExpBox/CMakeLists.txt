@@ -40,6 +40,8 @@ add_executable(SongExpBox
                peripherals/I2C_Display/ssd1306_i2c.c
                peripherals/ADC_DMA/ADC_DMA_functions.c
                screens/screen1.c
+               screens/screen2.c
+               peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c
                ########## Passo 2 ########## sources/play_note.c
                
 )
@@ -57,7 +59,8 @@ target_link_libraries(SongExpBox
         hardware_i2c 
         hardware_pwm
         hardware_adc
-        hardware_dma        
+        hardware_dma
+        hardware_gpio        
 )
 
 # Add the standard include files to the build

@@ -78,8 +78,6 @@ void screen1(){
     //mostrando o framebuffer ssd no display
     render_on_display(ssd, &frame_area);
 
-
-
     while (screen == 1){
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
