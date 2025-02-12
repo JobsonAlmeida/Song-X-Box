@@ -71,7 +71,7 @@
  
      while (true) {
  
-                if (screen == 1) screen1();
+        if (screen == 1) screen1();
          // else if (screen == 2) screen2();
          // else screen3();   
  

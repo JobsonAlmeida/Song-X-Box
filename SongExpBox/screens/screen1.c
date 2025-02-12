@@ -10,7 +10,6 @@ extern int screen;
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
 
-
 void screen1(){
 
      // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
@@ -31,9 +30,10 @@ void screen1(){
     //Carregando primeira informação na tela:
     char *text[] = {
         "SELECIONE:",
-        " ",
-        " TREINAR OUVIDO",
-        " TOCAR MUSICA"};
+        "#",
+        ":TREINAR OUVIDO",
+        ":TOCAR MUSICA",
+        ":ABC MUSICA"};
 
     int y = 0;
     for (uint i = 0; i < count_of(text); i++)
@@ -43,28 +43,74 @@ void screen1(){
     }
     render_on_display(ssd, &frame_area);
 
-    // typedef struct 
-    // {
-    //     int16_t cursor_x;
-    //     int16_t cursor_y;
+    typedef struct 
+    {
+        int16_t position_x;
+        int16_t position_y;
 
-    // } cursor_data;
+    } cursor_data;
 
-    // cursor_data cursor_position;
+    cursor_data cursor;
 
-    // cursor_position.cursor_x = 0; 
-    // cursor_position.cursor_y = 23;  
-            
+    cursor.position_x = 0; 
+    cursor.position_y = 23;  
+
+    int fb_idx;
+    uint8_t stored_character[8];
+
     while (screen == 1){
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
-        printf("joystick_data.velocity_x %d - joystick_data.velocit_y: %d\n", joystick_data.velocity_x, joystick_data.velocity_y);        
-    
-        // ssd1306_draw_char(ssd, 0 , 23, '>');
-        // render_on_display(ssd, &frame_area);
+        // printf("joystick_data.velocity_x %d - joystick_data.velocit_y: %d\n", joystick_data.velocity_x, joystick_data.velocity_y);
+        
+        if(joystick_data.velocity_y==0){
+            ssd1306_draw_char(ssd, cursor.position_x , cursor.position_y, '>');
+            render_on_display(ssd, &frame_area);
+        }        
+        else if(joystick_data.velocity_y<0){
 
-        sleep_ms(300);
+            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = stored_character[i];
+            }
+            cursor.position_y +=8;
+
+            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
+
+            for (int i = 0; i < 8; i++) {
+                stored_character[i] = ssd[fb_idx++] ;
+            }
+            
+            ssd1306_draw_char(ssd, cursor.position_x , cursor.position_y, '>');
+            render_on_display(ssd, &frame_area);
+
+        }
+
+        else if(joystick_data.velocity_y>0){
+
+            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = stored_character[i];
+            }
+            cursor.position_y -=8;
+
+            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
+
+            for (int i = 0; i < 8; i++) {
+                stored_character[i] = ssd[fb_idx++] ;
+            }
+            
+            ssd1306_draw_char(ssd, cursor.position_x , cursor.position_y, '>');
+            render_on_display(ssd, &frame_area);
+
+        }
+
+       
+    
+        sleep_ms(100);
 
     }
    
