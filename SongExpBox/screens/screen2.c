@@ -9,7 +9,7 @@
 
 #include "screens.h"
 
-#define BASE_TIME_MS 200
+#define BASE_TIME_MS 250
 
 
 extern int screen;
@@ -124,6 +124,22 @@ int fase1(){
             fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
             notes_index = decrement_notes_indice(notes_index);
+            printf("notes_indice: %d", notes_index);
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = notes[notes_index + i];
+            }
+
+            render_on_display(ssd, &frame_area);
+       
+        }
+        else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
+        {           
+            printf("Entrou!\n");
+
+            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+
+            notes_index = increment_notes_indice(notes_index);
             printf("notes_indice: %d", notes_index);
 
             for (int i = 0; i < 8; i++) {
