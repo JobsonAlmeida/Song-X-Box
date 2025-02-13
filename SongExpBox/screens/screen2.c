@@ -144,7 +144,7 @@ int fase1(){
 
 
             //Mostrando na tela as setas para cima e para baixo na próxima localização à direita
-            cursor.position_x += 8;
+            cursor.position_x = (cursor.position_x >=32 && cursor.position_x <=39) ? 72 : cursor.position_x + 8;
 
             fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
 
@@ -179,18 +179,37 @@ int fase1(){
 
 
             //Mostrando na tela as setas para cima e para baixo na próxima localização à direita
-            cursor.position_x -= 8;
+            cursor.position_x = (cursor.position_x >=72 && cursor.position_x <=79) ? 32 : cursor.position_x - 8;
 
-            fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+            if(cursor.position_x == 32){
 
-            for (int i = 0; i < 8; i++) {
-                ssd[fb_idx++] = font[560 + i];
+                fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = font[576 + i];
+                }
+    
+                fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+    
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = font[584 + i];
+                }
+    
             }
+            else {
 
-            fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+                fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
 
-            for (int i = 0; i < 8; i++) {
-                ssd[fb_idx++] = font[568 + i];
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = font[560 + i];
+                }
+    
+                fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+    
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = font[568 + i];
+                }
+    
             }
 
 
