@@ -2,20 +2,27 @@
  #include <stdio.h>
 #include "./GPIO_BUTTONS_A_B.h"
 #include "pico/stdlib.h"
+#include "../../screens/screens.h"
 
-extern  int screen;
+
+extern int screen;
+extern cursor_data cursor;
 
 // Função única de callback
 void gpio_irq_handler(uint gpio, uint32_t events) {
 
     //Verificando qual botão solicitou a interrupção e executando o código
     if (gpio == BUTTON_A) {
-        screen-=1;
+        screen=1;
+        printf("screen: %d\n", screen);
 
         gpio_put(LED_VERMELHO, 0); // Apaga o LED
         printf("Entrou A \n");
     } else if (gpio == BUTTON_B) {
-        screen+=1;
+
+        if(screen == 1 && cursor.position_y == 23){
+            screen = 2;
+        }
         gpio_put(LED_VERMELHO, 1); // Acende o LED
         printf("Entrou B \n");
     }

@@ -14,6 +14,8 @@ extern int screen;
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
 
+extern cursor_data cursor;
+
 void screen1(){
 
      // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
@@ -33,7 +35,7 @@ void screen1(){
 
     //Carregando primeira informação na tela:
     char *text[] = {
-        "SELECIONE:",
+        " SELECIONE:",
         "",
         " TREINAR OUVIDO",
         " TOCAR MUSICA",
@@ -46,15 +48,6 @@ void screen1(){
         y += 8;
     }
     render_on_display(ssd, &frame_area);
-
-    typedef struct 
-    {
-        int16_t position_x;
-        int16_t position_y;
-
-    } cursor_data;
-
-    cursor_data cursor;
 
     cursor.position_x = 0; 
     cursor.position_y = 23;  

@@ -15,6 +15,7 @@
  #include "hardware/pwm.h"
  #include "hardware/clocks.h"
  #include "hardware/i2c.h"
+ #include "hardware/gpio.h"
  
  #include <stdio.h>
  #include <string.h>
@@ -36,7 +37,10 @@
  extern int dma_chan_0;
  extern int dma_chan_1;
  
- int screen = 1;
+ int screen;
+
+cursor_data cursor;
+
  
  int main() {
  
@@ -74,11 +78,14 @@
      /// gpio BUTTONS A E B
      gpio_init_buttons();
 
-     #include "hardware/gpio.h"
+     
+
+     screen = 0;
  
      while (true) {
  
-            if (screen == 1) screen1();
+             if (screen == 0) screen0();
+        else if (screen == 1) screen1();
         else if (screen == 2) screen2();
          // else screen3();   
  

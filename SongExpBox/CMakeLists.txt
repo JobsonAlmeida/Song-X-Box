@@ -39,6 +39,7 @@ add_executable(SongExpBox
                SongExpBox.c
                peripherals/I2C_Display/ssd1306_i2c.c
                peripherals/ADC_DMA/ADC_DMA_functions.c
+               screens/screen0.c
                screens/screen1.c
                screens/screen2.c
                peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c

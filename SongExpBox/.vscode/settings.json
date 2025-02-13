@@ -45,6 +45,7 @@
         "adc_functions": "cpp",
         "stdlib.h": "c",
         "adc_dma_functions.h": "c",
-        "GPIO_BTUTTONS_A_B.C": "cpp"
+        "GPIO_BTUTTONS_A_B.C": "cpp",
+        "ssd1306.h": "c"
     }
 }
