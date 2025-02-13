@@ -37,9 +37,10 @@ void screen1(){
     char *text[] = {
         " SELECIONE:",
         "",
-        " TREINAR OUVIDO",
-        " TOCAR MUSICA",
-        " ABC MUSICA"};
+        " TREINAR SOZINHO",
+        " TREINAR EM GRUP",
+        " COMPARAR NOTAS"
+        " OITAVA ESPECIFI"};
 
     int y = 0;
     for (uint i = 0; i < count_of(text); i++)

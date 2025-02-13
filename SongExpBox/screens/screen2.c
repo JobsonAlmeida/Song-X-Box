@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "../peripherals/I2C_Display/ssd1306.h"
 #include <string.h>
@@ -30,14 +32,14 @@ void screen2(){
 
     //Carregando primeira informação na tela:
     char *text[] = {
-        "1ABCDEFGHIJKLMNO",
-        "2ABCDEFGHIJKLMNO",
-        "3ABCDEFGHIJKLMNO",
-        "4ABCDEFGHIJKLMNO",
-        "5ABCDEFGHIJKLMNO",
-        "6ABCDEFGHIJKLMNO",
-        "7ABCDEFGHIJKLMNO",
-        "8ABCDEFGHIJKLMNO",
+        " QUAL E A NOTA?",
+        "",
+        "    CORRETO     ",
+        "",
+        "",
+        "   ]}]   A#4    ",
+        "",
+        "1/10",
 
     };
 
@@ -49,7 +51,54 @@ void screen2(){
     }
     render_on_display(ssd, &frame_area);
 
+    char notes[] = {"A", "B", "C", "D", "E", "F", "G"};
+    char accidentals[] = {"#", "b"};
+    int octave;
+
+    int minimum, maximum, number;
+    char note_char, accidental_char;
+
     while(screen==2){
+
+        srand(time(NULL)); // Garante números diferentes a cada execução de rand
+
+        //sorteando a nota
+        minimum = 0; 
+        maximum = 6;
+        number = minimum + rand() % (maximum - minimum + 1);
+        note_char = notes[number]; 
+
+        //sorteando o acidente
+        minimum = 0, maximum = 1;
+        number = minimum + rand() % (maximum - minimum + 1);
+        accidental_char = accidentals[number];
+
+        //sorteando a oitava
+        minimum = 0, maximum = 7;
+        number = minimum + rand() % (maximum - minimum + 1);
+        accidental_char = accidentals[number];
+
+
+
+
+
+
+
+
+
+
+        printf("note number %d\n", note_number);
+
+
+
+
+
+
+
+
+
+
+
         printf("screen na tela 2 %d\n", screen);
         sleep_ms(50);
     }
