@@ -1,24 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#include "../peripherals/I2C_Display/ssd1306.h"
-#include "../peripherals/ADC_DMA/ADC_DMA_functions.h"
-
 #include <string.h>
-
+#include "../peripherals/I2C_Display/ssd1306.h"
+#include "../peripherals/I2C_Display/ssd1306_font.h"
+#include "../peripherals/ADC_DMA/ADC_DMA_functions.h"
 #include "screens.h"
 
 #define BASE_TIME_MS 250
-
 
 extern int screen;
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
-
-
 
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
@@ -114,12 +109,55 @@ int fase1(){
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
+
+        if(joystick_data.velocity_x==0){
+
+        } 
+        else if(joystick_data.velocity_x>=0 && ( (cursor.position_x + 8)<=95) ){
+
+
+            //Apagando as setas para cima e para baixo na localização atual
+            fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[i];
+            }
+
+            fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[i];
+            }
+
+
+            //Mostrando na tela as setas para cima e para baixo na próxima localização à direita
+            cursor.position_x += 8;
+
+            fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[560 + i];
+            }
+
+            fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[568 + i];
+            }
+
+
+            render_on_display(ssd, &frame_area);
+
+        } 
+
+
         if(joystick_data.velocity_y==0){
 
         }        
         else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
         {           
-            printf("Entrou!\n");
+
+            printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
             fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
