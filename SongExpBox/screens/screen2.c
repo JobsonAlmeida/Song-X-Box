@@ -7,7 +7,7 @@
 #include "../peripherals/ADC_DMA/ADC_DMA_functions.h"
 #include "screens.h"
 
-#define BASE_TIME_MS 250
+#define BASE_TIME_MS 250.000
 
 extern int screen;
 extern uint16_t x_axis_buffer[];
@@ -23,6 +23,14 @@ int increment_notes_indice(int notes_index) {
 int decrement_notes_indice(int notes_index) {
     notes_index = (notes_index - 8 + 56) % 56;
     return notes_index;
+}
+
+void wait(joystick_data joystick_data){
+
+    int time_divider = abs(joystick_data.velocity_x) > abs(joystick_data.velocity_y) ? abs(joystick_data.velocity_x) : abs(joystick_data.velocity_y);
+    sleep_ms( (time_divider==0) ? BASE_TIME_MS : (BASE_TIME_MS/(float) time_divider) );
+
+    return;
 }
 
 int fase1(){
@@ -80,6 +88,8 @@ int fase1(){
     cursor.position_y = 40; 
     int fb_idx; 
     int notes_index = 0;
+    
+    joystick_data joystick_data;
 
 
        
@@ -105,9 +115,12 @@ int fase1(){
     render_on_display(ssd, &frame_area);
 
 
+
     while (screen == 2){
 
-        joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+        joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
+        printf("joystick_data.velocity_x = %d - joystick_data.velocity_y = %d  \n", joystick_data.velocity_x, joystick_data.velocity_y);
 
 
         if(joystick_data.velocity_x==0){
@@ -146,49 +159,98 @@ int fase1(){
             }
 
 
-            render_on_display(ssd, &frame_area);
+
+        } 
+        else if(joystick_data.velocity_x<=0 && ( (cursor.position_x - 8)>=32) ){
+
+
+            //Apagando as setas para cima e para baixo na localização atual
+            fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[i];
+            }
+
+            fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[i];
+            }
+
+
+            //Mostrando na tela as setas para cima e para baixo na próxima localização à direita
+            cursor.position_x -= 8;
+
+            fb_idx =  ((cursor.position_y-8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[560 + i];
+            }
+
+            fb_idx =  ((cursor.position_y+8)/8) * 128  + cursor.position_x; 
+
+            for (int i = 0; i < 8; i++) {
+                ssd[fb_idx++] = font[568 + i];
+            }
+
 
         } 
 
-
-        if(joystick_data.velocity_y==0){
+         if(joystick_data.velocity_y==0){
 
         }        
         else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
         {           
 
-            printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+            while (joystick_data.velocity_y<0){
 
-            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
-            notes_index = decrement_notes_indice(notes_index);
-            printf("notes_indice: %d", notes_index);
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
-            for (int i = 0; i < 8; i++) {
-                ssd[fb_idx++] = notes[notes_index + i];
+                notes_index = decrement_notes_indice(notes_index);
+                
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = notes[notes_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);
+                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
             }
 
-            render_on_display(ssd, &frame_area);
-       
         }
         else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
-        {           
-            printf("Entrou!\n");
+        {      
+            
+            while (joystick_data.velocity_y>0){
 
-            fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+                printf("Entrou!\n");
 
-            notes_index = increment_notes_indice(notes_index);
-            printf("notes_indice: %d", notes_index);
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
-            for (int i = 0; i < 8; i++) {
-                ssd[fb_idx++] = notes[notes_index + i];
+                notes_index = increment_notes_indice(notes_index);
+            
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = notes[notes_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);
+                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
             }
-
-            render_on_display(ssd, &frame_area);
        
         }
-       
-        sleep_ms( (joystick_data.velocity_y==0) ? BASE_TIME_MS : (BASE_TIME_MS/abs(joystick_data.velocity_y)) );
+
+        render_on_display(ssd, &frame_area);
+
+        wait(joystick_data);
 
     }
 
