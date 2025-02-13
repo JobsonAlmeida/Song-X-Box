@@ -15,6 +15,14 @@ extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
 
+typedef struct  {
+
+    note;
+    accident;
+    octave;     
+
+} note;
+
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
     return notes_index;
@@ -53,7 +61,35 @@ void wait(joystick_data joystick_data){
     return;
 }
 
-int fase1(){
+void sortear_nota(char note_names[], char accidents[], int octaves[]){
+
+    note drawn_musical_note;
+    int minimum;
+    int maximum;
+    int tamanho;
+
+    srand(time(NULL)); // Garante números diferentes a cada execução de rand
+
+    //sorteando a nota musical
+    int minimum = 0; 
+    int tamanho = sizeof(note_names) / sizeof(note_names[0]);
+    int maximum = tamanho - 1;
+    int index = minimum + rand() % (maximum - minimum + 1);
+    drawn_musical_note.note = note_names[index]; 
+
+    //sorteando o accidente musical
+    int minimum = 0; 
+    int tamanho = sizeof(accidents) / sizeof(accidents[0]);
+    int maximum = tamanho - 1;
+    int index = minimum + rand() % (maximum - minimum + 1);
+    drawn_musical_note.accident = accidents[index]; 
+
+
+
+
+}
+
+int play_fases(){
 
     cursor.position_x = 72; 
     cursor.position_y = 40; 
@@ -63,6 +99,7 @@ int fase1(){
     int octaves_index = 32;
     
     joystick_data joystick_data;
+
 
 
     char notes[] = {    
@@ -96,23 +133,7 @@ int fase1(){
     
     int minimum, maximum, number;
 
-    // srand(time(NULL)); // Garante números diferentes a cada execução de rand
-
-    // //sorteando a nota
-    // minimum = 0; 
-    // maximum = 6;
-    // number = minimum + rand() % (maximum - minimum + 1);
-    // note_char = notes[number]; 
-
-    // //sorteando o acidente
-    // minimum = 0, maximum = 1;
-    // number = minimum + rand() % (maximum - minimum + 1);
-    // accidental_char = accidentals[number];
-
-    // //sorteando a oitava
-    // minimum = 0, maximum = 7;
-    // number = minimum + rand() % (maximum - minimum + 1);
-    // accidental_char = accidentals[number];
+ 
     
     // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
     struct render_area frame_area = {
@@ -129,19 +150,16 @@ int fase1(){
     memset(ssd, 0, ssd1306_buffer_length);
     render_on_display(ssd, &frame_area);
 
-    
 
-
-       
     //Carregando primeira informação na tela:
     char *text[] = {
-        " QUAL E A NOTA?",
-        "",
-        "    CORRETO     ",
-        "",
+        " QUAL E A NOTA? ",
+        "                ",
+        "                ",
+        "                ",
         "         {      ",
         "   ]}]   C-4    ",
-        "         [     ",
+        "         [      ",
         "F1/10      N1/16",
 
     };
@@ -156,7 +174,27 @@ int fase1(){
 
 
 
+
+
+    int fase = 1 ;
+    bool sortear = true;
+
     while (screen == 2){
+
+        if (fase == 1 && sortear ) {
+
+
+
+        };
+        // else if (fase == 2) fase2();
+        // else if (fase == 3) fase3();
+        // else if (fase == 4) fase4();
+        // else if (fase == 5) fase5();
+        // else if (fase == 6) fase6();
+        // else if (fase == 7) fase7();
+        // else if (fase == 8) fase8();
+        // else if (fase == 9) fase9();
+        // else                fase10();
 
         joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
@@ -411,25 +449,16 @@ int fase1(){
     return 2 ;
 }
 
-
-
 void screen2()
 {
 
-    int fase = 1;
+    bool final_result = play_fases();
 
-    while(screen==2)
-    {
-             if (fase == 1) fase1();
-        // else if (fase == 2) fase2();
-        // else if (fase == 3) fase3();
-        // else if (fase == 4) fase4();
-        // else if (fase == 5) fase5();
-        // else if (fase == 6) fase6();
-        // else if (fase == 7) fase7();
-        // else if (fase == 8) fase8();
-        // else if (fase == 9) fase9();
-        // else                fase10();
+    if(final_result){
+
+    }
+    else{
+
     }
 
     return;
