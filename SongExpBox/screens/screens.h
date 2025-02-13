@@ -2,6 +2,8 @@
 
 #include "../peripherals/I2C_Display/ssd1306.h"
 
+
+
 typedef struct 
 {
     int16_t position_x;

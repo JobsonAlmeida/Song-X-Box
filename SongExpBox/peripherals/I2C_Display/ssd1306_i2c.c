@@ -166,6 +166,12 @@ inline int ssd1306_get_font(uint8_t character)
     else if (character == '/') {
         return 69; // caractere com tudo branco
     }
+    else if (character == '{') {
+        return 70; // caractere com tudo branco
+    }
+    else if (character == '[') {
+        return 71; // caractere com tudo branco
+    }
 
     return 0;
 }

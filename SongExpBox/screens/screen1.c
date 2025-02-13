@@ -16,6 +16,7 @@ extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
 
+
 void screen1(){
 
      // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
@@ -80,19 +81,7 @@ void screen1(){
         
         if(joystick_data.velocity_y==0){
 
-            // //framebuffer ssd --> stored_character
-            // fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
-
-            // for (int i = 0; i < 8; i++) {
-            //     stored_character[i] = ssd[fb_idx++] ;
-            // }
-
-             // setando o cursor no framebuffer ssd na posição pagina+1 
-            //  ssd1306_draw_char(ssd, cursor.position_x , cursor.position_y, '>');
-
-            //  //mostrando o framebuffer ssd no display
-            //  render_on_display(ssd, &frame_area);
-
+          
         }        
         else if(joystick_data.velocity_y<0 && (cursor.position_y >= 0 && cursor.position_y <=(ssd1306_height-1) ))
         {

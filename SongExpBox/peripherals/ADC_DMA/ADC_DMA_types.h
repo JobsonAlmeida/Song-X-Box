@@ -1,3 +1,5 @@
+#pragma once
+
 // definindo o tipo joystick_data
 typedef struct {
     int velocity_x;

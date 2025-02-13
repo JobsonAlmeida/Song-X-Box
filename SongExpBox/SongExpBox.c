@@ -41,8 +41,7 @@
 
 cursor_data cursor;
 
- 
- int main() {
+int main() {
  
      // ---- REFERENTE À INICIALIZAÇÃO DO DISPLAY ---- 
  
@@ -78,19 +77,13 @@ cursor_data cursor;
      /// gpio BUTTONS A E B
      gpio_init_buttons();
 
-     
-
      screen = 0;
  
      while (true) {
  
              if (screen == 0) screen0();
         else if (screen == 1) screen1();
-        else if (screen == 2) screen2();
-         // else screen3();   
- 
-         sleep_ms(100);    
-           
+        else if (screen == 2) screen2();           
      };
          
      return 0;
