@@ -16,14 +16,14 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
         screen=1;
         printf("screen: %d\n", screen);
 
-        gpio_put(LED_VERMELHO, 0); // Apaga o LED
+       
         printf("Entrou A \n");
     } else if (gpio == BUTTON_B) {
 
         if(screen == 1 && cursor.position_y == 23){
             screen = 2;
         }
-        gpio_put(LED_VERMELHO, 1); // Acende o LED
+        
         printf("Entrou B \n");
     }
 }

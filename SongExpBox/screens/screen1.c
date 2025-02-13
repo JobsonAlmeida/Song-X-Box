@@ -38,7 +38,7 @@ void screen1(){
     char *text[] = {
         " SELECIONE:",
         "",
-        " TREINAR SOZINHO",
+        " TREINAR OUVIDO",
         " TREINAR EM GRUP",
         " COMPARAR NOTAS"
         " OITAVA ESPECIFI"};

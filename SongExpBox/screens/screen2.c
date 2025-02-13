@@ -25,6 +25,26 @@ int decrement_notes_indice(int notes_index) {
     return notes_index;
 }
 
+int increment_accidentals_index(int accidentals_index) {
+    accidentals_index = (accidentals_index + 8) % 24;
+    return accidentals_index;
+}
+
+int decrement_accidentals_index(int accidentals_index) {
+    accidentals_index = (accidentals_index - 8 + 24) % 24;
+    return accidentals_index;
+}
+
+int increment_octaves_index(int octaves_index) {
+    octaves_index = (octaves_index + 8) % 80;
+    return octaves_index;
+}
+
+int decrement_octaves_index(int octaves_index) {
+    octaves_index = (octaves_index - 8 + 80) % 80;
+    return octaves_index;
+}
+
 void wait(joystick_data joystick_data){
 
     int time_divider = abs(joystick_data.velocity_x) > abs(joystick_data.velocity_y) ? abs(joystick_data.velocity_x) : abs(joystick_data.velocity_y);
@@ -34,6 +54,16 @@ void wait(joystick_data joystick_data){
 }
 
 int fase1(){
+
+    cursor.position_x = 72; 
+    cursor.position_y = 40; 
+    int fb_idx; 
+    int notes_index = 16;
+    int accidentals_index = 0;
+    int octaves_index = 32;
+    
+    joystick_data joystick_data;
+
 
     char notes[] = {    
         /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
@@ -45,11 +75,26 @@ int fase1(){
         /*indice 48 -> */ 0x7f, 0x41, 0x41, 0x41, 0x51, 0x51, 0x73, 0x00, // G
     };
     
-    char accidentals[] = {'-','#','b'};
-    int octave;
+    char accidentals[] = {
+        /*indice 0  -> */   0x00, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00, // -
+        /*indice 8  -> */   0x24, 0xe4, 0x3f, 0x24, 0xfc, 0x27, 0x24, 0x00, // #
+        /*indice 16  -> */  0x00, 0xff, 0x88, 0x88, 0x88, 0xf8, 0x00, 0x00 // bemol
+    };
+
+    char octaves[] = {    
+        /*indice 0  -> */ 0x3e, 0x41, 0x41, 0x49, 0x41, 0x41, 0x3e, 0x00, // 0
+        /*indice 8  -> */ 0x00, 0x00, 0x42, 0x7f, 0x40, 0x00, 0x00, 0x00, // 1
+        /*indice 16 -> */ 0x30, 0x49, 0x49, 0x49, 0x49, 0x46, 0x00, 0x00, // 2
+        /*indice 24 -> */ 0x49, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 3
+        /*indice 32 -> */ 0x3f, 0x20, 0x20, 0x78, 0x20, 0x20, 0x00, 0x00, // 4
+        /*indice 40 -> */ 0x4f, 0x49, 0x49, 0x49, 0x49, 0x30, 0x00, 0x00, // 5
+        /*indice 48 -> */ 0x3f, 0x48, 0x48, 0x48, 0x48, 0x48, 0x30, 0x00, // 6
+        /*indice 56 -> */ 0x01, 0x01, 0x01, 0x61, 0x31, 0x0d, 0x03, 0x00, // 7
+        /*indice 64 -> */ 0x36, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 8
+        /*indice 72 -> */ 0x06, 0x09, 0x09, 0x09, 0x09, 0x09, 0x7f, 0x00, // 9 
+    };
     
     int minimum, maximum, number;
-    char note_char, accidental_char;
 
     // srand(time(NULL)); // Garante números diferentes a cada execução de rand
 
@@ -84,12 +129,7 @@ int fase1(){
     memset(ssd, 0, ssd1306_buffer_length);
     render_on_display(ssd, &frame_area);
 
-    cursor.position_x = 72; 
-    cursor.position_y = 40; 
-    int fb_idx; 
-    int notes_index = 0;
     
-    joystick_data joystick_data;
 
 
        
@@ -100,7 +140,7 @@ int fase1(){
         "    CORRETO     ",
         "",
         "         {      ",
-        "   ]}]   A#4    ",
+        "   ]}]   C-4    ",
         "         [     ",
         "F1/10      N1/16",
 
@@ -158,6 +198,9 @@ int fase1(){
                 ssd[fb_idx++] = font[568 + i];
             }
 
+            render_on_display(ssd, &frame_area);
+            wait(joystick_data);
+
 
 
         } 
@@ -212,6 +255,8 @@ int fase1(){
     
             }
 
+            render_on_display(ssd, &frame_area);
+            wait(joystick_data);
 
         } 
 
@@ -233,13 +278,12 @@ int fase1(){
                     ssd[fb_idx++] = notes[notes_index + i];
                 }
 
-                render_on_display(ssd, &frame_area);
-                
+                render_on_display(ssd, &frame_area);                
                 wait(joystick_data);
 
                 joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
-
             }
+        
 
         }
         else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
@@ -257,8 +301,7 @@ int fase1(){
                     ssd[fb_idx++] = notes[notes_index + i];
                 }
 
-                render_on_display(ssd, &frame_area);
-                
+                render_on_display(ssd, &frame_area);                
                 wait(joystick_data);
 
                 joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
@@ -266,11 +309,103 @@ int fase1(){
             }
        
         }
+        else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 80 && cursor.position_x <=87 ) )
+        {           
 
-        render_on_display(ssd, &frame_area);
 
-        wait(joystick_data);
+            while (joystick_data.velocity_y<0){
 
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+
+                accidentals_index = decrement_accidentals_index(accidentals_index);
+                printf("accidentals_index: %d\n", accidentals_index);
+                
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = accidentals[accidentals_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
+            }
+
+        }
+        else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 80 && cursor.position_x <=87 ) )
+        {          
+
+            while (joystick_data.velocity_y>0){
+
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+
+                accidentals_index = increment_accidentals_index(accidentals_index);
+                printf("accidentals_index: %d\n", accidentals_index);
+                
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = accidentals[accidentals_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
+            }
+
+        }
+        else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 88 && cursor.position_x <=95 ) )
+        {           
+
+            while (joystick_data.velocity_y<0){
+
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+
+                octaves_index = decrement_octaves_index(octaves_index);
+                printf("octaves_index: %d\n", octaves_index);
+                
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = octaves[octaves_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
+            }
+
+        }
+        else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 88 && cursor.position_x <=95 ) )
+        {          
+
+            while (joystick_data.velocity_y>0){
+
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+
+                fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
+
+                octaves_index = increment_octaves_index(octaves_index);
+                printf("octaves_index: %d\n", octaves_index);
+                
+                for (int i = 0; i < 8; i++) {
+                    ssd[fb_idx++] = octaves[octaves_index + i];
+                }
+
+                render_on_display(ssd, &frame_area);                
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+
+            }
+        }
+    
     }
 
     return 2 ;
