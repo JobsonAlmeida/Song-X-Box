@@ -39,9 +39,9 @@ void screen1(){
         " SELECIONE:",
         "",
         " TREINAR OUVIDO",
-        " TREINAR EM GRUP",
-        " COMPARAR NOTAS"
-        " OITAVA ESPECIFI"};
+        " COMPARAR NOTAS",
+        " TOCAR MUSICA",
+    };
 
     int y = 0;
     for (uint i = 0; i < count_of(text); i++)

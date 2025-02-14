@@ -25,6 +25,8 @@ volatile absolute_time_t now;
 volatile absolute_time_t last_press_time_button_B;
 volatile bool button_B_pressed;
 
+
+
 typedef struct  {
 
     unsigned char note_name;
@@ -32,6 +34,21 @@ typedef struct  {
     unsigned char octave;     
 
 } musical_note;
+
+typedef struct  {
+
+    char first_note[2];
+    char first_accident[2];
+    char first_octave[2];
+    char first_level[2];
+    char maximum_levels[3];
+    char first_correct_note_number[2];
+    char maximum_correct_note_number[3];
+    char first_incorrect_note_number[2];
+    char maximum_incorrect_note_number[2];
+
+} initial_page_parameters;
+
 
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
@@ -95,6 +112,9 @@ int ssd1306_get_font_notes(uint8_t character, char notes[], char accidentals[], 
     return 0;
 }
 
+
+
+
 musical_note sortear_nota(char note_names[], int note_size, unsigned char accidents[], int acc_size, unsigned char octaves[], int oct_size) {
 
     musical_note drawn_musical_note;
@@ -121,16 +141,132 @@ musical_note sortear_nota(char note_names[], int note_size, unsigned char accide
 
 }
 
+
+initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct render_area *frame_area){
+
+    initial_page_parameters page;
+    char string_aux1[17];
+
+    //limpa o frame buffer
+    memset(ssd, 0, ssd1306_buffer_length);
+     
+    if (first_page == 1){
+
+        strcpy(page.first_note, "D");
+        strcpy(page.first_accident, "b");
+        strcpy(page.first_octave, "4");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
+
+        //page 0 
+        strcpy(string_aux1,  " QUAL E A NOTA? ");
+        ssd1306_draw_string(ssd, 0, 0,string_aux1);
+
+        //page 1
+        strcpy(string_aux1,  "                ");
+        ssd1306_draw_string(ssd, 0, 8,string_aux1);
+
+        //page 2
+        strcpy(string_aux1,  "                ");
+        ssd1306_draw_string(ssd, 0, 16,string_aux1);
+
+        //page 3
+        strcpy(string_aux1,  "                ");
+        ssd1306_draw_string(ssd, 0, 24,string_aux1);
+
+        // //page 4
+        strcpy(string_aux1,  "         {      ");
+        ssd1306_draw_string(ssd, 0, 32,string_aux1);
+
+        //page 5
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        strcat(string_aux1,  "   ]}]   ");
+        strcat(string_aux1, page.first_note );
+        strcat(string_aux1, page.first_accident );
+        strcat(string_aux1, page.first_octave );
+        strcat(string_aux1,   "    ");
+        ssd1306_draw_string(ssd, 0, 40, string_aux1);
+
+        //page 6
+        strcpy(string_aux1,"         [      ");
+        ssd1306_draw_string(ssd, 0, 48,string_aux1);
+
+        //page 7
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        strcat(string_aux1,  "F");
+        strcat(string_aux1, page.first_level );
+        strcat(string_aux1, "/" );
+        strcat(string_aux1, page.maximum_levels);
+        strcat(string_aux1, " N");
+        strcat(string_aux1, page.first_correct_note_number);
+        strcat(string_aux1, "/" );
+        strcat(string_aux1, page.maximum_correct_note_number);
+        strcat(string_aux1, " E");
+        strcat(string_aux1, page.first_incorrect_note_number);
+        strcat(string_aux1, "/" );
+        strcat(string_aux1, page.maximum_incorrect_note_number);
+        ssd1306_draw_string(ssd, 0, 56,string_aux1);
+        
+      
+
+    }
+    else if(first_page == 2){
+
+    }
+    else if(first_page == 3){
+        
+    }
+    else if(first_page == 4){
+        
+    }
+    else if(first_page == 5){
+        
+    }
+    else if(first_page == 6){
+        
+    }
+    else if(first_page == 7){
+        
+    }
+    else if(first_page == 8){
+        
+    }
+    else if(first_page == 9){
+        
+    }
+    else if(first_page == 10){
+        
+    }
+   
+
+    //mostrando do display
+    render_on_display(ssd, frame_area);
+
+    return page;
+
+}
+
 int play_levels(){
 
     cursor.position_x = 72; 
     cursor.position_y = 40; 
     int fb_idx; 
-    int notes_index = 16;
-    int accidentals_index = 0;
+    int notes_index;
+    int accidentals_index;
     int octaves_index = 32;
-    
+    int level = 1 ;
+    bool sortear = true;
+    int draw_counter = 0;
+    musical_note drawn_note;
+    int error_counter = 0;
+
     joystick_data joystick_data;
+
+    int first_page = 1;
 
     char notes[] = {    
         /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
@@ -162,6 +298,13 @@ int play_levels(){
     };
      
     
+
+
+
+
+     // zera o display inteiro
+     uint8_t ssd[ssd1306_buffer_length];
+     
     // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
     struct render_area frame_area = {
         start_column : 0,
@@ -172,44 +315,61 @@ int play_levels(){
 
     calculate_render_area_buffer_length(&frame_area);
 
-    // zera o display inteiro
-    uint8_t ssd[ssd1306_buffer_length];
-    memset(ssd, 0, ssd1306_buffer_length);
-    render_on_display(ssd, &frame_area);
-
-
-    //Carregando primeira informação na tela:
-    char *text[] = {
-        " QUAL E A NOTA? ",
-        "                ",
-        "                ",
-        "                ",
-        "         {      ",
-        "   ]}]   C-4    ",
-        "         [      ",
-        "F1/10 N1/16 E0/3",
-
-    };
-
-    int y = 0;
-    for (uint i = 0; i < count_of(text); i++)
-    {
-        ssd1306_draw_string(ssd, 0, y, text[i]);
-        y += 8;
-    }
-    render_on_display(ssd, &frame_area);
-
-    int level = 1 ;
-    bool sortear = true;
-    int draw_counter = 0;
-    musical_note drawn_note;
-    int error_counter = 0;
-
     last_press_time_button_B = get_absolute_time();
 
     while (screen == 2){
 
         if (level == 1 && sortear ) {
+
+            if(first_page == 1){
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(first_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.first_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.first_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+
+                // printf("line drawn_note.note_name %d\n", line);
+                // int fb_idx = 5* 128 + 72;
+                // printf("fb_ind %d\n", fb_idx);
+                // for (int i = 0; i < 8; i++) {
+                //     if (ssd[fb_idx++] != notes[line * 8 + i]) {
+                //         note_check = false;
+                //         break;
+                //     }
+                     
+                // }
+    
+                // line = ssd1306_get_font_notes(drawn_note.accident, notes, accidentals, octaves );
+                // printf("line drawn_note.accident %d\n", line);
+                // fb_idx = 5* 128 + 80;
+                // printf("fb_ind %d\n", fb_idx);
+                // for (int i = 0; i < 8; i++) {
+                //     if (ssd[fb_idx++] != accidentals[line * 8 + i]) {
+                //         accidental_check = false;
+                //         break;
+                //     }
+                     
+                // }
+    
+                // line = ssd1306_get_font_notes(drawn_note.octave, notes, accidentals, octaves );
+                // printf("line drawn_note.octave: %d\n", line);
+                // fb_idx = 5* 128 + 88;
+                // printf("fb_ind %d\n", fb_idx);
+                // for (int i = 0; i < 8; i++) {
+                //     if (ssd[fb_idx++] != octaves[line * 8 + i]) {
+                //         octave_check = false;
+                //         break;
+                //     }       
+                // }
+
+                first_page = 2;            
+            }
 
             unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
             unsigned char accidents[] = {'-', '#', 'b'};
@@ -224,6 +384,11 @@ int play_levels(){
             printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
             draw_counter++;
             sortear = false;
+
+
+
+
+
 
         }
         else if (level == 2 && sortear){
@@ -450,7 +615,7 @@ int play_levels(){
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 accidentals_index = increment_accidentals_index(accidentals_index);
-                printf("accidentals_index: %d\n", accidentals_index);
+                printf("accidentals_index in y>0: %d\n", accidentals_index);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = accidentals[accidentals_index + i];
@@ -600,6 +765,7 @@ int play_levels(){
                 printf("string_error =  %c\n", string_error);
 
                 char string_message[17];
+
                 char string_error_number[2] = {string_error,'\0'};
 
                 strcpy(string_message, "     ERRADO     ");
