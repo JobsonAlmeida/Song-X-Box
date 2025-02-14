@@ -184,14 +184,9 @@ int play_levels(){
             int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
             int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
 
-            while(true){
-
-                musical_note drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
-
-                printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %d\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
-                
-                sleep_ms(1000);
-            }
+            musical_note drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            sortear = false;
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %d\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
 
         };
         // else if (fase == 2) fase2();
@@ -206,7 +201,7 @@ int play_levels(){
 
         joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
-        printf("joystick_data.velocity_x = %d - joystick_data.velocity_y = %d  \n", joystick_data.velocity_x, joystick_data.velocity_y);
+        // printf("joystick_data.velocity_x = %d - joystick_data.velocity_y = %d  \n", joystick_data.velocity_x, joystick_data.velocity_y);
 
 
         if(joystick_data.velocity_x==0){
@@ -308,7 +303,31 @@ int play_levels(){
 
          if(joystick_data.velocity_y==0){
 
-        }        
+        } 
+        else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 32 && cursor.position_x <=39 ) ) {
+
+            while (joystick_data.velocity_y<0){
+
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+           
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+            }
+
+        }     
+        else if( joystick_data.velocity_y>0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 32 && cursor.position_x <=39 ) ) {
+
+            while (joystick_data.velocity_y>0){
+
+                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
+           
+                wait(joystick_data);
+
+                joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
+            }
+
+        }       
         else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 72 && cursor.position_x <=79 ) )
         {           
 
