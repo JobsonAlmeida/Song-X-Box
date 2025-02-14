@@ -6,6 +6,8 @@
 #include "../peripherals/I2C_Display/ssd1306_font.h"
 #include "../peripherals/ADC_DMA/ADC_DMA_functions.h"
 #include "screens.h"
+#include "pico/rand.h"
+
 
 #define BASE_TIME_MS 250.000
 
@@ -17,11 +19,11 @@ extern cursor_data cursor;
 
 typedef struct  {
 
-    note;
-    accident;
-    octave;     
+    char note_name;
+    unsigned char accident;
+    int octave;     
 
-} note;
+} musical_note;
 
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
@@ -61,35 +63,33 @@ void wait(joystick_data joystick_data){
     return;
 }
 
-void sortear_nota(char note_names[], char accidents[], int octaves[]){
+musical_note sortear_nota(char note_names[], int note_size, char accidents[], int acc_size, int octaves[], int oct_size) {
 
-    note drawn_musical_note;
-    int minimum;
+    musical_note drawn_musical_note;
+    int index;
+    int minimum = 0;
     int maximum;
-    int tamanho;
 
-    srand(time(NULL)); // Garante números diferentes a cada execução de rand
+    // Sorteia a nota musical
+    maximum = note_size - 1;
+    index = minimum +  get_rand_32()% (maximum - minimum + 1);
+    drawn_musical_note.note_name = note_names[index];
 
-    //sorteando a nota musical
-    int minimum = 0; 
-    int tamanho = sizeof(note_names) / sizeof(note_names[0]);
-    int maximum = tamanho - 1;
-    int index = minimum + rand() % (maximum - minimum + 1);
-    drawn_musical_note.note = note_names[index]; 
+    // Sorteia o acidente musical
+    maximum = acc_size - 1;
+    index = minimum + get_rand_32() % (maximum - minimum + 1);
+    drawn_musical_note.accident = accidents[index];
 
-    //sorteando o accidente musical
-    int minimum = 0; 
-    int tamanho = sizeof(accidents) / sizeof(accidents[0]);
-    int maximum = tamanho - 1;
-    int index = minimum + rand() % (maximum - minimum + 1);
-    drawn_musical_note.accident = accidents[index]; 
+    // Sorteia a oitava
+    maximum = oct_size - 1;
+    index = minimum + get_rand_32() % (maximum - minimum + 1);
+    drawn_musical_note.octave = octaves[index];
 
-
-
+    return drawn_musical_note;
 
 }
 
-int play_fases(){
+int play_levels(){
 
     cursor.position_x = 72; 
     cursor.position_y = 40; 
@@ -130,10 +130,7 @@ int play_fases(){
         /*indice 64 -> */ 0x36, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 8
         /*indice 72 -> */ 0x06, 0x09, 0x09, 0x09, 0x09, 0x09, 0x7f, 0x00, // 9 
     };
-    
-    int minimum, maximum, number;
-
- 
+     
     
     // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
     struct render_area frame_area = {
@@ -172,18 +169,29 @@ int play_fases(){
     }
     render_on_display(ssd, &frame_area);
 
-
-
-
-
-    int fase = 1 ;
+    int level = 1 ;
     bool sortear = true;
 
     while (screen == 2){
 
-        if (fase == 1 && sortear ) {
+        if (level == 1 && sortear ) {
 
+            char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            u_char accidents[] = {'-', '#', 'b'};
+            int octaves[] = {4,5};
 
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            while(true){
+
+                musical_note drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+
+                printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %d\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+                
+                sleep_ms(1000);
+            }
 
         };
         // else if (fase == 2) fase2();
@@ -452,7 +460,7 @@ int play_fases(){
 void screen2()
 {
 
-    bool final_result = play_fases();
+    bool final_result = play_levels();
 
     if(final_result){
 
