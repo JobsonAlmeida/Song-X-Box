@@ -12,6 +12,8 @@
 #define BASE_TIME_MS 250.000
 
 extern int screen;
+bool check = false;
+int max_error_counter = 3;
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
 
@@ -63,6 +65,51 @@ void wait(joystick_data joystick_data){
     return;
 }
 
+// Adquire os pixels para um caractere (de acordo com notes.h)
+int ssd1306_get_font_notes(uint8_t character, char notes[], char accidentals[], char octaves[])
+{   
+
+    if (character >= 'A' && character <= 'G') {
+        return  notes[ character - 'A' ];
+    }
+    else if (character >= '0' && character <= '9') {
+        return character - '0';
+    }
+    else if (character == '-') {
+        return 0; // caractere com tudo branco
+    }
+    else if (character == '#') {
+        return 1;
+    }
+    else if (character == 'b') {
+        return 2;
+    }
+    else if (character == '>') {
+        return 65;
+    }
+    else if (character == '?') {
+        return 66;
+    }
+    else if (character == '}') {
+        return 67; // ? com fundo branco
+    }
+    else if (character == ']') {
+        return 68; // caractere com tudo branco
+    }
+    else if (character == '/') {
+        return 69; // caractere com tudo branco
+    }
+    else if (character == '{') {
+        return 70; // caractere com tudo branco
+    }
+    else if (character == '[') {
+        return 71; // caractere com tudo branco
+    }
+    
+
+    return 0;
+}
+
 musical_note sortear_nota(char note_names[], int note_size, char accidents[], int acc_size, int octaves[], int oct_size) {
 
     musical_note drawn_musical_note;
@@ -99,8 +146,6 @@ int play_levels(){
     int octaves_index = 32;
     
     joystick_data joystick_data;
-
-
 
     char notes[] = {    
         /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
@@ -171,7 +216,9 @@ int play_levels(){
 
     int level = 1 ;
     bool sortear = true;
-
+    int draw_counter = 0;
+    musical_note drawn_note;
+    int error_counter = 0;
     while (screen == 2){
 
         if (level == 1 && sortear ) {
@@ -184,12 +231,18 @@ int play_levels(){
             int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
             int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
 
-            musical_note drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
-            sortear = false;
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %d\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
 
-        };
-        // else if (fase == 2) fase2();
+            draw_counter++;
+            sortear = false;
+
+        }
+        else if (level == 2 && sortear){
+            printf("Entrou level 2!\n");
+
+
+        }
         // else if (fase == 3) fase3();
         // else if (fase == 4) fase4();
         // else if (fase == 5) fase5();
@@ -471,6 +524,77 @@ int play_levels(){
             }
         }
     
+        if(check){
+
+            check = false;
+
+            bool note_check = true;
+            bool accidental_check = true;
+            bool octave_check = true;
+
+            int line = ssd1306_get_font_notes(drawn_note.note_name, notes, accidentals, octaves );
+            int fb_idx = 5* 128 + 72;
+            for (int i = 0; i < 8; i++) {
+
+                if (note_check = ssd[fb_idx++] != notes[line * 8 + i]) {
+                    note_check = false;
+                    break;
+                }
+                 
+            }
+
+            line = ssd1306_get_font_notes(drawn_note.note_name, notes, accidentals, octaves );
+            fb_idx = 5* 128 + 80;
+            for (int i = 0; i < 8; i++) {
+                if (note_check = ssd[fb_idx++] != notes[line * 8 + i]) {
+                    accidental_check = false;
+                    break;
+                }
+                 
+            }
+
+            line = ssd1306_get_font_notes(drawn_note.note_name, notes, accidentals, octaves );
+            fb_idx = 5* 128 + 88;
+            for (int i = 0; i < 8; i++) {
+                if (note_check = ssd[fb_idx++] != notes[line * 8 + i]) {
+                    octave_check = false;
+                    break;
+                }       
+            }
+
+            
+            if(note_check && accidental_check && octave_check ) {
+
+                printf("Você acertou !\n");
+
+                if (draw_counter<16) {
+
+                    draw_counter += 1;
+                    sortear = true;
+
+                }
+                else{
+
+                    level = 2;
+                    draw_counter = 0;
+                    sortear = true;
+
+
+                   
+                }
+
+
+
+            }
+            else{
+
+                error_counter++;
+                printf("Você errou! - error_counter = %d!\n", error_counter);
+
+                if(error_counter == max_error_counter) return false;
+            }
+
+        }
     }
 
     return 2 ;
@@ -483,8 +607,12 @@ void screen2()
 
     if(final_result){
 
+
+
     }
     else{
+
+        printf("Você perdeu\n!");
 
     }
 

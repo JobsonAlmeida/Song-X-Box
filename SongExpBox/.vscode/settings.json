@@ -47,6 +47,8 @@
         "adc_dma_functions.h": "c",
         "GPIO_BTUTTONS_A_B.C": "cpp",
         "ssd1306.h": "c",
-        "screens.h": "c"
+        "screens.h": "c",
+        "algorithm": "c",
+        "timer.h": "c"
     }
 }

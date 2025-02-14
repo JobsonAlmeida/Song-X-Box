@@ -62,8 +62,10 @@ target_link_libraries(SongExpBox
         hardware_adc
         hardware_dma
         hardware_gpio   
-        hardware_rtc    
+        hardware_rtc
+        hardware_timer    
         pico_rand 
+        
 )
 
 # Add the standard include files to the build
