@@ -10,10 +10,16 @@ extern int screen;
 extern bool check;
 extern cursor_data cursor;
 
+extern bool button_B_pressed;
+
+
+
+
 // Função única de callback
 void gpio_irq_handler(uint gpio, uint32_t events) {
 
-    //Verificando qual botão solicitou a interrupção e executando o código
+    //Verificando qual botão solicitou a interrupção e setando as flags
+
     if (gpio == BUTTON_A) {
         screen=1;
         printf("screen: %d\n", screen);
@@ -22,30 +28,20 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
         printf("Entrou A \n");
     } else if (gpio == BUTTON_B) {
 
-        printf("Entrou B \n");
-
-        static absolute_time_t last_press_time_button_B = {0}; // Armazena o tempo da última pressão do botão.
-
-        if( absolute_time_diff_us(last_press_time_button_B, get_absolute_time()) > 200000) { // Verifica se 200 ms se passaram (debounce).
-            last_press_time_button_B = get_absolute_time(); // Atualiza o tempo da última pressão do botão
-
-            //Actions to screen 1
-            if(screen == 1 && cursor.position_y == 23){
-                screen = 2;
-            }
-
-            //Actions to screen 2
-            else if(screen == 2 && ((cursor.position_y >=40 || cursor.position_y <=47) && (cursor.position_x>=72 && cursor.position_x<=95))){
-                check = true;
-                printf("Entrou B screen 2 check = %d \n", check);
-            }    
-
+        if(screen == 1 && cursor.position_y == 23){
+            screen = 2;
         }
-
-      
+        else if(screen == 2 && cursor.position_x >= 72 &&  cursor.position_x <= 95){
+            printf("cursor.position_x %d\n", cursor.position_x);
+            button_B_pressed = true;        
+            check = true;
+            printf("check = %d\n", check);
+        }  
+        // printf("Entrou na função de interrupção por button B. button_B_pressed = %d\n", button_B_pressed);
        
     }
 }
+
 
 
 // Função para configurar GPIOs
@@ -70,6 +66,5 @@ void gpio_init_buttons() {
      gpio_set_irq_enabled_with_callback(BUTTON_B, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
 
 }
-
 
 
