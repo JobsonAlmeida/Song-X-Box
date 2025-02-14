@@ -13,6 +13,7 @@
 
 extern int screen;
 bool check = false;
+bool allow_get_state_button_B = true;
 int max_error_counter = 3;
 
 extern uint16_t x_axis_buffer[];
@@ -186,7 +187,7 @@ int play_levels(){
         "         {      ",
         "   ]}]   C-4    ",
         "         [      ",
-        "F1/10      N1/16",
+        "F1/10 N1/16 E0/3",
 
     };
 
@@ -220,7 +221,7 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
-
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
             draw_counter++;
             sortear = false;
 
@@ -516,6 +517,8 @@ int play_levels(){
         if(check && absolute_time_diff_us(last_press_time_button_B, now) > 1500000){
             last_press_time_button_B = now;
 
+            // allow_get_state_button_B = false;
+
             check = false;
 
             bool note_check = true;
@@ -566,9 +569,8 @@ int play_levels(){
                 if (draw_counter<16) {
 
                     draw_counter += 1;
-                    sortear = true;
-                    button_B_pressed = false;                   
-
+                    sortear = true;;
+                    allow_get_state_button_B = true;
                 }
                 else{
 
@@ -578,14 +580,50 @@ int play_levels(){
                 }
 
             }
-            else{
+            else{             
 
+                if(error_counter+1 > max_error_counter) {
+                    // allow_get_state_button_B = true;                    
+                    return false;
+                }
+                
                 error_counter++;
+
+                printf("error counter %d\n", error_counter);
+
+                
                 // button_B_pressed = false;
 
                 printf("Você errou! - error_counter = %d!\n", error_counter);
 
-                if(error_counter > max_error_counter) return false;
+                char string_error =  '0' + error_counter;
+                printf("string_error =  %c\n", string_error);
+
+                char string_message[17];
+                char string_error_number[2] = {string_error,'\0'};
+
+                strcpy(string_message, "     ERRADO     ");
+                ssd1306_draw_string(ssd, 0, 16,string_message);
+                ssd1306_draw_string(ssd, 104, 56, string_error_number);
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                strcpy(string_message, "                " );
+                ssd1306_draw_string(ssd, 0, 16,string_message);
+                render_on_display(ssd, &frame_area);
+
+                // line = ssd1306_get_font_(error_to_screen);
+                // printf("line: %d\n", line);
+                // fb_idx = 7* 128 + 104;
+                // printf("fb_ind %d\n", fb_idx);
+                // for (int i = 0; i < 8; i++) {
+                //     ssd[fb_idx++] = octaves[line * 8 + i];                      
+                // }
+
+                // allow_get_state_button_B = true;
+
+                
             }
 
         }
@@ -601,7 +639,6 @@ void  screen2()
     
 
     if(final_result){
-
 
     
     }

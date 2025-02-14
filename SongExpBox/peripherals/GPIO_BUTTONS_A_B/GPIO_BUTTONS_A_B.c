@@ -8,12 +8,8 @@
 
 extern int screen;
 extern bool check;
+extern bool allow_get_state_button_B;
 extern cursor_data cursor;
-
-extern bool button_B_pressed;
-
-
-
 
 // Função única de callback
 void gpio_irq_handler(uint gpio, uint32_t events) {
@@ -31,9 +27,9 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
         if(screen == 1 && cursor.position_y == 23){
             screen = 2;
         }
-        else if(screen == 2 && cursor.position_x >= 72 &&  cursor.position_x <= 95){
+                        //*allow_get_state_button_B &&*//
+        else if(screen == 2 &&    cursor.position_x >= 72 &&  cursor.position_x <= 95){
             printf("cursor.position_x %d\n", cursor.position_x);
-            button_B_pressed = true;        
             check = true;
             printf("check = %d\n", check);
         }  
