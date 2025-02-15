@@ -22,6 +22,9 @@ extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
 
+float base_volume_level = 0.5;
+float volume_level = 1;
+float time_note_duration_ms = 1500;
 
 typedef struct  {
     char note_name;
@@ -541,7 +544,6 @@ int play_levels(){
 
     calculate_render_area_buffer_length(&frame_area);
 
-
     printf("level: %d\n", level);
     while (screen == 2){
 
@@ -584,6 +586,9 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
+
             draw_counter++;
             sortear = false;
 
@@ -627,7 +632,9 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
-
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
+            
             draw_counter++;
             sortear = false;
         
@@ -671,6 +678,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -715,6 +724,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -761,7 +772,7 @@ int play_levels(){
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
             char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
-            play_note(BUZZER_RIGHT_1, note, 0.5, 15000   );
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -806,6 +817,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -851,6 +864,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -895,6 +910,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -939,6 +956,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -984,6 +1003,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -1029,6 +1050,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;
@@ -1073,6 +1096,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
             sortear = false;

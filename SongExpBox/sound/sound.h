@@ -18,3 +18,6 @@ int64_t stop_note(alarm_id_t id, void *user_data);
 
 //Faz a nota começar a tocar
 void play_note(uint buzzer_id, char note[3], float duty_cycle, uint32_t time_ms);
+
+// Inicializa o GPIO dos uzzers
+void buzzers_config();

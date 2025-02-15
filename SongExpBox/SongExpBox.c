@@ -29,89 +29,89 @@
  #include "sound/sound.h"
  
 
-// const uint I2C_SDA = 14;
-// const uint I2C_SCL = 15;
+const uint I2C_SDA = 14;
+const uint I2C_SCL = 15;
 
-// extern uint16_t x_axis_buffer[];
-// extern uint16_t y_axis_buffer[];
+extern uint16_t x_axis_buffer[];
+extern uint16_t y_axis_buffer[];
 
-// extern int dma_chan_0;
-// extern int dma_chan_1;
+extern int dma_chan_0;
+extern int dma_chan_1;
 
-// int screen;
+int screen;
 
-// cursor_data cursor;
+cursor_data cursor;
 
-// int main() {
+int main() {
  
-//      // ---- REFERENTE À INICIALIZAÇÃO DO DISPLAY ---- 
+     // ---- REFERENTE À INICIALIZAÇÃO DO DISPLAY ---- 
  
-//      // Inicialização do i2c
-//      i2c_init(i2c1, ssd1306_i2c_clock * 1000);
-//      gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
-//      gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
-//      gpio_pull_up(I2C_SDA);
-//      gpio_pull_up(I2C_SCL);
+     // Inicialização do i2c
+     i2c_init(i2c1, ssd1306_i2c_clock * 1000);
+     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
+     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
+     gpio_pull_up(I2C_SDA);
+     gpio_pull_up(I2C_SCL);
  
-//      // Processo de inicialização completo do OLED SSD1306
-//      ssd1306_init();
+     // Processo de inicialização completo do OLED SSD1306
+     ssd1306_init();
  
     
  
-//      // ---------- REFERENTE À INICIALIZAÇÃO DO ADC -------------
-//      stdio_init_all();
-//      setup_adc_and_dma(); // Inicia o adc e o dma correpondente ao adc  
+     // ---------- REFERENTE À INICIALIZAÇÃO DO ADC -------------
+     stdio_init_all();
+     setup_adc_and_dma(); // Inicia o adc e o dma correpondente ao adc  
 
-//      /// gpio BUTTONS A E B
-//      gpio_init_buttons();
+     /// gpio BUTTONS A E B
+     gpio_init_buttons();
 
-//      // Buzzers
-//      buzzers_config();
+     // Buzzers
+     buzzers_config();
 
 
-//      screen = 0; 
-//      while (true) {
+     screen = 0; 
+     while (true) {
  
-//              if (screen == 0) screen0();
-//         else if (screen == 1) screen1();
-//         else if (screen == 2) screen2();           
-//      };
+             if (screen == 0) screen0();
+        else if (screen == 1) screen1();
+        else if (screen == 2) screen2();           
+     };
          
-//      return 0;
+     return 0;
   
-// }
+}
  
 
-int main() {
+// int main() {
 
-irq_set_enabled(PWM_IRQ_WRAP, true);  // Habilitar as interrupções de PWM (se necessário)
+// irq_set_enabled(PWM_IRQ_WRAP, true);  // Habilitar as interrupções de PWM (se necessário)
 
-stdio_init_all();
+// stdio_init_all();
 
-uint32_t pwm_clock_hz = clock_get_hz(clk_sys);
-printf("Frequencia fora while: %u Hz\n", pwm_clock_hz);
+// uint32_t pwm_clock_hz = clock_get_hz(clk_sys);
+// printf("Frequencia fora while: %u Hz\n", pwm_clock_hz);
 
-//Initial Configurations
-gpio_set_function(BUZZER_LEFT_1, GPIO_FUNC_PWM);
-gpio_set_function(BUZZER_RIGHT_1, GPIO_FUNC_PWM);
+// //Initial Configurations
+// gpio_set_function(BUZZER_LEFT_1, GPIO_FUNC_PWM);
+// gpio_set_function(BUZZER_RIGHT_1, GPIO_FUNC_PWM);
 
-// sleep_ms(4000);
+// // sleep_ms(4000);
 
-printf("Antes de playnote \n");
+// printf("Antes de playnote \n");
 
-play_note(BUZZER_RIGHT_1, "A-4", 0.005, 2000);
+// play_note(BUZZER_RIGHT_1, "A-4", 0.005, 2000);
 
-// O loop vazio. 
-while (true) {
-     //  printf("A frequência do clock do PWM (clk_sys) é: %u Hz\n", pwm_clock_hz);
-     //  sleep_ms(1000);
+// // O loop vazio. 
+// while (true) {
+//      //  printf("A frequência do clock do PWM (clk_sys) é: %u Hz\n", pwm_clock_hz);
+//      //  sleep_ms(1000);
 
-     tight_loop_contents(); // Função que otimiza o loop vazio para evitar consumo excessivo de CPU.
-}
+//      tight_loop_contents(); // Função que otimiza o loop vazio para evitar consumo excessivo de CPU.
+// }
 
-return 0;
+// return 0;
 
-}
+// }
 
  
  
