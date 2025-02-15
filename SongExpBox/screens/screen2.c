@@ -186,8 +186,8 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "5");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
-        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_correct_note_number, "0");
+        strcpy(page.maximum_correct_note_number, "5");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
 
@@ -199,7 +199,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "4");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -212,7 +212,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "5");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -225,7 +225,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "5");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -238,7 +238,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "3");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -251,7 +251,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "3");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -264,7 +264,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "3");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -277,7 +277,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "4");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -290,7 +290,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "5");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -303,7 +303,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_octave, "4");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.first_correct_note_number, "0");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -368,7 +368,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     strcat(string_aux1, page.first_level );
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_levels);
-    strcat(string_aux1, " N");
+    strcat(string_aux1, " A");
     strcat(string_aux1, page.first_correct_note_number);
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_correct_note_number);
@@ -397,25 +397,19 @@ int play_levels(){
     int fb_idx; 
     int notes_index;
     int accidentals_index;
-    int octaves_index = 32;
+    int octaves_index;
     int level = 1 ;
     bool sortear = true;
     int draw_counter = 0;
     musical_note drawn_note;
     int error_counter = 0;
+    int hit_counter = 0;
 
     joystick_data joystick_data;
 
     int first_page = 1;
 
-
-     
-    
-
-
-
-
-     // zera o display inteiro
+    // zera o display inteiro
      uint8_t ssd[ssd1306_buffer_length];
      
     // Preparar área de renderização para o display (ssd1306_width pixels por ssd1306_n_pages páginas)
@@ -436,6 +430,13 @@ int play_levels(){
 
             if(first_page == 1){
 
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 1     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
                 initial_page_parameters first_page_parameters;                
                 first_page_parameters = load_first_page(first_page, ssd, &frame_area);
 
@@ -445,6 +446,9 @@ int play_levels(){
                 line = ssd1306_get_font_notes(first_page_parameters.first_accident[0], notes, accidentals, octaves );
                 accidentals_index = line*8; 
                 printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.first_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
 
                 first_page = 2;            
             }
@@ -803,6 +807,30 @@ int play_levels(){
             if(note_check && accidental_check && octave_check ) {
 
                 printf("Você acertou !\n");
+
+                hit_counter++;
+
+                char string_hit =  '0' + hit_counter;
+                printf("string_hit =  %c\n", string_hit);
+
+                char string_message[17];
+
+                char string_hit_number[2] = {string_hit,'\0'};
+
+                strcpy(string_message, "    CORRETO     ");
+                ssd1306_draw_string(ssd, 0, 16,string_message);
+                ssd1306_draw_string(ssd, 56, 56, string_hit_number);
+                render_on_display(ssd, &frame_area);
+
+                
+
+
+
+                sleep_ms(1500);
+
+                strcpy(string_message, "                " );
+                ssd1306_draw_string(ssd, 0, 16,string_message);
+                render_on_display(ssd, &frame_area);
 
                 if (draw_counter<16) {
 
