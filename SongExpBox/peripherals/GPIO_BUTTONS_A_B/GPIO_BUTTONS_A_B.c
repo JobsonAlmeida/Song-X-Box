@@ -1,15 +1,32 @@
 
- #include <stdio.h>
+#include <stdio.h>
 #include "./GPIO_BUTTONS_A_B.h"
 #include "pico/stdlib.h"
 #include "hardware/timer.h"
 #include "../../screens/screens.h"
+
+#define TIME_FOR_NEXT_PRESSURE 2000
 
 
 extern int screen;
 extern bool check;
 extern bool allow_get_state_button_B;
 extern cursor_data cursor;
+
+bool allow_action_edge_fall_button_B = true;
+bool allow_acion_edge_rise_button_B = true;
+
+
+
+int64_t allow_pressure(alarm_id_t id, void *user_data) {
+
+    printf("entrou callback\n");
+    allow_action_edge_fall_button_B = true;
+    allow_acion_edge_rise_button_B = true;
+    
+    return 0;
+}
+
 
 // Função única de callback
 void gpio_irq_handler(uint gpio, uint32_t events) {
@@ -20,14 +37,25 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
         screen=1;
     } else if (gpio == BUTTON_B) {
 
-        if(screen == 1 && cursor.position_y == 23){
-            screen = 2;
+        //Borda de descida detectada -> Botão pressionado
+        if ( (events & GPIO_IRQ_EDGE_FALL) && allow_action_edge_fall_button_B ) {
+           
+            if(screen == 1 && cursor.position_y == 23){
+                screen = 2;
+            }
+            else if(screen == 2 && cursor.position_x >= 72 &&  cursor.position_x <= 95){            
+                check = true;
+            }  
+
+            allow_action_edge_fall_button_B = false;
+
         }
-                        //*allow_get_state_button_B &&*//
-        else if(screen == 2 &&    cursor.position_x >= 72 &&  cursor.position_x <= 95){            
-            check = true;
-        }  
-       
+        if ( (events & GPIO_IRQ_EDGE_RISE) && allow_acion_edge_rise_button_B) {
+
+            allow_acion_edge_rise_button_B = false;            
+            add_alarm_in_ms(TIME_FOR_NEXT_PRESSURE, allow_pressure, NULL, true);
+        }
+
     }
 }
 
@@ -53,6 +81,8 @@ void gpio_init_buttons() {
      // Configuração da interrupção usando um único callback
      gpio_set_irq_enabled_with_callback(BUTTON_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
      gpio_set_irq_enabled_with_callback(BUTTON_B, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
+     gpio_set_irq_enabled_with_callback(BUTTON_B, GPIO_IRQ_EDGE_RISE, true, &gpio_irq_handler);
+
 
 }
 
