@@ -446,41 +446,6 @@ int play_levels(){
                 accidentals_index = line*8; 
                 printf("accidentals_index in first page: %d\n", accidentals_index);
 
-
-                // printf("line drawn_note.note_name %d\n", line);
-                // int fb_idx = 5* 128 + 72;
-                // printf("fb_ind %d\n", fb_idx);
-                // for (int i = 0; i < 8; i++) {
-                //     if (ssd[fb_idx++] != notes[line * 8 + i]) {
-                //         note_check = false;
-                //         break;
-                //     }
-                     
-                // }
-    
-                // line = ssd1306_get_font_notes(drawn_note.accident, notes, accidentals, octaves );
-                // printf("line drawn_note.accident %d\n", line);
-                // fb_idx = 5* 128 + 80;
-                // printf("fb_ind %d\n", fb_idx);
-                // for (int i = 0; i < 8; i++) {
-                //     if (ssd[fb_idx++] != accidentals[line * 8 + i]) {
-                //         accidental_check = false;
-                //         break;
-                //     }
-                     
-                // }
-    
-                // line = ssd1306_get_font_notes(drawn_note.octave, notes, accidentals, octaves );
-                // printf("line drawn_note.octave: %d\n", line);
-                // fb_idx = 5* 128 + 88;
-                // printf("fb_ind %d\n", fb_idx);
-                // for (int i = 0; i < 8; i++) {
-                //     if (ssd[fb_idx++] != octaves[line * 8 + i]) {
-                //         octave_check = false;
-                //         break;
-                //     }       
-                // }
-
                 first_page = 2;            
             }
 
@@ -497,11 +462,6 @@ int play_levels(){
             printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
             draw_counter++;
             sortear = false;
-
-
-
-
-
 
         }
         else if (level == 2 && sortear){
@@ -861,6 +821,14 @@ int play_levels(){
             else{             
 
                 if(error_counter+1 > max_error_counter) {
+
+                    // zera o display inteiro e mostra mensagem de termino                   
+                    memset(ssd, 0, ssd1306_buffer_length);                                   
+                    ssd1306_draw_string(ssd, 0, 24, "  VOCE PERDEU!  ");                        
+                    render_on_display(ssd, &frame_area);
+
+                    sleep_ms(1500);
+
                     // allow_get_state_button_B = true;                    
                     return false;
                 }
@@ -892,16 +860,6 @@ int play_levels(){
                 ssd1306_draw_string(ssd, 0, 16,string_message);
                 render_on_display(ssd, &frame_area);
 
-                // line = ssd1306_get_font_(error_to_screen);
-                // printf("line: %d\n", line);
-                // fb_idx = 7* 128 + 104;
-                // printf("fb_ind %d\n", fb_idx);
-                // for (int i = 0; i < 8; i++) {
-                //     ssd[fb_idx++] = octaves[line * 8 + i];                      
-                // }
-
-                // allow_get_state_button_B = true;
-
                 
             }
 
@@ -922,6 +880,8 @@ void  screen2()
     
     }
     else{
+
+        
 
         printf("Você perdeu o jogo!\n");
         screen = 1;
