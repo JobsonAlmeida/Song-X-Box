@@ -13,7 +13,6 @@
 
 extern int screen;
 bool check = false;
-bool allow_get_state_button_B = true;
 int maximum_levels = 12 ;
 int level = 1 ;
 
@@ -22,9 +21,6 @@ extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
 
-volatile absolute_time_t now;
-volatile absolute_time_t last_press_time_button_B;
-volatile bool button_B_pressed;
 
 typedef struct  {
     char note_name;
@@ -544,7 +540,6 @@ int play_levels(){
 
     calculate_render_area_buffer_length(&frame_area);
 
-    last_press_time_button_B = get_absolute_time();
 
     printf("level: %d\n", level);
     while (screen == 2){
@@ -1337,14 +1332,9 @@ int play_levels(){
 
             }
         }
-    
-        
-        absolute_time_t now = get_absolute_time();
-        if(check && absolute_time_diff_us(last_press_time_button_B, now) > 1500000){
-            last_press_time_button_B = now;
-
-            // allow_get_state_button_B = false;
-
+            
+        if(check){
+            
             check = false;
 
             bool note_check = true;
@@ -1417,7 +1407,6 @@ int play_levels(){
                 if (hit_counter < maximum_correct_note_number) {
 
                     sortear = true;;
-                    allow_get_state_button_B = true;
 
                 }
                 else{ //hit_counter > maximum_correct_note_number
