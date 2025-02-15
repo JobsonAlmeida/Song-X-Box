@@ -18,22 +18,15 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
 
     if (gpio == BUTTON_A) {
         screen=1;
-        printf("screen: %d\n", screen);
-
-       
-        printf("Entrou A \n");
     } else if (gpio == BUTTON_B) {
 
         if(screen == 1 && cursor.position_y == 23){
             screen = 2;
         }
                         //*allow_get_state_button_B &&*//
-        else if(screen == 2 &&    cursor.position_x >= 72 &&  cursor.position_x <= 95){
-            printf("cursor.position_x %d\n", cursor.position_x);
+        else if(screen == 2 &&    cursor.position_x >= 72 &&  cursor.position_x <= 95){            
             check = true;
-            printf("check = %d\n", check);
         }  
-        // printf("Entrou na função de interrupção por button B. button_B_pressed = %d\n", button_B_pressed);
        
     }
 }
