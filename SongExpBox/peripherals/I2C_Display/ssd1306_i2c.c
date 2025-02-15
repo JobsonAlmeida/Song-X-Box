@@ -164,19 +164,19 @@ inline int ssd1306_get_font(uint8_t character)
         return 68; // caractere com tudo branco
     }
     else if (character == '/') {
-        return 69; // caractere com tudo branco
+        return 69; // 
     }
     else if (character == '{') {
-        return 70; // caractere com tudo branco
+        return 70; // seta para cima
     }
     else if (character == '[') {
-        return 71; // caractere com tudo branco
+        return 71; // seta para baixo
     }
     else if (character == '-') {
-        return 74; // caractere com tudo branco
+        return 74; // 
     }
     else if (character == '!') {
-        return 75; // caractere com tudo branco
+        return 75; // 
     }
 
     return 0;

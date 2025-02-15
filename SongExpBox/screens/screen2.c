@@ -449,7 +449,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     ssd1306_draw_string(ssd, 0, 24,string_aux1);
 
     // //page 4
-    strcpy(string_aux1,  "         {      ");
+    strcpy(string_aux1,  "                ");
     ssd1306_draw_string(ssd, 0, 32,string_aux1);
 
     //page 5
@@ -480,7 +480,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     ssd1306_draw_string(ssd, 96, 40, string_aux1);
 
     //page 6
-    strcpy(string_aux1,"         [      ");
+    strcpy(string_aux1,"               ");
     ssd1306_draw_string(ssd, 0, 48,string_aux1);
 
     //page 7
@@ -501,6 +501,9 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_incorrect_note_number);
     ssd1306_draw_string(ssd, 0, 56,string_aux1);
+
+    ssd1306_draw_string(ssd, cursor.position_x, cursor.position_y-8, "{");
+    ssd1306_draw_string(ssd, cursor.position_x, cursor.position_y+8, "[");
         
     //mostrando do display
     render_on_display(ssd, frame_area);
