@@ -8,6 +8,7 @@
 #include "screens.h"
 #include "pico/rand.h"
 
+#include "../sound/sound.h"
 
 #define BASE_TIME_MS 250.000
 
@@ -759,6 +760,8 @@ int play_levels(){
 
             drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             printf("drawn_note.note_name: %c drawn_note.accident: %c drawn_note.octave: %c\n",drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            char note[] = { drawn_note.note_name, drawn_note.accident, drawn_note.octave};
+            play_note(BUZZER_RIGHT_1, note, 0.5, 15000   );
 
             draw_counter++;
             sortear = false;

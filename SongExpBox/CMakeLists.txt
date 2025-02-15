@@ -43,6 +43,7 @@ add_executable(SongExpBox
                screens/screen1.c
                screens/screen2.c
                peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c
+               sound/sound.c
                ########## Passo 2 ########## sources/play_note.c
                
 )
