@@ -29,9 +29,9 @@ volatile bool button_B_pressed;
 
 typedef struct  {
 
-    unsigned char note_name;
-    unsigned char accident;
-    unsigned char octave;     
+    char note_name;
+    char accident;
+    char octave;     
 
 } musical_note;
 
@@ -40,9 +40,9 @@ typedef struct  {
     char first_note[2];
     char first_accident[2];
     char first_octave[2];
-    char first_level[2];
+    char first_level[3];
     char maximum_levels[3];
-    char first_correct_note_number[2];
+    char first_correct_note_number[3];
     char maximum_correct_note_number[3];
     char first_incorrect_note_number[2];
     char maximum_incorrect_note_number[2];
@@ -184,10 +184,10 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_note, "E");
         strcpy(page.first_accident, "b");
         strcpy(page.first_octave, "5");
-        strcpy(page.first_level, "1");
+        strcpy(page.first_level, "01");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "5");
+        strcpy(page.first_correct_note_number, "00");
+        strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
 
@@ -197,9 +197,9 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_note, "A");
         strcpy(page.first_accident, "-");
         strcpy(page.first_octave, "4");
-        strcpy(page.first_level, "1");
+        strcpy(page.first_level, "01");
         strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
+        strcpy(page.first_correct_note_number, "00");
         strcpy(page.maximum_correct_note_number, "16");
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
@@ -364,15 +364,18 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
 
     //page 7
     memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
-    strcat(string_aux1,  "F");
+    // strcat(string_aux1,  "F");
     strcat(string_aux1, page.first_level );
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_levels);
-    strcat(string_aux1, " A");
+    strcat(string_aux1, " ");
+    // strcat(string_aux1, "A");
     strcat(string_aux1, page.first_correct_note_number);
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_correct_note_number);
-    strcat(string_aux1, " E");
+    strcat(string_aux1, " ");
+    strcat(string_aux1, " ");
+    // strcat(string_aux1, "E");
     strcat(string_aux1, page.first_incorrect_note_number);
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_incorrect_note_number);
@@ -810,27 +813,35 @@ int play_levels(){
 
                 hit_counter++;
 
-                char string_hit =  '0' + hit_counter;
-                printf("string_hit =  %c\n", string_hit);
-
+                char string_hit_counter[3];
                 char string_message[17];
 
-                char string_hit_number[2] = {string_hit,'\0'};
+                sprintf(string_hit_counter, "%02d", hit_counter);
+                printf("string_hit =  %s\n", string_hit_counter);
 
                 strcpy(string_message, "    CORRETO     ");
                 ssd1306_draw_string(ssd, 0, 16,string_message);
-                ssd1306_draw_string(ssd, 56, 56, string_hit_number);
+                ssd1306_draw_string(ssd, 48, 56, string_hit_counter);
+
+                memset(string_message, 0, sizeof(string_message));  // Define todos os bytes como 0
+                snprintf(string_message, sizeof(string_message), "%s%c", string_message, drawn_note.note_name);
+                snprintf(string_message, sizeof(string_message), "%s%c", string_message, drawn_note.accident);
+                snprintf(string_message, sizeof(string_message), "%s%c", string_message, drawn_note.octave);
+                ssd1306_draw_string(ssd, 24, 40, string_message);
+
                 render_on_display(ssd, &frame_area);
-
-                
-
-
 
                 sleep_ms(1500);
 
                 strcpy(string_message, "                " );
                 ssd1306_draw_string(ssd, 0, 16,string_message);
+
+                memset(string_message, 0, sizeof(string_message));  // Define todos os bytes como 0
+                strcat(string_message, "]}]");
+                ssd1306_draw_string(ssd, 24, 40, string_message);
+
                 render_on_display(ssd, &frame_area);
+
 
                 if (draw_counter<16) {
 
