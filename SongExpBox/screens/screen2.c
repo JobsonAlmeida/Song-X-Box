@@ -14,7 +14,8 @@
 extern int screen;
 bool check = false;
 bool allow_get_state_button_B = true;
-int max_error_counter = 3;
+int maximum_levels = 3 ;
+int level = 1 ;
 
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
@@ -28,23 +29,21 @@ volatile bool button_B_pressed;
 
 
 typedef struct  {
-
     char note_name;
     char accident;
     char octave;     
-
 } musical_note;
 
 typedef struct  {
 
-    char first_note[2];
-    char first_accident[2];
-    char first_octave[2];
-    char first_level[3];
+    char initial_note[2];
+    char initial_accident[2];
+    char initial_octave[2];
+    char initial_level[3];
     char maximum_levels[3];
-    char first_correct_note_number[3];
+    char initial_correct_note_number[3];
     char maximum_correct_note_number[3];
-    char first_incorrect_note_number[2];
+    char initial_incorrect_note_number[2];
     char maximum_incorrect_note_number[2];
 
 } initial_page_parameters;
@@ -181,132 +180,96 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
      
     if (first_page == 1){
 
-        strcpy(page.first_note, "E");
-        strcpy(page.first_accident, "b");
-        strcpy(page.first_octave, "5");
-        strcpy(page.first_level, "01");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+        strcpy(page.initial_note, "C");
+        strcpy(page.initial_accident, "-");
+        strcpy(page.initial_octave, "4");
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", level);  // Formato com zero à esquerda        
+        strcpy(page.initial_level, string_aux1);
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", maximum_levels);  // Formato com zero à esquerda        
+        strcpy(page.maximum_levels, string_aux1);
+
+        strcpy(page.initial_correct_note_number, "00");
+        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.initial_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
     }
     else if(first_page == 2){
 
-        strcpy(page.first_note, "A");
-        strcpy(page.first_accident, "-");
-        strcpy(page.first_octave, "4");
-        strcpy(page.first_level, "01");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+        strcpy(page.initial_note, "C");
+        strcpy(page.initial_accident, "#");
+        strcpy(page.initial_octave, "4");
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", level);  // Formato com zero à esquerda        
+        strcpy(page.initial_level, string_aux1);
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", maximum_levels);  // Formato com zero à esquerda        
+        strcpy(page.maximum_levels, string_aux1);
+
+        strcpy(page.initial_correct_note_number, "00");
+        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.initial_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+        
 
     }
     else if(first_page == 3){
 
-        strcpy(page.first_note, "D");
-        strcpy(page.first_accident, "-");
-        strcpy(page.first_octave, "5");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+        strcpy(page.initial_note, "A");
+        strcpy(page.initial_accident, "-");
+        strcpy(page.initial_octave, "5");
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", level);  // Formato com zero à esquerda        
+        strcpy(page.initial_level, string_aux1);
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", maximum_levels);  // Formato com zero à esquerda        
+        strcpy(page.maximum_levels, string_aux1);
+
+        strcpy(page.initial_correct_note_number, "00");
+        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.initial_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+           
         
     }
     else if(first_page == 4){
 
-        strcpy(page.first_note, "D");
-        strcpy(page.first_accident, "#");
-        strcpy(page.first_octave, "5");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+     
         
     }
     else if(first_page == 5){
 
-        strcpy(page.first_note, "B");
-        strcpy(page.first_accident, "-");
-        strcpy(page.first_octave, "3");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+   
         
     }
     else if(first_page == 6){
 
-        strcpy(page.first_note, "G");
-        strcpy(page.first_accident, "#");
-        strcpy(page.first_octave, "3");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 7){
 
-        strcpy(page.first_note, "D");
-        strcpy(page.first_accident, "b");
-        strcpy(page.first_octave, "3");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+   
         
     }
     else if(first_page == 8){
 
-        strcpy(page.first_note, "E");
-        strcpy(page.first_accident, "b");
-        strcpy(page.first_octave, "4");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 9){
 
-        strcpy(page.first_note, "A");
-        strcpy(page.first_accident, "b");
-        strcpy(page.first_octave, "5");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
-        
+     
     }
     else if(first_page == 10){
 
-        strcpy(page.first_note, "C");
-        strcpy(page.first_accident, "-");
-        strcpy(page.first_octave, "4");
-        strcpy(page.first_level, "1");
-        strcpy(page.maximum_levels, "10");
-        strcpy(page.first_correct_note_number, "0");
-        strcpy(page.maximum_correct_note_number, "16");
-        strcpy(page.first_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "3");
+ 
         
     }
    
@@ -336,19 +299,19 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     strcat(string_aux1,  "   ]}]   ");
     ssd1306_draw_string(ssd, 0, 40, string_aux1);
 
-    line = ssd1306_get_font_notes(page.first_note[0], notes, accidentals, octaves);
+    line = ssd1306_get_font_notes(page.initial_note[0], notes, accidentals, octaves);
     fb_idx = 5 * 128 + 72;            
     for (int i = 0; i < 8; i++) {
         ssd[fb_idx++] = notes[line * 8 + i];
     }
 
-    line = ssd1306_get_font_notes(page.first_accident[0], notes, accidentals, octaves);
+    line = ssd1306_get_font_notes(page.initial_accident[0], notes, accidentals, octaves);
     fb_idx = 5 * 128 + 80;    
     for (int i = 0; i < 8; i++) {
         ssd[fb_idx++] = accidentals[line * 8 + i];
     }
 
-    line = ssd1306_get_font_notes(page.first_octave[0], notes, accidentals, octaves);
+    line = ssd1306_get_font_notes(page.initial_octave[0], notes, accidentals, octaves);
     fb_idx = 5 * 128 + 88;    
     for (int i = 0; i < 8; i++) {
         ssd[fb_idx++] = octaves[line * 8 + i];
@@ -365,18 +328,18 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     //page 7
     memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
     // strcat(string_aux1,  "F");
-    strcat(string_aux1, page.first_level );
+    strcat(string_aux1, page.initial_level );
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_levels);
     strcat(string_aux1, " ");
     // strcat(string_aux1, "A");
-    strcat(string_aux1, page.first_correct_note_number);
+    strcat(string_aux1, page.initial_correct_note_number);
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_correct_note_number);
     strcat(string_aux1, " ");
     strcat(string_aux1, " ");
     // strcat(string_aux1, "E");
-    strcat(string_aux1, page.first_incorrect_note_number);
+    strcat(string_aux1, page.initial_incorrect_note_number);
     strcat(string_aux1, "/" );
     strcat(string_aux1, page.maximum_incorrect_note_number);
     ssd1306_draw_string(ssd, 0, 56,string_aux1);
@@ -401,16 +364,16 @@ int play_levels(){
     int notes_index;
     int accidentals_index;
     int octaves_index;
-    int level = 1 ;
+    int initial_page = 1;
     bool sortear = true;
     int draw_counter = 0;
-    musical_note drawn_note;
     int error_counter = 0;
     int hit_counter = 0;
-
+    int maximum_correct_note_number;
+    int maximum_error_counter;
+    musical_note drawn_note;
     joystick_data joystick_data;
 
-    int first_page = 1;
 
     // zera o display inteiro
      uint8_t ssd[ssd1306_buffer_length];
@@ -429,9 +392,9 @@ int play_levels(){
 
     while (screen == 2){
 
-        if (level == 1 && sortear ) {
+             if (level == 1 && sortear ) {
 
-            if(first_page == 1){
+            if(initial_page == 1){
 
                 // zera o display inteiro e mostra mensagem de termino                   
                 memset(ssd, 0, ssd1306_buffer_length);                                   
@@ -441,24 +404,30 @@ int play_levels(){
                 sleep_ms(1500);
 
                 initial_page_parameters first_page_parameters;                
-                first_page_parameters = load_first_page(first_page, ssd, &frame_area);
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
 
-                int line = ssd1306_get_font_notes(first_page_parameters.first_note[0], notes, accidentals, octaves );
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
                 notes_index = line*8;
 
-                line = ssd1306_get_font_notes(first_page_parameters.first_accident[0], notes, accidentals, octaves );
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
                 accidentals_index = line*8; 
                 printf("accidentals_index in first page: %d\n", accidentals_index);
 
-                line = ssd1306_get_font_notes(first_page_parameters.first_octave[0], notes, accidentals, octaves );
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
                 octaves_index = line*8; 
 
-                first_page = 2;            
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+                printf("maximum_error_counter level 1: %d \n", maximum_error_counter);
+
+                
+
+                initial_page++;            
             }
 
             unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
-            unsigned char accidents[] = {'-', '#', 'b'};
-            unsigned char  octaves[] = {'4','5'};
+            unsigned char accidents[] = {'-'};
+            unsigned char  octaves[] = {'4'};
 
             int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
             int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
@@ -472,23 +441,514 @@ int play_levels(){
 
         }
         else if (level == 2 && sortear){
+            
             printf("Entrou level 2!\n");
 
+            if(initial_page == 2){
 
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 2     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#'};
+            unsigned char  octaves[] = {'4'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
         }
-        // else if (fase == 3) fase3();
-        // else if (fase == 4) fase4();
-        // else if (fase == 5) fase5();
-        // else if (fase == 6) fase6();
-        // else if (fase == 7) fase7();
-        // else if (fase == 8) fase8();
-        // else if (fase == 9) fase9();
-        // else                fase10();
+        else if (level == 3 && sortear){
+            
+            if(initial_page == 3){
 
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 3     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#','b'};
+            unsigned char  octaves[] = {'4'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 4 && sortear){
+            
+            if(initial_page == 4){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 4     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-'};
+            unsigned char  octaves[] = {'5'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 5 && sortear){
+            
+            printf("Entrou level 2!\n");
+
+            if(initial_page == 5){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 5     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#'};
+            unsigned char  octaves[] = {'5'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 6 && sortear){
+            
+            if(initial_page == 6){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 6     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#', 'b'};
+            unsigned char  octaves[] = {'5'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 7 && sortear){
+            
+            printf("Entrou level 2!\n");
+
+            if(initial_page == 7){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 7     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-'};
+            unsigned char  octaves[] = {'3'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 8 && sortear){
+            
+            if(initial_page == 8){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 8     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#'};
+            unsigned char  octaves[] = {'3'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 9 && sortear){
+            
+            printf("Entrou level 2!\n");
+
+            if(initial_page == 9){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 9     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#', 'b'};
+            unsigned char  octaves[] = {'3'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 10 && sortear){
+            
+            printf("Entrou level 2!\n");
+
+            if(initial_page == 10){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 10     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#', 'b'};
+            unsigned char  octaves[] = {'4', '5'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 11 && sortear){
+            
+            printf("Entrou level 2!\n");
+
+            if(initial_page == 11){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 11     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#', 'b'};
+            unsigned char  octaves[] = {'3', '4'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+        else if (level == 12 && sortear){
+            
+            if(initial_page == 12){
+
+                // zera o display inteiro e mostra mensagem de termino                   
+                memset(ssd, 0, ssd1306_buffer_length);                                   
+                ssd1306_draw_string(ssd, 0, 24, "     FASE 12     ");                        
+                render_on_display(ssd, &frame_area);
+
+                sleep_ms(1500);
+
+                initial_page_parameters first_page_parameters;                
+                first_page_parameters = load_first_page(initial_page, ssd, &frame_area);
+
+                int line = ssd1306_get_font_notes(first_page_parameters.initial_note[0], notes, accidentals, octaves );
+                notes_index = line*8;
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_accident[0], notes, accidentals, octaves );
+                accidentals_index = line*8; 
+                printf("accidentals_index in first page: %d\n", accidentals_index);
+
+                line = ssd1306_get_font_notes(first_page_parameters.initial_octave[0], notes, accidentals, octaves );
+                octaves_index = line*8; 
+
+                maximum_correct_note_number = atoi(first_page_parameters.maximum_correct_note_number);
+                maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
+
+                initial_page++;            
+            }
+
+            unsigned char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            unsigned char accidents[] = {'-', '#', 'b'};
+            unsigned char  octaves[] = {'3','4', '5'};
+
+            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
+            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
+            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
+
+            drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
+            printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %c\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
+            printf("allow_get_state_button_B %d\n", allow_get_state_button_B);
+            draw_counter++;
+            sortear = false;
+        
+        }
+       
         joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
-
-        // printf("joystick_data.velocity_x = %d - joystick_data.velocity_y = %d  \n", joystick_data.velocity_x, joystick_data.velocity_y);
-
 
         if(joystick_data.velocity_x==0){
 
@@ -809,9 +1269,10 @@ int play_levels(){
             
             if(note_check && accidental_check && octave_check ) {
 
-                printf("Você acertou !\n");
+                hit_counter += 1;
 
-                hit_counter++;
+                printf("Você acertou !\n");
+                printf("hit_counter : %d", hit_counter);
 
                 char string_hit_counter[3];
                 char string_message[17];
@@ -820,7 +1281,7 @@ int play_levels(){
                 printf("string_hit =  %s\n", string_hit_counter);
 
                 strcpy(string_message, "    CORRETO     ");
-                ssd1306_draw_string(ssd, 0, 16,string_message);
+                ssd1306_draw_string(ssd, 0, 16, string_message);
                 ssd1306_draw_string(ssd, 48, 56, string_hit_counter);
 
                 memset(string_message, 0, sizeof(string_message));  // Define todos os bytes como 0
@@ -840,26 +1301,54 @@ int play_levels(){
                 strcat(string_message, "]}]");
                 ssd1306_draw_string(ssd, 24, 40, string_message);
 
-                render_on_display(ssd, &frame_area);
+                render_on_display(ssd, &frame_area);  
 
+                if (hit_counter < maximum_correct_note_number) {
 
-                if (draw_counter<16) {
-
-                    draw_counter += 1;
                     sortear = true;;
                     allow_get_state_button_B = true;
-                }
-                else{
 
-                    level = 2;
-                    draw_counter = 0;
-                    sortear = true;
+                }
+                else{ //hit_counter > maximum_correct_note_number
+
+                    level++;
+                    printf("level = %d\n", level);
+
+                    if(level <= maximum_levels){
+                        error_counter = 0;
+                        hit_counter = 0;
+                        sortear = true;
+                    }
+                    else{
+                        
+                        // zera o display inteiro e mostra mensagem de termino                   
+                        memset(ssd, 0, ssd1306_buffer_length);                                   
+                        ssd1306_draw_string(ssd, 0, 8, "   PARABENS!    ");                        
+                        ssd1306_draw_string(ssd, 0, 24, "VOCE DESENVOLVEU");                        
+                        ssd1306_draw_string(ssd, 0, 40, "OUVIDO ABSOLUTO");                        
+                        render_on_display(ssd, &frame_area);
+
+                        sleep_ms(5000);
+
+                        level = 1;
+                        error_counter = 0;
+                        hit_counter = 0;
+                        sortear = true;
+
+                        // allow_get_state_button_B = true;                    
+                        return true;
+
+                    }
+
+
+
+                    
                 }
 
             }
-            else{             
+            else{   
 
-                if(error_counter+1 > max_error_counter) {
+                if(error_counter+1 > maximum_error_counter) {
 
                     // zera o display inteiro e mostra mensagem de termino                   
                     memset(ssd, 0, ssd1306_buffer_length);                                   
@@ -873,13 +1362,6 @@ int play_levels(){
                 }
                 
                 error_counter++;
-
-                printf("error counter %d\n", error_counter);
-
-                
-                // button_B_pressed = false;
-
-                printf("Você errou! - error_counter = %d!\n", error_counter);
 
                 char string_error =  '0' + error_counter;
                 printf("string_error =  %c\n", string_error);
@@ -899,7 +1381,6 @@ int play_levels(){
                 ssd1306_draw_string(ssd, 0, 16,string_message);
                 render_on_display(ssd, &frame_area);
 
-                
             }
 
         }
@@ -913,15 +1394,11 @@ void  screen2()
 
     bool final_result = play_levels();
     
-
     if(final_result){
-
-    
+        printf("Você venceu o jogo!\n");
+        screen = 1;
     }
-    else{
-
-        
-
+    else{     
         printf("Você perdeu o jogo!\n");
         screen = 1;
     }
