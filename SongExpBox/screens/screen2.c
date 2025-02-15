@@ -50,6 +50,61 @@ typedef struct  {
 } initial_page_parameters;
 
 
+
+char notes[] = {    
+    /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
+    /*indice 8  -> */ 0x7f, 0x49, 0x49, 0x49, 0x49, 0x49, 0x7f, 0x00, // B
+    /*indice 16 -> */ 0x7e, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x00, // C 
+    /*indice 24 -> */ 0x7f, 0x41, 0x41, 0x41, 0x41, 0x41, 0x7e, 0x00, // D
+    /*indice 32 -> */ 0x7f, 0x49, 0x49, 0x49, 0x49, 0x49, 0x49, 0x00, // E
+    /*indice 40 -> */ 0x7f, 0x09, 0x09, 0x09, 0x09, 0x01, 0x01, 0x00, // F
+    /*indice 48 -> */ 0x7f, 0x41, 0x41, 0x41, 0x51, 0x51, 0x73, 0x00, // G
+};
+
+char accidentals[] = {
+    /*indice 0  -> */   0x00, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00, // -
+    /*indice 8  -> */   0x24, 0xe4, 0x3f, 0x24, 0xfc, 0x27, 0x24, 0x00, // #
+    /*indice 16  -> */  0x00, 0xff, 0x88, 0x88, 0x88, 0xf8, 0x00, 0x00 // bemol
+};
+
+char octaves[] = {    
+    /*indice 0  -> */ 0x3e, 0x41, 0x41, 0x49, 0x41, 0x41, 0x3e, 0x00, // 0
+    /*indice 8  -> */ 0x00, 0x00, 0x42, 0x7f, 0x40, 0x00, 0x00, 0x00, // 1
+    /*indice 16 -> */ 0x30, 0x49, 0x49, 0x49, 0x49, 0x46, 0x00, 0x00, // 2
+    /*indice 24 -> */ 0x49, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 3
+    /*indice 32 -> */ 0x3f, 0x20, 0x20, 0x78, 0x20, 0x20, 0x00, 0x00, // 4
+    /*indice 40 -> */ 0x4f, 0x49, 0x49, 0x49, 0x49, 0x30, 0x00, 0x00, // 5
+    /*indice 48 -> */ 0x3f, 0x48, 0x48, 0x48, 0x48, 0x48, 0x30, 0x00, // 6
+    /*indice 56 -> */ 0x01, 0x01, 0x01, 0x61, 0x31, 0x0d, 0x03, 0x00, // 7
+    /*indice 64 -> */ 0x36, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 8
+    /*indice 72 -> */ 0x06, 0x09, 0x09, 0x09, 0x09, 0x09, 0x7f, 0x00, // 9 
+};
+
+// Adquire os pixels para um caractere (de acordo com notes.h)
+int ssd1306_get_font_notes(uint8_t character, char notes[], char accidentals[], char octaves[])
+{   
+
+    if (character >= 'A' && character <= 'G') {
+        return  character - 'A';
+    }
+    else if (character >= '0' && character <= '9') {
+        return character - '0';
+    }
+    else if (character == '-') {
+        return 0; // caractere com tudo branco
+    }
+    else if (character == '#') {
+        return 1;
+    }
+    else if (character == 'b') {
+        return 2;
+    }
+        
+
+    return 0;
+}
+
+
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
     return notes_index;
@@ -88,33 +143,6 @@ void wait(joystick_data joystick_data){
     return;
 }
 
-// Adquire os pixels para um caractere (de acordo com notes.h)
-int ssd1306_get_font_notes(uint8_t character, char notes[], char accidentals[], char octaves[])
-{   
-
-    if (character >= 'A' && character <= 'G') {
-        return  character - 'A';
-    }
-    else if (character >= '0' && character <= '9') {
-        return character - '0';
-    }
-    else if (character == '-') {
-        return 0; // caractere com tudo branco
-    }
-    else if (character == '#') {
-        return 1;
-    }
-    else if (character == 'b') {
-        return 2;
-    }
-        
-
-    return 0;
-}
-
-
-
-
 musical_note sortear_nota(char note_names[], int note_size, unsigned char accidents[], int acc_size, unsigned char octaves[], int oct_size) {
 
     musical_note drawn_musical_note;
@@ -141,19 +169,33 @@ musical_note sortear_nota(char note_names[], int note_size, unsigned char accide
 
 }
 
-
 initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct render_area *frame_area){
 
     initial_page_parameters page;
     char string_aux1[17];
+    int line;
+    int fb_idx;
 
     //limpa o frame buffer
     memset(ssd, 0, ssd1306_buffer_length);
      
     if (first_page == 1){
 
-        strcpy(page.first_note, "D");
+        strcpy(page.first_note, "E");
         strcpy(page.first_accident, "b");
+        strcpy(page.first_octave, "5");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
+
+    }
+    else if(first_page == 2){
+
+        strcpy(page.first_note, "A");
+        strcpy(page.first_accident, "-");
         strcpy(page.first_octave, "4");
         strcpy(page.first_level, "1");
         strcpy(page.maximum_levels, "10");
@@ -162,93 +204,191 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.first_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "3");
 
-        //page 0 
-        strcpy(string_aux1,  " QUAL E A NOTA? ");
-        ssd1306_draw_string(ssd, 0, 0,string_aux1);
-
-        //page 1
-        strcpy(string_aux1,  "                ");
-        ssd1306_draw_string(ssd, 0, 8,string_aux1);
-
-        //page 2
-        strcpy(string_aux1,  "                ");
-        ssd1306_draw_string(ssd, 0, 16,string_aux1);
-
-        //page 3
-        strcpy(string_aux1,  "                ");
-        ssd1306_draw_string(ssd, 0, 24,string_aux1);
-
-        // //page 4
-        strcpy(string_aux1,  "         {      ");
-        ssd1306_draw_string(ssd, 0, 32,string_aux1);
-
-        //page 5
-        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
-        strcat(string_aux1,  "   ]}]   ");
-        strcat(string_aux1, page.first_note );
-        strcat(string_aux1, page.first_accident );
-        strcat(string_aux1, page.first_octave );
-        strcat(string_aux1,   "    ");
-        ssd1306_draw_string(ssd, 0, 40, string_aux1);
-
-        //page 6
-        strcpy(string_aux1,"         [      ");
-        ssd1306_draw_string(ssd, 0, 48,string_aux1);
-
-        //page 7
-        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
-        strcat(string_aux1,  "F");
-        strcat(string_aux1, page.first_level );
-        strcat(string_aux1, "/" );
-        strcat(string_aux1, page.maximum_levels);
-        strcat(string_aux1, " N");
-        strcat(string_aux1, page.first_correct_note_number);
-        strcat(string_aux1, "/" );
-        strcat(string_aux1, page.maximum_correct_note_number);
-        strcat(string_aux1, " E");
-        strcat(string_aux1, page.first_incorrect_note_number);
-        strcat(string_aux1, "/" );
-        strcat(string_aux1, page.maximum_incorrect_note_number);
-        ssd1306_draw_string(ssd, 0, 56,string_aux1);
-        
-      
-
-    }
-    else if(first_page == 2){
-
     }
     else if(first_page == 3){
+
+        strcpy(page.first_note, "D");
+        strcpy(page.first_accident, "-");
+        strcpy(page.first_octave, "5");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 4){
+
+        strcpy(page.first_note, "D");
+        strcpy(page.first_accident, "#");
+        strcpy(page.first_octave, "5");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 5){
+
+        strcpy(page.first_note, "B");
+        strcpy(page.first_accident, "-");
+        strcpy(page.first_octave, "3");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 6){
+
+        strcpy(page.first_note, "G");
+        strcpy(page.first_accident, "#");
+        strcpy(page.first_octave, "3");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 7){
+
+        strcpy(page.first_note, "D");
+        strcpy(page.first_accident, "b");
+        strcpy(page.first_octave, "3");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 8){
+
+        strcpy(page.first_note, "E");
+        strcpy(page.first_accident, "b");
+        strcpy(page.first_octave, "4");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 9){
+
+        strcpy(page.first_note, "A");
+        strcpy(page.first_accident, "b");
+        strcpy(page.first_octave, "5");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
     else if(first_page == 10){
+
+        strcpy(page.first_note, "C");
+        strcpy(page.first_accident, "-");
+        strcpy(page.first_octave, "4");
+        strcpy(page.first_level, "1");
+        strcpy(page.maximum_levels, "10");
+        strcpy(page.first_correct_note_number, "1");
+        strcpy(page.maximum_correct_note_number, "16");
+        strcpy(page.first_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "3");
         
     }
    
 
+    //page 0 
+    strcpy(string_aux1,  " QUAL E A NOTA? ");
+    ssd1306_draw_string(ssd, 0, 0,string_aux1);
+
+    //page 1
+    strcpy(string_aux1,  "                ");
+    ssd1306_draw_string(ssd, 0, 8,string_aux1);
+
+    //page 2
+    strcpy(string_aux1,  "                ");
+    ssd1306_draw_string(ssd, 0, 16,string_aux1);
+
+    //page 3
+    strcpy(string_aux1,  "                ");
+    ssd1306_draw_string(ssd, 0, 24,string_aux1);
+
+    // //page 4
+    strcpy(string_aux1,  "         {      ");
+    ssd1306_draw_string(ssd, 0, 32,string_aux1);
+
+    //page 5
+    memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+    strcat(string_aux1,  "   ]}]   ");
+    ssd1306_draw_string(ssd, 0, 40, string_aux1);
+
+    line = ssd1306_get_font_notes(page.first_note[0], notes, accidentals, octaves);
+    fb_idx = 5 * 128 + 72;            
+    for (int i = 0; i < 8; i++) {
+        ssd[fb_idx++] = notes[line * 8 + i];
+    }
+
+    line = ssd1306_get_font_notes(page.first_accident[0], notes, accidentals, octaves);
+    fb_idx = 5 * 128 + 80;    
+    for (int i = 0; i < 8; i++) {
+        ssd[fb_idx++] = accidentals[line * 8 + i];
+    }
+
+    line = ssd1306_get_font_notes(page.first_octave[0], notes, accidentals, octaves);
+    fb_idx = 5 * 128 + 88;    
+    for (int i = 0; i < 8; i++) {
+        ssd[fb_idx++] = octaves[line * 8 + i];
+    }
+
+    memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+    strcat(string_aux1,   "    ");
+    ssd1306_draw_string(ssd, 96, 40, string_aux1);
+
+    //page 6
+    strcpy(string_aux1,"         [      ");
+    ssd1306_draw_string(ssd, 0, 48,string_aux1);
+
+    //page 7
+    memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+    strcat(string_aux1,  "F");
+    strcat(string_aux1, page.first_level );
+    strcat(string_aux1, "/" );
+    strcat(string_aux1, page.maximum_levels);
+    strcat(string_aux1, " N");
+    strcat(string_aux1, page.first_correct_note_number);
+    strcat(string_aux1, "/" );
+    strcat(string_aux1, page.maximum_correct_note_number);
+    strcat(string_aux1, " E");
+    strcat(string_aux1, page.first_incorrect_note_number);
+    strcat(string_aux1, "/" );
+    strcat(string_aux1, page.maximum_incorrect_note_number);
+    ssd1306_draw_string(ssd, 0, 56,string_aux1);
+        
     //mostrando do display
     render_on_display(ssd, frame_area);
 
     return page;
 
 }
+
+
+
+
+
 
 int play_levels(){
 
@@ -268,34 +408,7 @@ int play_levels(){
 
     int first_page = 1;
 
-    char notes[] = {    
-        /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
-        /*indice 8  -> */ 0x7f, 0x49, 0x49, 0x49, 0x49, 0x49, 0x7f, 0x00, // B
-        /*indice 16 -> */ 0x7e, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x00, // C 
-        /*indice 24 -> */ 0x7f, 0x41, 0x41, 0x41, 0x41, 0x41, 0x7e, 0x00, // D
-        /*indice 32 -> */ 0x7f, 0x49, 0x49, 0x49, 0x49, 0x49, 0x49, 0x00, // E
-        /*indice 40 -> */ 0x7f, 0x09, 0x09, 0x09, 0x09, 0x01, 0x01, 0x00, // F
-        /*indice 48 -> */ 0x7f, 0x41, 0x41, 0x41, 0x51, 0x51, 0x73, 0x00, // G
-    };
-    
-    char accidentals[] = {
-        /*indice 0  -> */   0x00, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00, // -
-        /*indice 8  -> */   0x24, 0xe4, 0x3f, 0x24, 0xfc, 0x27, 0x24, 0x00, // #
-        /*indice 16  -> */  0x00, 0xff, 0x88, 0x88, 0x88, 0xf8, 0x00, 0x00 // bemol
-    };
 
-    char octaves[] = {    
-        /*indice 0  -> */ 0x3e, 0x41, 0x41, 0x49, 0x41, 0x41, 0x3e, 0x00, // 0
-        /*indice 8  -> */ 0x00, 0x00, 0x42, 0x7f, 0x40, 0x00, 0x00, 0x00, // 1
-        /*indice 16 -> */ 0x30, 0x49, 0x49, 0x49, 0x49, 0x46, 0x00, 0x00, // 2
-        /*indice 24 -> */ 0x49, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 3
-        /*indice 32 -> */ 0x3f, 0x20, 0x20, 0x78, 0x20, 0x20, 0x00, 0x00, // 4
-        /*indice 40 -> */ 0x4f, 0x49, 0x49, 0x49, 0x49, 0x30, 0x00, 0x00, // 5
-        /*indice 48 -> */ 0x3f, 0x48, 0x48, 0x48, 0x48, 0x48, 0x30, 0x00, // 6
-        /*indice 56 -> */ 0x01, 0x01, 0x01, 0x61, 0x31, 0x0d, 0x03, 0x00, // 7
-        /*indice 64 -> */ 0x36, 0x49, 0x49, 0x49, 0x49, 0x49, 0x36, 0x00, // 8
-        /*indice 72 -> */ 0x06, 0x09, 0x09, 0x09, 0x09, 0x09, 0x7f, 0x00, // 9 
-    };
      
     
 
