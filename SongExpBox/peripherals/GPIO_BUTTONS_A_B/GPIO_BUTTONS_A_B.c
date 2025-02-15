@@ -13,6 +13,9 @@ extern bool check;
 extern bool allow_get_state_button_B;
 extern cursor_data cursor;
 
+extern bool play_secret_note;
+
+
 bool allow_action_edge_fall_button_B = true;
 bool allow_acion_edge_rise_button_B = true;
 
@@ -45,7 +48,10 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
             }
             else if(screen == 2 && cursor.position_x >= 72 &&  cursor.position_x <= 95){            
                 check = true;
-            }  
+            } 
+            else if(screen == 2 && cursor.position_x >= 32 && cursor.position_x <=39) {
+                play_secret_note = true;
+            }
 
             allow_action_edge_fall_button_B = false;
 
