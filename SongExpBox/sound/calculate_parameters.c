@@ -16,7 +16,7 @@ void calcular(){
 
     float divisor;
     float fpwm_calc;
-
+    
     for(int wrap = wrap_limit; wrap>=0 ; wrap-- ){
         for(int inteiro = 1; inteiro <= 256; inteiro++){
             for(float frac = 1; frac <= 15; frac++){
@@ -32,7 +32,7 @@ void calcular(){
                     best_fpwm = fpwm_calc;
                 }
 
-                if (fabs(best_fpwm - frequencia_nota) < 0.000001 ){
+                if (fabs(best_fpwm - frequencia_nota) < 0.00001 ){
                     printf("Calculou os melhores valores!\n");
                     return;
                 }                
@@ -49,18 +49,18 @@ int main(){
 
     wrap_limit =  ((int) pow(2, 16) ) - 1;
 
-    frequencia_nota = 523.2511;
-
+    printf("Digite a frequencia: ");
+    scanf("%f", &frequencia_nota);
+    
     calcular();
     
-    printf("-----Resultados-----\n\n");
+    printf("\n-----Resultados-----\n\n");
     printf("frequencia_nota = %.4f\n", frequencia_nota);
     printf("\n//Best Frequency Found: = %.4f\n", best_fpwm);
     printf("max_wrap = %d\n", max_wrap) ;
     printf("best_inteiro = %d\n", best_inteiro );
     printf("best_frac = %.4f\n", best_frac);
-    printf("best_divider = %.4f\n", fCLKsys / ( frequencia_nota * (max_wrap + 1) ) );
+    printf("best_divider = %.4f\n\n", fCLKsys / ( frequencia_nota * (max_wrap + 1) ) );
     
-
     return 0;
 }

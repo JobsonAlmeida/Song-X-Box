@@ -28,7 +28,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
     {
 
         if(note[0] == 'C'){
-                if(note[1] == '-') {adjustment.wrap = C_0_WRAP; adjustment.divider = C_0_DIVIDER;}
+                if(note[1] == '-') {}
             else if(note[1] == '#') {}
             else                    {  }
         }
@@ -65,7 +65,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
     }    
 
-    if(note[2] == '4')
+    else if(note[2] == '4')
     {
         if(note[0] == 'C'){
                 if(note[1] == '-') { adjustment.wrap = C_4_WRAP; adjustment.divider = C_4_DIVIDER; }
@@ -104,6 +104,47 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
         }
 
     }    
+
+
+    else if(note[2] == '3')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-') { adjustment.wrap = C_3_WRAP; adjustment.divider = C_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs3_Db3_WRAP; adjustment.divider = Cs3_Db3_DIVIDER; }
+            else                    { adjustment.wrap = Cb3_WRAP; adjustment.divider = Cb3_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+            if(note[1] == '-')      { adjustment.wrap = D_3_WRAP; adjustment.divider = D_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds3_Eb3_WRAP; adjustment.divider = Ds3_Eb3_DIVIDER; }
+            else                    { adjustment.wrap = Cs3_Db3_WRAP; adjustment.divider = Cs3_Db3_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_3_WRAP; adjustment.divider = E_3_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es3_WRAP; adjustment.divider = Es3_DIVIDER; }
+            else                    { adjustment.wrap = Ds3_Eb3_WRAP; adjustment.divider = Ds3_Eb3_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_3_WRAP; adjustment.divider = F_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs3_Gb3_WRAP; adjustment.divider = Fs3_Gb3_DIVIDER; }
+            else                    { adjustment.wrap = Fb3_WRAP; adjustment.divider = Fb3_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_3_WRAP; adjustment.divider = G_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs3_Ab3_WRAP; adjustment.divider = Gs3_Ab3_DIVIDER; }
+            else                    { adjustment.wrap = Fs3_Gb3_WRAP; adjustment.divider = Fs3_Gb3_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_3_WRAP; adjustment.divider = A_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As3_Bb3_WRAP; adjustment.divider = As3_Bb3_DIVIDER; }
+            else                    { adjustment.wrap = Gs3_Ab3_WRAP; adjustment.divider = Gs3_Ab3_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_3_WRAP; adjustment.divider = B_3_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs3_WRAP; adjustment.divider = Bs3_DIVIDER; }
+            else                    { adjustment.wrap = As3_Bb3_WRAP; adjustment.divider = As3_Bb3_DIVIDER; }
+        }
+
+    } 
 
     printf("adjustment.divider = %.3f - adjustment.wrap = %d \n", adjustment.divider , adjustment.wrap);
 

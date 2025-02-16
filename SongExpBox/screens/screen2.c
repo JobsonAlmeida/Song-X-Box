@@ -167,7 +167,10 @@ musical_note sortear_nota(char note_names[], int note_size, unsigned char accide
 
     }
     while ((drawn_musical_note.note_name == 'B' && drawn_musical_note.accident == '#') || 
-           (drawn_musical_note.note_name == 'E' && drawn_musical_note.accident == '#'));
+           (drawn_musical_note.note_name == 'E' && drawn_musical_note.accident == '#') ||
+           (drawn_musical_note.note_name == 'F' && drawn_musical_note.accident == 'b') ||
+           (drawn_musical_note.note_name == 'C' && drawn_musical_note.accident == 'b')         
+        );
 
     return drawn_musical_note;
 
