@@ -16,7 +16,8 @@ extern int screen;
 bool check = false;
 
 int maximum_levels = 12 ;
-int level = 1 ;
+int level = 12 ;
+int initial_page = 12;
 float base_volume_level = 0.3; 
 float volume_level = 1;
 float time_note_duration_ms = 1500;
@@ -438,6 +439,27 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
         
     }
+
+    else if(first_page == 12){
+
+        strcpy(page.initial_note, "A");
+        strcpy(page.initial_accident, "b");
+        strcpy(page.initial_octave, "4");
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", level);  // Formato com zero à esquerda        
+        strcpy(page.initial_level, string_aux1);
+
+        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
+        sprintf(string_aux1, "%02d", maximum_levels);  // Formato com zero à esquerda        
+        strcpy(page.maximum_levels, string_aux1);
+
+        strcpy(page.initial_correct_note_number, "00");
+        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.initial_incorrect_note_number, "0");
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+        
+    }
    
 
     //page 0 
@@ -528,7 +550,7 @@ int play_levels(){
     int notes_index;
     int accidentals_index;
     int octaves_index;
-    int initial_page = 1;
+    
     bool sortear = true;
     int draw_counter = 0;
     int error_counter = 0;
