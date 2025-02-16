@@ -22,7 +22,7 @@ extern uint16_t y_axis_buffer[];
 
 extern cursor_data cursor;
 
-float base_volume_level = 0.5;
+float base_volume_level = 0.3; //4 bem alto 0.3  passa de 75 db 0.2 passa de 75 db
 float volume_level = 1;
 float time_note_duration_ms = 1500;
 
@@ -149,20 +149,25 @@ musical_note sortear_nota(char note_names[], int note_size, unsigned char accide
     int minimum = 0;
     int maximum;
 
-    // Sorteia a nota musical
-    maximum = note_size - 1;
-    index = minimum +  get_rand_32()% (maximum - minimum + 1);
-    drawn_musical_note.note_name = note_names[index];
+    do{
+        // Sorteia a nota musical
+        maximum = note_size - 1;
+        index = minimum +  get_rand_32()% (maximum - minimum + 1);
+        drawn_musical_note.note_name = note_names[index];
 
-    // Sorteia o acidente musical
-    maximum = acc_size - 1;
-    index = minimum + get_rand_32() % (maximum - minimum + 1);
-    drawn_musical_note.accident = accidents[index];
+        // Sorteia o acidente musical
+        maximum = acc_size - 1;
+        index = minimum + get_rand_32() % (maximum - minimum + 1);
+        drawn_musical_note.accident = accidents[index];
 
-    // Sorteia a oitava
-    maximum = oct_size - 1;
-    index = minimum + get_rand_32() % (maximum - minimum + 1);
-    drawn_musical_note.octave = octaves[index];
+        // Sorteia a oitava
+        maximum = oct_size - 1;
+        index = minimum + get_rand_32() % (maximum - minimum + 1);
+        drawn_musical_note.octave = octaves[index];
+
+    }
+    while ((drawn_musical_note.note_name == 'B' && drawn_musical_note.accident == '#') || 
+           (drawn_musical_note.note_name == 'E' && drawn_musical_note.accident == '#'));
 
     return drawn_musical_note;
 
