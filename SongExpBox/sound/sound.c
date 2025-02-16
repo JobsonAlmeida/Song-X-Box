@@ -65,6 +65,47 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
     }    
 
+    else if(note[2] == '5')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_5_WRAP; adjustment.divider = C_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs5_Db5_WRAP; adjustment.divider = Cs5_Db5_DIVIDER; }
+            else                    { adjustment.wrap = Cb5_WRAP; adjustment.divider = Cb5_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_5_WRAP; adjustment.divider = D_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds5_Eb5_WRAP; adjustment.divider = Ds5_Eb5_DIVIDER; }
+            else                    { adjustment.wrap = Cs5_Db5_WRAP; adjustment.divider = Cs5_Db5_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_5_WRAP; adjustment.divider = E_5_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es5_WRAP; adjustment.divider = Es5_DIVIDER; }
+            else                    { adjustment.wrap = Ds5_Eb5_WRAP; adjustment.divider = Ds5_Eb5_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_5_WRAP; adjustment.divider = F_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs5_Gb5_WRAP; adjustment.divider = Fs5_Gb5_DIVIDER; }
+            else                    { adjustment.wrap = Fb5_WRAP; adjustment.divider = Fb5_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_5_WRAP; adjustment.divider = G_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs5_Ab5_WRAP; adjustment.divider = Gs5_Ab5_DIVIDER; }
+            else                    { adjustment.wrap = Fs5_Gb5_WRAP; adjustment.divider = Fs5_Gb5_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_5_WRAP; adjustment.divider = A_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As5_Bb5_WRAP; adjustment.divider = As5_Bb5_DIVIDER; }
+            else                    { adjustment.wrap = Gs5_Ab5_WRAP; adjustment.divider = Gs5_Ab5_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_5_WRAP; adjustment.divider = B_5_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs5_WRAP; adjustment.divider = Bs5_DIVIDER; }
+            else                    { adjustment.wrap = As5_Bb5_WRAP; adjustment.divider = As5_Bb5_DIVIDER; }
+        }
+
+    }    
+
+
     else if(note[2] == '4')
     {
         if(note[0] == 'C'){
@@ -146,7 +187,7 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
     } 
 
-    printf("adjustment.divider = %.3f - adjustment.wrap = %d \n", adjustment.divider , adjustment.wrap);
+    //printf("adjustment.divider = %.3f - adjustment.wrap = %d \n", adjustment.divider , adjustment.wrap);
 
     return adjustment;
 

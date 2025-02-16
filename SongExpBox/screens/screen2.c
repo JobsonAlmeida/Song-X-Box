@@ -14,20 +14,18 @@
 
 extern int screen;
 bool check = false;
+
 int maximum_levels = 12 ;
 int level = 1 ;
-
-extern uint16_t x_axis_buffer[];
-extern uint16_t y_axis_buffer[];
-
-extern cursor_data cursor;
-
-float base_volume_level = 0.3; //4 bem alto 0.3  passa de 75 db 0.2 passa de 75 db
+float base_volume_level = 0.3; 
 float volume_level = 1;
 float time_note_duration_ms = 1500;
 
-bool play_secret_note = false;
+extern uint16_t x_axis_buffer[];
+extern uint16_t y_axis_buffer[];
+extern cursor_data cursor;
 
+bool play_secret_note = false;
 typedef struct  {
     char note_name;
     char accident;

@@ -2,17 +2,128 @@
 
 #define PWM_CLOCK_SOURCE 125000000.0000000000
 
+// C_6
+#define C_6_FREQUENCY 1046.502 //Best Frequency Found: = 1046.5018
+#define C_6_WRAP 57912
+#define C_6_INTEGER 2
+#define C_6_FRACTIONAL 1.0000
+#define C_6_DIVIDER 2.0625
+
+//------------------------------------------------------------------
+
+// Bs5
+#define Bs5_FREQUENCY C_6_FREQUENCY 
+#define Bs5_WRAP C_6_WRAP 
+#define Bs5_INTEGER C_6_INTEGER
+#define Bs5_FRACTIONAL C_6_FRACTIONAL
+#define Bs5_DIVIDER C_6_DIVIDER
+
+// B_5
+#define B_5_FREQUENCY 987.7666 //Best Frequency Found: = 987.7665
+#define B_5_WRAP 36813
+#define B_5_INTEGER 3
+#define B_5_FRACTIONAL 7.0000 
+#define B_5_DIVIDER 3.4375
+
+// As5 - Bb5
+#define As5_Bb5_FREQUENCY 932.3275 //Best Frequency Found: = 932.3275
+#define As5_Bb5_WRAP 5322
+#define As5_Bb5_INTEGER 25
+#define As5_Bb5_FRACTIONAL 3.0000
+#define As5_Bb5_DIVIDER 25.1875
+
+// A_5
+#define A_5_FREQUENCY 880.0000 //Best Frequency Found: = 879.9997
+#define A_5_WRAP 8087
+#define A_5_INTEGER 17
+#define A_5_FRACTIONAL 9.0000
+#define A_5_DIVIDER 17.5625
+
+// Gs5 - Ab5
+#define Gs5_Ab5_FREQUENCY 830.6094 //Best Frequency Found: = 830.6093
+#define Gs5_Ab5_WRAP 55996
+#define Gs5_Ab5_INTEGER 2
+#define Gs5_Ab5_FRACTIONAL 11.0000
+#define Gs5_Ab5_DIVIDER 2.6875
+
+// G_5
+#define G_5_FREQUENCY 783.9909 //Best Frequency Found: = 783.9909
+#define G_5_WRAP 56689
+#define G_5_INTEGER 2
+#define G_5_FRACTIONAL 13.0000
+#define G_5_DIVIDER 2.8125
+
+// Fs5 - Gb5
+#define Fs5_Gb5_FREQUENCY 739.9888 //Best Frequency Found: = 739.9887
+#define Fs5_Gb5_WRAP 61425
+#define Fs5_Gb5_INTEGER 2
+#define Fs5_Gb5_FRACTIONAL 12.0000
+#define Fs5_Gb5_DIVIDER 2.7500
+
+// F_5
+#define F_5_FREQUENCY 698.4565 //Best Frequency Found: = 698.4567
+#define F_5_WRAP 33295
+#define F_5_INTEGER 5
+#define F_5_FRACTIONAL 6.0000
+#define F_5_DIVIDER 5.3750  
+
+// Fb5
+#define Fb5_FREQUENCY E_5_FREQUENCY
+#define Fb5_WRAP E_5_WRAP
+#define Fb5_INTEGER E_5_INTEGER
+#define Fb5_FRACTIONAL E_5_FRACTIONAL
+#define Fb5_DIVIDER E_5_DIVIDER
+
+// Es5
+#define Es5_FREQUENCY F_5_FREQUENCY 
+#define Es5_WRAP F_5_WRAP 
+#define Es5_INTEGER F_5_INTEGER
+#define Es5_FRACTIONAL F_5_FRACTIONAL 
+#define Es5_DIVIDER F_5_DIVIDER
+
+// E_5
+#define E_5_FREQUENCY 659.2551	//Best Frequency Found: = 659.2553
+#define E_5_WRAP 7205
+#define E_5_INTEGER 26
+#define E_5_FRACTIONAL 5.0000
+#define E_5_DIVIDER 26.3125
+
+// Ds5 - Eb5
+#define Ds5_Eb5_FREQUENCY 622.2540 //Best Frequency Found: = 622.2539
+#define Ds5_Eb5_WRAP 63021
+#define Ds5_Eb5_INTEGER 3
+#define Ds5_Eb5_FRACTIONAL 3.0000
+#define Ds5_Eb5_DIVIDER 3.1875
+
+// D_5
+#define D_5_FREQUENCY 587.3295 //Best Frequency Found: = 587.3294
+#define D_5_WRAP 57715
+#define D_5_INTEGER 3
+#define D_5_FRACTIONAL 11.0000
+#define D_5_DIVIDER 3.6875
+
+// Cs5 - Db5
+#define Cs5_Db5_FREQUENCY 554.3653 //Best Frequency Found: = 554.3652
+#define Cs5_Db5_WRAP 51538
+#define Cs5_Db5_INTEGER 4
+#define Cs5_Db5_FRACTIONAL 6.0000
+#define Cs5_Db5_DIVIDER 4.3750
+
 // C_5
 #define C_5_FREQUENCY 523.2511 //Best Frequency Found: = 523.2512
 #define C_5_WRAP 64783
 #define C_5_INTEGER 3
 #define C_5_FRACTIONAL 11.0000
-#define C_5_DIVIDER 3.6875 
+#define C_5_DIVIDER 3.6875
 
+// Cb5
+#define Cb5_FREQUENCY B_4_FREQUENCY
+#define Cb5_WRAP B_4_WRAP
+#define Cb5_INTEGER B_4_INTEGER
+#define Cb5_FRACTIONAL B_4_FRACTIONAL
+#define Cb5_DIVIDER B_4_DIVIDER
 
-
-
-
+//--------------------------------------------------------------------
 
 // Bs4
 #define Bs4_FREQUENCY C_5_FREQUENCY 
@@ -126,7 +237,7 @@
 #define Cb4_FRACTIONAL B_3_FRACTIONAL
 #define Cb4_DIVIDER B_3_DIVIDER
 
-//------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 // Bs3
 #define Bs3_FREQUENCY C_4_FREQUENCY 
@@ -150,11 +261,11 @@
 #define As3_Bb3_DIVIDER 11.9375
 
 // A_3
-#define A_3_FREQUENCY 220.0000 //Best Frequency Found: = 220.0001
-#define A_3_WRAP 58650
-#define A_3_INTEGER 9
+#define A_3_FREQUENCY 220.0000 //Best Frequency Found: = 220.0000
+#define A_3_WRAP 41510
+#define A_3_INTEGER 13
 #define A_3_FRACTIONAL 11.0000
-#define A_3_DIVIDER 9.6875
+#define A_3_DIVIDER 13.6875
 
 // Gs3 - Ab3
 #define Gs3_Ab3_FREQUENCY 207.6523	//Best Frequency Found: = 207.6523
@@ -271,135 +382,118 @@
 
 
 
-
-
-
 // //------------------------------------------------------------------
 
-// // Bs3
-// #define Bs3_FREQUENCY C_4_FREQUENCY 
-// #define Bs3_WRAP C_4_WRAP 
-// #define Bs3_INTEGER C_4_INTEGER
-// #define Bs3_FRACTIONAL C_4_FRACTIONAL
-// #define Bs3_DIVIDER C_4_DIVIDER
+// // Bs5
+// #define Bs5_FREQUENCY C_6_FREQUENCY 
+// #define Bs5_WRAP C_6_WRAP 
+// #define Bs5_INTEGER C_6_INTEGER
+// #define Bs5_FRACTIONAL C_6_FRACTIONAL
+// #define Bs5_DIVIDER C_6_DIVIDER
 
-// // B_3
-// #define B_3_FREQUENCY 246.9417 //Best Frequency Found: = 246.9417
-// #define B_3_WRAP 16837
-// #define B_3_INTEGER 30
-// #define B_3_FRACTIONAL 1.0000
-// #define B_3_DIVIDER 30.0625 
+// // B_5
+// #define B_5_FREQUENCY 
+// #define B_5_WRAP 
+// #define B_5_INTEGER 
+// #define B_5_FRACTIONAL 
+// #define B_5_DIVIDER 
 
-// // As3 - Bb3
-// #define As3_Bb3_FREQUENCY 
-// #define As3_Bb3_WRAP 
-// #define As3_Bb3_INTEGER 
-// #define As3_Bb3_FRACTIONAL 
-// #define As3_Bb3_DIVIDER 
+// // As5 - Bb5
+// #define As5_Bb5_FREQUENCY 
+// #define As5_Bb5_WRAP 
+// #define As5_Bb5_INTEGER 
+// #define As5_Bb5_FRACTIONAL 
+// #define As5_Bb5_DIVIDER 
 
-// // A_3
-// #define A_3_FREQUENCY 
-// #define A_3_WRAP 
-// #define A_3_INTEGER 
-// #define A_3_FRACTIONAL 
-// #define A_3_DIVIDER  
+// // A_5
+// #define A_5_FREQUENCY 
+// #define A_5_WRAP 
+// #define A_5_INTEGER 
+// #define A_5_FRACTIONAL 
+// #define A_5_DIVIDER  
 
-// // Gs3 - Ab3
-// #define Gs3_Ab3_FREQUENCY 
-// #define Gs3_Ab3_WRAP 
-// #define Gs3_Ab3_INTEGER 
-// #define Gs3_Ab3_FRACTIONAL 
-// #define Gs3_Ab3_DIVIDER  
+// // Gs5 - Ab5
+// #define Gs5_Ab5_FREQUENCY 
+// #define Gs5_Ab5_WRAP 
+// #define Gs5_Ab5_INTEGER 
+// #define Gs5_Ab5_FRACTIONAL 
+// #define Gs5_Ab5_DIVIDER  
 
-// // G_3
-// #define G_3_FREQUENCY 
-// #define G_3_WRAP 
-// #define G_3_INTEGER 
-// #define G_3_FRACTIONAL 
-// #define G_3_DIVIDER  
+// // G_5
+// #define G_5_FREQUENCY 
+// #define G_5_WRAP 
+// #define G_5_INTEGER 
+// #define G_5_FRACTIONAL 
+// #define G_5_DIVIDER  
 
-// // Fs3 - Gb3
-// #define Fs3_Gb3_FREQUENCY 
-// #define Fs3_Gb3_WRAP 
-// #define Fs3_Gb3_INTEGER 
-// #define Fs3_Gb3_FRACTIONAL 
-// #define Fs3_Gb3_DIVIDER 
+// // Fs5 - Gb5
+// #define Fs5_Gb5_FREQUENCY 
+// #define Fs5_Gb5_WRAP 
+// #define Fs5_Gb5_INTEGER 
+// #define Fs5_Gb5_FRACTIONAL 
+// #define Fs5_Gb5_DIVIDER 
 
-// // F_3
-// #define F_3_FREQUENCY 
-// #define F_3_WRAP 
-// #define F_3_INTEGER 
-// #define F_3_FRACTIONAL 
-// #define F_3_DIVIDER  
+// // F_5
+// #define F_5_FREQUENCY 
+// #define F_5_WRAP 
+// #define F_5_INTEGER 
+// #define F_5_FRACTIONAL 
+// #define F_5_DIVIDER  
 
-// // Fb3
-// #define Fb3_FREQUENCY E_3_FREQUENCY
-// #define Fb3_WRAP E_3_WRAP
-// #define Fb3_INTEGER E_3_INTEGER
-// #define Fb3_FRACTIONAL E_3_FRACTIONAL
-// #define Fb3_DIVIDER E_3_DIVIDER
+// // Fb5
+// #define Fb5_FREQUENCY E_5_FREQUENCY
+// #define Fb5_WRAP E_5_WRAP
+// #define Fb5_INTEGER E_5_INTEGER
+// #define Fb5_FRACTIONAL E_5_FRACTIONAL
+// #define Fb5_DIVIDER E_5_DIVIDER
 
-// // Es3
-// #define Es3_FREQUENCY F_3_FREQUENCY 
-// #define Es3_WRAP F_3_WRAP 
-// #define Es3_INTEGER F_3_INTEGER
-// #define Es3_FRACTIONAL F_3_FRACTIONAL 
-// #define Es3_DIVIDER F_3_DIVIDER
+// // Es5
+// #define Es5_FREQUENCY F_5_FREQUENCY 
+// #define Es5_WRAP F_5_WRAP 
+// #define Es5_INTEGER F_5_INTEGER
+// #define Es5_FRACTIONAL F_5_FRACTIONAL 
+// #define Es5_DIVIDER F_5_DIVIDER
 
-// // E_3
-// #define E_3_FREQUENCY 
-// #define E_3_WRAP 
-// #define E_3_INTEGER 
-// #define E_3_FRACTIONAL 
-// #define E_3_DIVIDER 
+// // E_5
+// #define E_5_FREQUENCY 
+// #define E_5_WRAP 
+// #define E_5_INTEGER 
+// #define E_5_FRACTIONAL 
+// #define E_5_DIVIDER 
 
-// // Ds3 - Eb3
-// #define Ds3_Eb3_FREQUENCY 
-// #define Ds3_Eb3_WRAP 
-// #define Ds3_Eb3_INTEGER 
-// #define Ds3_Eb3_FRACTIONAL 
-// #define Ds3_Eb3_DIVIDER 
+// // Ds5 - Eb5
+// #define Ds5_Eb5_FREQUENCY 
+// #define Ds5_Eb5_WRAP 
+// #define Ds5_Eb5_INTEGER 
+// #define Ds5_Eb5_FRACTIONAL 
+// #define Ds5_Eb5_DIVIDER 
 
-// // D_3
-// #define D_3_FREQUENCY 
-// #define D_3_WRAP 
-// #define D_3_INTEGER 
-// #define D_3_FRACTIONAL 
-// #define D_3_DIVIDER 
+// // D_5
+// #define D_5_FREQUENCY 
+// #define D_5_WRAP 
+// #define D_5_INTEGER 
+// #define D_5_FRACTIONAL 
+// #define D_5_DIVIDER 
 
-// // Cs3 - Db3
-// #define Cs3_Db3_FREQUENCY 
-// #define Cs3_Db3_WRAP 
-// #define Cs3_Db3_INTEGER 
-// #define Cs3_Db3_FRACTIONAL 
-// #define Cs3_Db3_DIVIDER 
+// // Cs5 - Db5
+// #define Cs5_Db5_FREQUENCY 
+// #define Cs5_Db5_WRAP 
+// #define Cs5_Db5_INTEGER 
+// #define Cs5_Db5_FRACTIONAL 
+// #define Cs5_Db5_DIVIDER 
 
-// // C_3
-// #define C_3_FREQUENCY 
-// #define C_3_WRAP 
-// #define C_3_INTEGER 
-// #define C_3_FRACTIONAL 
-// #define C_3_DIVIDER 
+// // C_5
+// #define C_5_FREQUENCY 
+// #define C_5_WRAP 
+// #define C_5_INTEGER 
+// #define C_5_FRACTIONAL 
+// #define C_5_DIVIDER 
 
-// // Cb3
-// #define Cb3_FREQUENCY B_2_FREQUENCY
-// #define Cb3_WRAP B_2_WRAP
-// #define Cb3_INTEGER B_2_INTEGER
-// #define Cb3_FRACTIONAL B_2_FRACTIONAL
-// #define Cb3_DIVIDER B_2_DIVIDER
+// // Cb5
+// #define Cb5_FREQUENCY B_4_FREQUENCY
+// #define Cb5_WRAP B_4_WRAP
+// #define Cb5_INTEGER B_4_INTEGER
+// #define Cb5_FRACTIONAL B_4_FRACTIONAL
+// #define Cb5_DIVIDER B_4_DIVIDER
 
-// //------------------------------------------------------------------
-
-// // Bs2
-// #define Bs2_FREQUENCY C_3_FREQUENCY 
-// #define Bs2_WRAP C_3_WRAP 
-// #define Bs2_INTEGER C_3_INTEGER
-// #define Bs2_FRACTIONAL C_3_FRACTIONAL
-// #define Bs2_DIVIDER C_3_DIVIDER
-
-// // B_2
-// #define B_2_FREQUENCY 
-// #define B_2_WRAP 
-// #define B_2_INTEGER 
-// #define B_2_FRACTIONAL 
-// #define B_2_DIVIDER 
+// //--------------------------------------------------------------------
