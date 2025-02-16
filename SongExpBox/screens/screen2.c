@@ -16,8 +16,8 @@ extern int screen;
 bool check = false;
 
 int maximum_levels = 12 ;
-int level = 12 ;
-int initial_page = 12;
+int level = 1 ;
+int initial_page = 1;
 float base_volume_level = 0.3; 
 float volume_level = 1;
 float time_note_duration_ms = 1500;
