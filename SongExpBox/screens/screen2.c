@@ -19,7 +19,7 @@ int maximum_levels = 12 ;
 int level = 1 ;
 
 float base_volume_level = 0.3; 
-float volume_level = 0.1;
+float volume_level = 0.01;
 float time_note_duration_ms = 1500;
 
 extern uint16_t x_axis_buffer[];

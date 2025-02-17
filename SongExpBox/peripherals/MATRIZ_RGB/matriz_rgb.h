@@ -29,3 +29,7 @@ void npWrite();
 // Modificado do github: https://github.com/BitDogLab/BitDogLab-C/tree/main/neopixel_pio
 // Função para converter a posição do matriz para uma posição do vetor.
 int getIndex(int x, int y);
+
+
+//modifica a intensidade dos leds da matriz rgb
+int* modify_intensity(int matriz[5][5][3], int value );
