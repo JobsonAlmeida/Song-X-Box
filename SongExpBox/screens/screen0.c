@@ -2,8 +2,13 @@
 
 #include "screens.h"
 #include "../peripherals/I2C_Display/ssd1306.h"
+#include "../sound/sound.h"
 
 extern int screen;
+
+extern float base_volume_level; 
+extern float volume_level;
+// extern float time_note_duration_ms = 1500;
 
 void screen0(){
 
@@ -39,11 +44,35 @@ void screen0(){
     }
     render_on_display(ssd, &frame_area);
 
-    
-    
+    play_note(BUZZER_RIGHT_1, "C-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "D-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "E-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "F-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "G-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "A-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+    play_note(BUZZER_RIGHT_1, "B-4", base_volume_level*volume_level, 500 );
+    sleep_ms(500);
+
+    play_note(BUZZER_RIGHT_1, "C-4", base_volume_level*volume_level, 1000 );
+    // play_note(BUZZER_LEFT_1,  "C-3", base_volume_level*volume_level, 1000 );
+    sleep_ms(1000);
+
+    // play_note(BUZZER_LEFT_1,  "C-3", base_volume_level*volume_level, 1000 );
+    // sleep_ms(1000);
+
     
     //--: O rgb segura a tela aqui
-    sleep_ms(2500);
+
+
+    //mostra a tocar por x s
+    // toca o som por x segundos 
+    sleep_ms(500);
 
     screen = 1;
 
