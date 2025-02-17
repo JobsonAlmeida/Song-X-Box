@@ -17,9 +17,9 @@ bool check = false;
 
 int maximum_levels = 12 ;
 int level = 1 ;
-int initial_page = 1;
+
 float base_volume_level = 0.3; 
-float volume_level = 1;
+float volume_level = 0.01;
 float time_note_duration_ms = 1500;
 
 extern uint16_t x_axis_buffer[];
@@ -576,6 +576,12 @@ int play_levels(){
 
     calculate_render_area_buffer_length(&frame_area);
 
+    int initial_page = 1;
+    level = 1;
+    error_counter = 0;
+    hit_counter = 0;
+    sortear = true;
+    draw_counter = 0;
     printf("level: %d\n", level);
     while (screen == 2){
 

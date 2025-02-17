@@ -41,8 +41,6 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
 
     if (gpio == BUTTON_A) {
         screen=1;
-        level = 1 ;
-        initial_page = 1;
     } else if (gpio == BUTTON_B) {
 
         //Borda de descida detectada -> Botão pressionado
