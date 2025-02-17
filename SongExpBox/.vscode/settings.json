@@ -49,6 +49,9 @@
         "ssd1306.h": "c",
         "screens.h": "c",
         "algorithm": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "matriz_rgb.h": "c",
+        "*.gitignore": "c",
+        "i2c.h": "c"
     }
 }

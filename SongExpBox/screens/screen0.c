@@ -39,6 +39,10 @@ void screen0(){
     }
     render_on_display(ssd, &frame_area);
 
+    
+    
+    
+    //--: O rgb segura a tela aqui
     sleep_ms(2500);
 
     screen = 1;

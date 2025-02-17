@@ -44,12 +44,16 @@ add_executable(SongExpBox
                screens/screen2.c
                peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c
                sound/sound.c
+               peripherals/MATRIZ_RGB/matriz_rgb.c
                ########## Passo 2 ########## sources/play_note.c
                
 )
 
 pico_set_program_name(SongExpBox "SongExpBox")
 pico_set_program_version(SongExpBox "0.1")
+
+# Generate PIO header
+pico_generate_pio_header(SongExpBox ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(SongExpBox 0)
@@ -66,7 +70,8 @@ target_link_libraries(SongExpBox
         hardware_rtc
         hardware_timer    
         pico_rand 
-        
+        hardware_pio
+        hardware_clocks        
 )
 
 # Add the standard include files to the build
