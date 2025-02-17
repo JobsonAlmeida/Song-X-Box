@@ -52,10 +52,24 @@ void npInit(uint pin) {
 /**
  * Atribui uma cor RGB a um LED.
  */
-void npSetLED(const uint index, const uint8_t r, const uint8_t g, const uint8_t b) {
+void npSetLED(const uint index,  uint8_t r,  uint8_t g,  uint8_t b) {
+
+  r = ((r & 0xF0) >> 4) | ((r & 0x0F) << 4); // Troca os 4 MSB com os 4 LSB
+  r = ((r & 0xCC) >> 2) | ((r & 0x33) << 2); // Troca pares de bits
+  r = ((r & 0xAA) >> 1) | ((r & 0x55) << 1); // Troca bits individuais
+
+  g = ((g & 0xF0) >> 4) | ((g & 0x0F) << 4); // Troca os 4 MSB com os 4 LSB
+  g = ((g & 0xCC) >> 2) | ((g & 0x33) << 2); // Troca pares de bits
+  g = ((g & 0xAA) >> 1) | ((g & 0x55) << 1); // Troca bits individuais
+
+  b = ((b & 0xF0) >> 4) | ((b & 0x0F) << 4); // Troca os 4 MSB com os 4 LSB
+  b = ((b & 0xCC) >> 2) | ((b & 0x33) << 2); // Troca pares de bits
+  b = ((b & 0xAA) >> 1) | ((b & 0x55) << 1); // Troca bits individuais
+
   leds[index].R = r;
   leds[index].G = g;
   leds[index].B = b;
+
 }
 
 /**
@@ -90,4 +104,10 @@ int getIndex(int x, int y) {
   } else {
       return 24-(y * 5 + (4 - x)); // Linha ímpar (direita para esquerda).
   }
+}
+
+
+void modify_intensity(){
+
+  return
 }

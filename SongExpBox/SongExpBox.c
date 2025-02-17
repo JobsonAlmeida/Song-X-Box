@@ -78,6 +78,18 @@ int main() {
      npInit(LED_PIN);
      npClear();
 
+
+     // for(int linha = 0; linha < 5; linha++){
+     //      for(int coluna = 0; coluna < 5; coluna++){
+     //          int posicao = getIndex(linha, coluna);
+     //          npSetLED(posicao, matriz1[coluna][linha][0], matriz1[coluna][linha][1], matriz1[coluna][linha][2]);
+     //      }
+     //  };
+     //  npWrite();    
+     //  play_note(BUZZER_RIGHT_1, "C-4", base_volume_level*volume_level, 500 );
+     //  sleep_ms(500);
+     //  npClear();
+  
      screen = 0; 
      while (true) {
  

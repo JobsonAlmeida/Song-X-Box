@@ -12,7 +12,7 @@ void npInit(uint pin);
 /**
  * Atribui uma cor RGB a um LED.
  */
-void npSetLED(const uint index, const uint8_t r, const uint8_t g, const uint8_t b);
+void npSetLED(const uint index,  uint8_t r,  uint8_t g,  uint8_t b);
 
 
 /**
