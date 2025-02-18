@@ -37,7 +37,6 @@ bool change_matriz_cursor = true;
 
 int colum_index = 0, line_index = 0;
 
-
 typedef struct  {
     char note_name;
     char accident;
@@ -57,8 +56,6 @@ typedef struct  {
     char maximum_incorrect_note_number[2];
 
 } initial_page_parameters;
-
-
 
 char notes[] = {    
     /*indice 0  -> */ 0x78, 0x14, 0x12, 0x11, 0x12, 0x14, 0x78, 0x00, // A
@@ -113,7 +110,6 @@ int ssd1306_get_font_notes(uint8_t character, char notes[], char accidentals[], 
     return 0;
 }
 
-
 int increment_notes_indice(int notes_index) {
     notes_index = (notes_index + 8) % 56;
     return notes_index;
@@ -151,7 +147,6 @@ void wait(joystick_data joystick_data){
 
     return;
 }
-
 
 void increment_led_matriz_cursor(){
 
@@ -574,8 +569,6 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
 
 }
 
-
-
 int play_levels(){
 
     cursor.position_x = 72; 
@@ -617,13 +610,9 @@ int play_levels(){
     hit_counter = 0;
     sortear = true;
     draw_counter = 0;
-    printf("level: %d\n", level);
-
     bool load_initial_led_matrix = true;
     int n_leds_to_light;
-    int n_leds_to_light_currenty_time;
-
-    
+    int n_leds_to_light_currenty_time;  
   
     while (screen == 2){
 
@@ -675,7 +664,6 @@ int play_levels(){
             play_note(BUZZER_RIGHT_1, secret_note, base_volume_level*volume_level, time_note_duration_ms );
 
             draw_counter++;
-            printf("draw_counter %d\n", draw_counter);
             sortear = false;
 
         }
@@ -1422,7 +1410,6 @@ int play_levels(){
         else if( joystick_data.velocity_y<0 && (cursor.position_y>=40 && cursor.position_y <=47) && (cursor.position_x >= 80 && cursor.position_x <=87 ) )
         {           
 
-
             while (joystick_data.velocity_y<0){
 
 
@@ -1550,7 +1537,6 @@ int play_levels(){
 
                 hit_counter += 1;
                 load_initial_led_matrix =  (( hit_counter+error_counter) % NUMERO_LEDS ) == 0;
-                printf("hit_counter+error_counter: %d\n", hit_counter+error_counter);
 
                 int position;
                 position = getIndex(colum_index, line_index);            
@@ -1598,9 +1584,7 @@ int play_levels(){
                 }
                 else{ //hit_counter > maximum_correct_note_number
 
-                    level++;
-                    printf("level: %d\n", level);
-                    
+                    level++;                   
 
                     if(level <= maximum_levels){ //passou de level (nível)
                         error_counter = 0;
@@ -1652,7 +1636,6 @@ int play_levels(){
                 
                 error_counter++;
                 load_initial_led_matrix =  (( hit_counter+error_counter) % NUMERO_LEDS ) == 0;
-                printf("hit_counter+error_counter: %d\n", hit_counter+error_counter);
 
                 int position;
                 position = getIndex(colum_index, line_index);            
@@ -1663,9 +1646,6 @@ int play_levels(){
                 npSetLED(position, 0, 0, 2);
 
                 npWrite();
-
-
-
 
                 char string_error =  '0' + error_counter;
 
@@ -1710,15 +1690,9 @@ int play_levels(){
 
             load_initial_led_matrix = false;
 
-        }
-
-
-       
-        
-       
+        }       
 
     }
-
 
     return 2 ;
 }

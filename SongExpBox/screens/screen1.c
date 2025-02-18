@@ -9,7 +9,7 @@
 #include "../peripherals/MATRIZ_RGB/matriz_rgb.h"
 
 #define LIMITE_INFERIOR_Y 23
-#define LIMITE_SUPERIOR_Y 39
+#define LIMITE_SUPERIOR_Y 31
 #define BASE_TIME_MS 200
 
 extern int screen;
@@ -42,7 +42,7 @@ void screen1(){
         "",
         " TREINAR OUVIDO",
         " COMPARAR NOTAS",
-        " TOCAR MUSICA",
+        "",
     };
 
     int y = 0;
