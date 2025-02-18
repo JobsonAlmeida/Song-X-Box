@@ -68,7 +68,6 @@ void screen1(){
         stored_character[i] = ssd[fb_idx++] ;
     }
 
-
     //setando o cursor no framebuffer ssd
     ssd1306_draw_char(ssd, cursor.position_x , cursor.position_y, '>');
 
@@ -82,8 +81,6 @@ void screen1(){
     while (screen == 1){
 
         joystick_data joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
-
-        // printf("joystick_data.velocity_x %d - joystick_data.velocit_y: %d\n", joystick_data.velocity_x, joystick_data.velocity_y);
         
         if(joystick_data.velocity_y==0){
 
@@ -104,8 +101,6 @@ void screen1(){
     
                 //avançando um página para biaxo no display
                 cursor.position_y +=8;
-                printf("cursor position_y: %d\n", cursor.position_y);
-
     
                 //transferindo os bytes referentes ao caracter armazenados em framebuffer ssd para stored_character
                 //framebuffer ssd na posição pagina+1 --> stored_character
@@ -128,7 +123,6 @@ void screen1(){
                 if(cursor.position_y > LIMITE_INFERIOR_Y+7)
                 {
     
-    
                     //transferindo os bytes referentes ao caracter armazenados em stored_character para o framebuffer ssd 
                     // stored_character --> framebuffer ssd na posicão i 
                     fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
@@ -140,9 +134,6 @@ void screen1(){
                     //avançando um página para biaxo no display
                     cursor.position_y -=8;
 
-                    printf("cursor position_y: %d\n", cursor.position_y);
-
-        
                     //transferindo os bytes referentes ao caracter armazenados em framebuffer ssd para stored_character
                     //framebuffer ssd na posição pagina+1 --> stored_character
                     fb_idx = (cursor.position_y/8) * 128 + cursor.position_x;
@@ -156,9 +147,6 @@ void screen1(){
         
                     //mostrando o framebuffer ssd no display
                     render_on_display(ssd, &frame_area);
-
-
-
             }
         }
 
