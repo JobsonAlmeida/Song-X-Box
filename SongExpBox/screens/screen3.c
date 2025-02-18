@@ -7,11 +7,19 @@
 #include "../peripherals/ADC_DMA/ADC_DMA_functions.h"
 #include "screens.h"
 #include "pico/rand.h"
+#include "../sound/sound.h"
 
 
 #define BASE_TIME_MS 250.000
 
 extern int screen;
+bool play_left_note;
+bool play_right_note;
+
+extern float base_volume_level; 
+extern float volume_level;
+extern float time_note_duration_ms;
+
 extern uint16_t x_axis_buffer[];
 extern uint16_t y_axis_buffer[];
 
@@ -117,6 +125,43 @@ int decrement_octaves_index_left(int octaves_index) {
     return octaves_index;
 }
 
+
+// Adquire os pixels para um caractere (de acordo com ssd1306_font.h)
+inline int get_note_character(int line)
+{   
+
+    char character;
+
+    switch (line)
+    {
+    case 0:
+        character = 'A';
+        break;
+    case 1:
+        character = 'B';
+        break;
+    case 2:
+        character = 'C';
+        break;
+    case 3:
+        character = 'D';
+        break;
+    case 4:
+        character = 'E';
+        break;
+    case 5:
+        character = 'F';
+        break;
+    case 6:
+        character = 'G';
+        break;
+
+    default:
+        break;
+    }
+   
+    return character;
+}
 
 
 
@@ -640,6 +685,43 @@ int compare_notes(){
 
             }
         }
+
+
+        if(play_right_note){
+
+            char note_character;
+            int count;
+
+            //pegando a letra da nota
+            for(int line=0; line<7; line++){
+
+                int fb_idx = 5* 128 + 72;
+                int count = 0;
+                for (int i = 0; i < 8; i++) {
+                    if (ssd[fb_idx++] == notes[line * 8 + i]) {
+                        count++;
+                    }    
+                }
+
+                if(count==8){
+                    note_character = get_note_character(line);
+                    printf("line: %d", line);
+                    break;
+                }   
+
+            }
+
+        
+            printf("\nnote_character: %c\n", note_character);
+            
+            // strcpy(secret_note, note );
+            // play_note(BUZZER_RIGHT_1, secret_note, base_volume_level*volume_level, time_note_duration_ms );
+
+            play_right_note = false;
+
+        }
+
+
 
     }
 

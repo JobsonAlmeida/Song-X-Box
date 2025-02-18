@@ -17,16 +17,14 @@ extern int initial_page;
 extern cursor_data cursor;
 
 extern bool play_secret_note;
-
+extern bool play_left_note;
+extern bool play_right_note;
 
 bool allow_action_edge_fall_button_B = true;
 bool allow_acion_edge_rise_button_B = true;
 
-
-
 int64_t allow_pressure(alarm_id_t id, void *user_data) {
 
-    printf("entrou callback\n");
     allow_action_edge_fall_button_B = true;
     allow_acion_edge_rise_button_B = true;
     
@@ -60,12 +58,18 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
             else if(screen == 2 && cursor.position_x >= 32 && cursor.position_x <=39) {
                 play_secret_note = true;
             }
-
-            
+            else if(screen == 3 && cursor.position_x >= 24 && cursor.position_x <=47) {
+                play_left_note = true;
+            }
+            else if(screen == 3 && cursor.position_x >= 72 && cursor.position_x <=95) {
+                printf("Entrou right\n");
+                play_right_note = true;
+            }
 
             allow_action_edge_fall_button_B = false;
 
         }
+
         if ( (events & GPIO_IRQ_EDGE_RISE) && allow_acion_edge_rise_button_B) {
 
             allow_acion_edge_rise_button_B = false;            
