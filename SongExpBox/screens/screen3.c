@@ -164,7 +164,70 @@ inline int get_note_character(int line)
 }
 
 
+inline int get_accident_character(int line)
+{   
 
+    char character;
+
+    switch (line)
+    {
+    case 0:
+        character = '-';
+        break;
+    case 1:
+        character = '#';
+        break;
+    case 2:
+        character = 'b';
+        break;
+    default:
+        break;
+    }
+   
+    return character;
+}
+
+
+inline int get_octave_character(int line)
+{   
+
+    char character;
+
+    switch (line)
+    {
+    case 0:
+        character = '0';
+        break;
+    case 1:
+        character = '1';
+        break;
+    case 2:
+        character = '2';
+        break;
+    case 3:
+        character = '3';
+        break;
+    case 4:
+        character = '4';
+        break;
+    case 5:
+        character = '5';
+        break;
+    case 6:
+        character = '6';
+        break;
+    case 7:
+        character = '7';
+        break;
+    case 8:
+        character = '8';
+        break;
+    default:
+        break;
+    }
+   
+    return character;
+}
 
 
 
@@ -255,6 +318,11 @@ int compare_notes(){
 
     int level = 1 ;
     bool sortear = true;
+
+    char note_character;
+    char accident_character;
+    char octave_character;
+    int count;
 
     while (screen == 3){
 
@@ -689,9 +757,6 @@ int compare_notes(){
 
         if(play_right_note){
 
-            char note_character;
-            int count;
-
             //pegando a letra da nota
             for(int line=0; line<7; line++){
 
@@ -711,8 +776,30 @@ int compare_notes(){
 
             }
 
+
+
+            //pegando o acidente da nota
+            for(int line=0; line<3; line++){
+
+                int fb_idx = 5* 128 + 80;
+                int count = 0;
+                for (int i = 0; i < 8; i++) {
+                    if (ssd[fb_idx++] == accidentals[line * 8 + i]) {
+                        count++;
+                    }    
+                }
+
+                if(count==8){
+                    accident_character = get_accident_character(line);
+                    printf("line: %d", line);
+                    break;
+                }   
+
+            }
+
         
             printf("\nnote_character: %c\n", note_character);
+            printf("\naccident_character: %c\n", accident_character);
             
             // strcpy(secret_note, note );
             // play_note(BUZZER_RIGHT_1, secret_note, base_volume_level*volume_level, time_note_duration_ms );
