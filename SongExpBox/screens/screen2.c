@@ -16,6 +16,8 @@
 
 #define BASE_TIME_MS 250.000
 
+#define TIME_FOR_MATRIX_CURSOR_TO_BLINK_MS 2000
+
 extern int screen;
 bool check = false;
 
@@ -31,6 +33,11 @@ extern uint16_t y_axis_buffer[];
 extern cursor_data cursor;
 
 bool play_secret_note = false;
+bool change_matriz_cursor = true;
+
+int colum_index = 0, line_index = 0;
+
+
 typedef struct  {
     char note_name;
     char accident;
@@ -143,6 +150,20 @@ void wait(joystick_data joystick_data){
     sleep_ms( (time_divider==0) ? BASE_TIME_MS : (BASE_TIME_MS/(float) time_divider) );
 
     return;
+}
+
+
+void increment_led_matriz_cursor(){
+
+    colum_index +=1;
+    
+    if(colum_index%5 == 0){
+
+        line_index +=1;
+        colum_index = 0;
+    }
+
+
 }
 
 musical_note sortear_nota(char note_names[], int note_size, unsigned char accidents[], int acc_size, unsigned char octaves[], int oct_size) {
@@ -546,6 +567,8 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
 
 }
 
+
+
 int play_levels(){
 
     cursor.position_x = 72; 
@@ -592,7 +615,9 @@ int play_levels(){
     bool load_initial_led_matrix = true;
     int n_leds_to_light;
     int n_leds_to_light_currenty_time;
+
     
+  
     while (screen == 2){
 
         if(level == 1 && sortear ) {
@@ -622,6 +647,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);             
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+                
                 initial_page++;            
             }
 
@@ -671,6 +699,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -720,6 +751,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -768,6 +802,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -817,6 +854,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++; 
            
             }
@@ -865,6 +905,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -914,6 +957,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -963,6 +1009,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -1012,6 +1061,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -1062,6 +1114,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -1112,6 +1167,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -1161,6 +1219,9 @@ int play_levels(){
                 maximum_error_counter = atoi(first_page_parameters.maximum_incorrect_note_number);
 
                 load_initial_led_matrix = true;
+                line_index = 0;
+                colum_index =0;
+
                 initial_page++;            
             }
 
@@ -1484,6 +1545,17 @@ int play_levels(){
                 load_initial_led_matrix =  (( hit_counter+error_counter) % NUMERO_LEDS ) == 0;
                 printf("hit_counter+error_counter: %d\n", hit_counter+error_counter);
 
+                int position;
+                position = getIndex(colum_index, line_index);            
+                npSetLED(position, 0, 2, 0);
+
+                increment_led_matriz_cursor();
+                position = getIndex(colum_index, line_index);            
+                npSetLED(position, 2, 2, 2);
+
+                npWrite();
+
+
                 char string_hit_counter[3];
                 char string_message[17];
 
@@ -1575,6 +1647,17 @@ int play_levels(){
                 load_initial_led_matrix =  (( hit_counter+error_counter) % NUMERO_LEDS ) == 0;
                 printf("hit_counter+error_counter: %d\n", hit_counter+error_counter);
 
+                int position;
+                position = getIndex(colum_index, line_index);            
+                npSetLED(position, 2, 0, 0);
+
+                increment_led_matriz_cursor();
+                position = getIndex(colum_index, line_index);            
+                npSetLED(position, 2, 2, 2);
+
+                npWrite();
+
+
 
 
                 char string_error =  '0' + error_counter;
@@ -1662,13 +1745,54 @@ int play_levels(){
                 }
             };
 
+
+            int posicao = getIndex(0, 0);            
+            npSetLED(posicao, 2, 2, 2);
             npWrite();
 
             load_initial_led_matrix = false;
 
         }
 
+
+       
+        
+        // if (change_matriz_cursor){
+
+        //     printf("Entrou na change_matriz_cursor\n ");
+
+        //     int posicao = getIndex(0, 0);
+        //     npSetLED(posicao, 2, 2, 2);
+
+        //     npWrite();
+
+
+        //     change_matriz_cursor = false;
+        // }
+
+        //  if(change_cursor_value){
+
+
+        //     printf("change_cursor_value: %d\n", change_cursor_value);
+
+        // //     static int value = 0;
+        // //     int posicao = getIndex(0, 0);
+
+        // //     if (value==2) {
+        // //         value-=2;
+        // //         npSetLED(posicao, 0, 0, value);   
+        // //     }
+        // //     else{
+        // //         value+=2;
+        // //         npSetLED(posicao, 0, 0, value);  
+        // //     }
+           
+        // //     npWrite();  
+        //      change_cursor_value = false;
+        // }
+
     }
+
 
     return 2 ;
 }
