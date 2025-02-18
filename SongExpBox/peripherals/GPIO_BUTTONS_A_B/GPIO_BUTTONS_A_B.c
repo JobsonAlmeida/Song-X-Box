@@ -62,7 +62,6 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
                 play_left_note = true;
             }
             else if(screen == 3 && cursor.position_x >= 72 && cursor.position_x <=95) {
-                printf("Entrou right\n");
                 play_right_note = true;
             }
 

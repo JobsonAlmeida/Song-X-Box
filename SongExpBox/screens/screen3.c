@@ -36,33 +36,6 @@ typedef struct  {
 
 extern void wait(joystick_data joystick_data);
 
-
-// musical_note sortear_nota(char note_names[], int note_size, char accidents[], int acc_size, int octaves[], int oct_size) {
-
-//     musical_note drawn_musical_note;
-//     int index;
-//     int minimum = 0;
-//     int maximum;
-
-//     // Sorteia a nota musical
-//     maximum = note_size - 1;
-//     index = minimum +  get_rand_32()% (maximum - minimum + 1);
-//     drawn_musical_note.note_name = note_names[index];
-
-//     // Sorteia o acidente musical
-//     maximum = acc_size - 1;
-//     index = minimum + get_rand_32() % (maximum - minimum + 1);
-//     drawn_musical_note.accident = accidents[index];
-
-//     // Sorteia a oitava
-//     maximum = oct_size - 1;
-//     index = minimum + get_rand_32() % (maximum - minimum + 1);
-//     drawn_musical_note.octave = octaves[index];
-
-//     return drawn_musical_note;
-
-// }
-
 int increment_notes_indice_right(int notes_index) {
     notes_index = (notes_index + 8) % 56;
     return notes_index;
@@ -339,25 +312,11 @@ int compare_notes(){
             int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
             int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
 
-            // musical_note drawn_note = sortear_nota(note_names, note_names_size, accidents, accidents_size, octaves, octaves_size);
             sortear = false;
-            // printf("drawn_note.note = %c - drawn_note.accident = %c - drawn_note.octave = %d\n", drawn_note.note_name, drawn_note.accident, drawn_note.octave);
 
         };
-        // else if (fase == 2) fase2();
-        // else if (fase == 3) fase3();
-        // else if (fase == 4) fase4();
-        // else if (fase == 5) fase5();
-        // else if (fase == 6) fase6();
-        // else if (fase == 7) fase7();
-        // else if (fase == 8) fase8();
-        // else if (fase == 9) fase9();
-        // else                fase10();
-
+     
         joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
-
-        // printf("joystick_data.velocity_x = %d - joystick_data.velocity_y = %d  \n", joystick_data.velocity_x, joystick_data.velocity_y);
-
 
         if(joystick_data.velocity_x==0){
 
@@ -477,8 +436,6 @@ int compare_notes(){
 
             while (joystick_data.velocity_y<0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
-
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 notes_index_right = decrement_notes_indice_right(notes_index_right);
@@ -499,8 +456,6 @@ int compare_notes(){
         {      
             
             while (joystick_data.velocity_y>0){
-
-                printf("Entrou!\n");
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
@@ -524,12 +479,9 @@ int compare_notes(){
 
             while (joystick_data.velocity_y<0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
-
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 accidentals_index_right = decrement_accidentals_index_right(accidentals_index_right);
-                printf("accidentals_index: %d\n", accidentals_index_right);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = accidentals[accidentals_index_right + i];
@@ -548,12 +500,9 @@ int compare_notes(){
 
             while (joystick_data.velocity_y>0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
-
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 accidentals_index_right = increment_accidentals_index_right(accidentals_index_right);
-                printf("accidentals_index: %d\n", accidentals_index_right);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = accidentals[accidentals_index_right + i];
@@ -572,12 +521,9 @@ int compare_notes(){
 
             while (joystick_data.velocity_y<0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
-
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 octaves_index_right = decrement_octaves_index_right(octaves_index_right);
-                printf("octaves_index: %d\n", octaves_index_right);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = octaves[octaves_index_right + i];
@@ -596,12 +542,9 @@ int compare_notes(){
 
             while (joystick_data.velocity_y>0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
-
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 octaves_index_right = increment_octaves_index_right(octaves_index_right);
-                printf("octaves_index: %d\n", octaves_index_right);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = octaves[octaves_index_right + i];
@@ -621,7 +564,6 @@ int compare_notes(){
 
             while (joystick_data.velocity_y<0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
@@ -643,8 +585,6 @@ int compare_notes(){
         {      
             
             while (joystick_data.velocity_y>0){
-
-                printf("Entrou!\n");
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
@@ -668,12 +608,10 @@ int compare_notes(){
 
             while (joystick_data.velocity_y<0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 accidentals_index_left = decrement_accidentals_index_left(accidentals_index_left);
-                printf("accidentals_index: %d\n", accidentals_index_left);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = accidentals[accidentals_index_left + i];
@@ -692,12 +630,10 @@ int compare_notes(){
 
             while (joystick_data.velocity_y>0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
                 accidentals_index_left = increment_accidentals_index_left(accidentals_index_left);
-                printf("accidentals_index: %d\n", accidentals_index_left);
                 
                 for (int i = 0; i < 8; i++) {
                     ssd[fb_idx++] = accidentals[accidentals_index_left + i];
@@ -715,8 +651,6 @@ int compare_notes(){
         {           
 
             while (joystick_data.velocity_y<0){
-
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
@@ -739,7 +673,6 @@ int compare_notes(){
 
             while (joystick_data.velocity_y>0){
 
-                printf("cursor.position_x = %d - cursor.position_y = %d \n", cursor.position_x, cursor.position_y);
 
                 fb_idx = (cursor.position_y/8) * 128 + cursor.position_x; 
 
@@ -773,13 +706,10 @@ int compare_notes(){
 
                 if(count==8){
                     note_character = get_note_character(line);
-                    printf("line: %d", line);
                     break;
                 }   
 
             }
-
-
 
             //pegando o acidente da nota
             for(int line=0; line<3; line++){
@@ -794,7 +724,6 @@ int compare_notes(){
 
                 if(count==8){
                     accident_character = get_accident_character(line);
-                    printf("line: %d", line);
                     break;
                 }   
 
@@ -814,7 +743,6 @@ int compare_notes(){
 
                 if(count==8){
                     octave_character = get_octave_character(line);
-                    printf("line: %d", line);
                     break;
                 }   
 
@@ -850,8 +778,6 @@ int compare_notes(){
 
             }
 
-
-
             //pegando o acidente da nota
             for(int line=0; line<3; line++){
 
@@ -870,7 +796,6 @@ int compare_notes(){
 
             }
 
-
             //pegando o a oitava da nota
             for(int line=0; line<9; line++){
 
@@ -884,21 +809,18 @@ int compare_notes(){
 
                 if(count==8){
                     octave_character = get_octave_character(line);
-                    printf("line: %d", line);
                     break;
                 }   
 
             }
         
             sprintf(left_note, "%c%c%c", note_character, accident_character, octave_character);
-            printf("left note - note_character: %c accident_character: %c octave_character: %c\n", note_character , accident_character, octave_character);
+            printf(" left note - note_character: %c accident_character: %c octave_character: %c\n", note_character , accident_character, octave_character);
             play_note(BUZZER_RIGHT_1, left_note, base_volume_level*volume_level, time_note_duration_ms );
 
             play_left_note = false;
 
         }
-
-
 
     }
 
@@ -909,13 +831,6 @@ void screen3()
 {
 
     bool final_result = compare_notes();
-
-    if(final_result){
-
-    }
-    else{
-
-    }
 
     return;
 }
