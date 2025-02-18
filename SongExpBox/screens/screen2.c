@@ -159,11 +159,18 @@ void increment_led_matriz_cursor(){
     
     if(colum_index%5 == 0){
 
-        line_index +=1;
-        colum_index = 0;
+        if( (line_index+1)%5 == 0 ){
+            line_index = 0;
+            colum_index = 0;
+        }
+        else{
+            line_index +=1;
+            colum_index = 0;
+        }
+
     }
 
-
+    return;
 }
 
 musical_note sortear_nota(char note_names[], int note_size, unsigned char accidents[], int acc_size, unsigned char octaves[], int oct_size) {
@@ -225,7 +232,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "02"); // numero máximo de notas a ser acertadas com 2 ALGARIMOS
+        strcpy(page.maximum_correct_note_number, "25"); // numero máximo de notas a ser acertadas com 2 ALGARIMOS
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "2"); //numero máximo de erros permitidos com 1 ALGARIMOS
 
@@ -1551,7 +1558,7 @@ int play_levels(){
 
                 increment_led_matriz_cursor();
                 position = getIndex(colum_index, line_index);            
-                npSetLED(position, 2, 2, 2);
+                npSetLED(position, 0, 0, 2);
 
                 npWrite();
 
@@ -1653,7 +1660,7 @@ int play_levels(){
 
                 increment_led_matriz_cursor();
                 position = getIndex(colum_index, line_index);            
-                npSetLED(position, 2, 2, 2);
+                npSetLED(position, 0, 0, 2);
 
                 npWrite();
 
@@ -1691,105 +1698,17 @@ int play_levels(){
             play_secret_note = false;
 
         }
-    
-
-        
+     
         if(load_initial_led_matrix){
 
-            printf("ENTROU NO IF!!!!! \n");
-
-            
-
-            int diferenca = (maximum_correct_note_number + maximum_error_counter)-(hit_counter+error_counter);
-            printf("maximum_correct_note_number: %d", maximum_correct_note_number);
-            printf("maximum_error_counter: %d", maximum_error_counter );
-            printf("diferenca %d",diferenca );
-
-            if (  diferenca > NUMERO_LEDS  ) { n_leds_to_light_currenty_time = NUMERO_LEDS;}
-            else { n_leds_to_light_currenty_time = diferenca; }
-
-            printf("n_leds_to_light_currenty_time: %d\n", n_leds_to_light_currenty_time);
-
-            int count = n_leds_to_light_currenty_time;
-
-
-            int matriz_currenty_time[5][5][3] =  {0};
-            npClear();
-
-            for(int i = 0; i<5 && count>0; i++){
-                for(int j=0; j<5 && count>0;j++){
-                    for(int k=0; k<3; k++){
-                        if(k==2) {
-                            matriz_currenty_time[i][j][k] = 2;
-                            count--;
-                        }
-                    }
-                }
-            }
-
-            //imprimindo a matriz:
-            for(int i = 0; i<5; i++){
-                for(int j=0; j<5;j++){
-                    for(int k=0; k<3; k++){
-                        printf("%d ", matriz_currenty_time[i][j][k]);
-                    }
-                }
-        
-                printf("\n");
-            }
-
-            for(int linha = 0; linha < 5; linha++){
-                for(int coluna = 0; coluna < 5; coluna++){
-                    int posicao = getIndex(linha, coluna);
-                    npSetLED(posicao, matriz_currenty_time[coluna][linha][0], matriz_currenty_time[coluna][linha][1], matriz_currenty_time[coluna][linha][2]);
-                }
-            };
-
-
+            npClear();      
             int posicao = getIndex(0, 0);            
-            npSetLED(posicao, 2, 2, 2);
+            npSetLED(posicao, 0, 0, 2);
             npWrite();
 
             load_initial_led_matrix = false;
 
-        }
-
-
-       
-        
-        // if (change_matriz_cursor){
-
-        //     printf("Entrou na change_matriz_cursor\n ");
-
-        //     int posicao = getIndex(0, 0);
-        //     npSetLED(posicao, 2, 2, 2);
-
-        //     npWrite();
-
-
-        //     change_matriz_cursor = false;
-        // }
-
-        //  if(change_cursor_value){
-
-
-        //     printf("change_cursor_value: %d\n", change_cursor_value);
-
-        // //     static int value = 0;
-        // //     int posicao = getIndex(0, 0);
-
-        // //     if (value==2) {
-        // //         value-=2;
-        // //         npSetLED(posicao, 0, 0, value);   
-        // //     }
-        // //     else{
-        // //         value+=2;
-        // //         npSetLED(posicao, 0, 0, value);  
-        // //     }
-           
-        // //     npWrite();  
-        //      change_cursor_value = false;
-        // }
+        } 
 
     }
 
