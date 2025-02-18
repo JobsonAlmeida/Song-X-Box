@@ -42,6 +42,7 @@ add_executable(SongExpBox
                screens/screen0.c
                screens/screen1.c
                screens/screen2.c
+               screens/screen3.c
                peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c
                sound/sound.c
                peripherals/MATRIZ_RGB/matriz_rgb.c

@@ -51,12 +51,17 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
             if(screen == 1 && cursor.position_y == 23){
                 screen = 2;
             }
+            else if(screen == 1 && cursor.position_y == 31){
+                screen = 3;
+            }
             else if(screen == 2 && cursor.position_x >= 72 &&  cursor.position_x <= 95){            
                 check = true;
             } 
             else if(screen == 2 && cursor.position_x >= 32 && cursor.position_x <=39) {
                 play_secret_note = true;
             }
+
+            
 
             allow_action_edge_fall_button_B = false;
 

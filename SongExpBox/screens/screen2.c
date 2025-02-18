@@ -1698,7 +1698,9 @@ int play_levels(){
             play_secret_note = false;
 
         }
-     
+    
+
+        
         if(load_initial_led_matrix){
 
             npClear();      
@@ -1708,7 +1710,12 @@ int play_levels(){
 
             load_initial_led_matrix = false;
 
-        } 
+        }
+
+
+       
+        
+       
 
     }
 
