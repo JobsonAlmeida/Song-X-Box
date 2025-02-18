@@ -324,6 +324,8 @@ int compare_notes(){
     char octave_character;
     int count;
     char right_note[4];
+    char left_note[4];
+
 
     while (screen == 3){
 
@@ -818,22 +820,81 @@ int compare_notes(){
 
             }
         
-            printf("\nnote_character: %c\n", note_character);
-            printf("accident_character: %c\n", accident_character);
-            printf("octave_character: %c\n", octave_character);
-
-
             sprintf(right_note, "%c%c%c", note_character, accident_character, octave_character);
-
-            // memset(right_note, 0, sizeof(right_note));
-            // strcat(right_note, note_character);
-            // strcat(right_note, accident_character);
-            // strcat(right_note, octave_character);
-
-            // strcpy(secret_note, note );
+            printf("right note - note_character: %c accident_character: %c octave_character: %c\n", note_character , accident_character, octave_character);
             play_note(BUZZER_RIGHT_1, right_note, base_volume_level*volume_level, time_note_duration_ms );
 
             play_right_note = false;
+
+        }
+
+
+        
+        if(play_left_note){
+
+            //pegando a letra da nota
+            for(int line=0; line<7; line++){
+
+                int fb_idx = 5* 128 + 24;
+                int count = 0;
+                for (int i = 0; i < 8; i++) {
+                    if (ssd[fb_idx++] == notes[line * 8 + i]) {
+                        count++;
+                    }    
+                }
+
+                if(count==8){
+                    note_character = get_note_character(line);
+                    break;
+                }   
+
+            }
+
+
+
+            //pegando o acidente da nota
+            for(int line=0; line<3; line++){
+
+                int fb_idx = 5* 128 + 32;
+                int count = 0;
+                for (int i = 0; i < 8; i++) {
+                    if (ssd[fb_idx++] == accidentals[line * 8 + i]) {
+                        count++;
+                    }    
+                }
+
+                if(count==8){
+                    accident_character = get_accident_character(line);
+                    break;
+                }   
+
+            }
+
+
+            //pegando o a oitava da nota
+            for(int line=0; line<9; line++){
+
+                int fb_idx = 5* 128 + 40;
+                int count = 0;
+                for (int i = 0; i < 8; i++) {
+                    if (ssd[fb_idx++] == octaves[line * 8 + i]) {
+                        count++;
+                    }    
+                }
+
+                if(count==8){
+                    octave_character = get_octave_character(line);
+                    printf("line: %d", line);
+                    break;
+                }   
+
+            }
+        
+            sprintf(left_note, "%c%c%c", note_character, accident_character, octave_character);
+            printf("left note - note_character: %c accident_character: %c octave_character: %c\n", note_character , accident_character, octave_character);
+            play_note(BUZZER_RIGHT_1, left_note, base_volume_level*volume_level, time_note_duration_ms );
+
+            play_left_note = false;
 
         }
 
