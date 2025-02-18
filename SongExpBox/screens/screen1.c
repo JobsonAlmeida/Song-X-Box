@@ -6,6 +6,8 @@
 
 #include <string.h>
 
+#include "../peripherals/MATRIZ_RGB/matriz_rgb.h"
+
 #define LIMITE_INFERIOR_Y 23
 #define LIMITE_SUPERIOR_Y 39
 #define BASE_TIME_MS 200
@@ -72,6 +74,10 @@ void screen1(){
 
     //mostrando o framebuffer ssd no display
     render_on_display(ssd, &frame_area);
+
+    //limpa matriz de led
+    npClear();
+    npWrite();
 
     while (screen == 1){
 
