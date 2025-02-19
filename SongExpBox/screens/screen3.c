@@ -195,6 +195,9 @@ inline int get_octave_character(int line)
     case 8:
         character = '8';
         break;
+    case 9:
+        character = '9';
+        break;
     default:
         break;
     }
@@ -731,7 +734,7 @@ int compare_notes(){
 
 
             //pegando o a oitava da nota
-            for(int line=0; line<9; line++){
+            for(int line=0; line<10; line++){
 
                 int fb_idx = 5* 128 + 88;
                 int count = 0;
@@ -797,7 +800,7 @@ int compare_notes(){
             }
 
             //pegando o a oitava da nota
-            for(int line=0; line<9; line++){
+            for(int line=0; line<10; line++){
 
                 int fb_idx = 5* 128 + 40;
                 int count = 0;
