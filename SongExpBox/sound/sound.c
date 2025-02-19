@@ -24,43 +24,164 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
     static Adjustment adjustment; 
 
-    if(note[2] == '0')
+    if(note[2] == '9')
     {
-
         if(note[0] == 'C'){
-                if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else                    {  }
+                if(note[1] == '-')  { adjustment.wrap = C_9_WRAP; adjustment.divider = C_9_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs9_Db9_WRAP; adjustment.divider = Cs9_Db9_DIVIDER; }
+            else                    { adjustment.wrap = Cb9_WRAP; adjustment.divider = Cb9_DIVIDER; }
         }
         else if(note[0] == 'D'){
-            if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else {}
+                 if(note[1] == '-') { adjustment.wrap = D_9_WRAP; adjustment.divider = D_9_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds9_Eb9_WRAP; adjustment.divider = Ds9_Eb9_DIVIDER; }
+            else                    { adjustment.wrap = Cs9_Db9_WRAP; adjustment.divider = Cs9_Db9_DIVIDER; }
         }
-        else if(note[0] == 'E'){
-            if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else {}
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_9_WRAP; adjustment.divider = E_9_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es9_WRAP; adjustment.divider = Es9_DIVIDER; }
+            else                    { adjustment.wrap = Ds9_Eb9_WRAP; adjustment.divider = Ds9_Eb9_DIVIDER; }
         }
         else if(note[0] == 'F'){
-            if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else {}
+            if(note[1] == '-')      { adjustment.wrap = F_9_WRAP; adjustment.divider = F_9_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs9_Gb9_WRAP; adjustment.divider = Fs9_Gb9_DIVIDER; }
+            else                    { adjustment.wrap = Fb9_WRAP; adjustment.divider = Fb9_DIVIDER; }
         }
         else if(note[0] == 'G'){
-            if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else {}
+            if(note[1] == '-')      { adjustment.wrap = G_9_WRAP; adjustment.divider = G_9_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs9_Ab9_WRAP; adjustment.divider = Gs9_Ab9_DIVIDER; }
+            else                    { adjustment.wrap = Fs9_Gb9_WRAP; adjustment.divider = Fs9_Gb9_DIVIDER; }
         }
         else if(note[0] == 'A'){
-                if(note[1] == '-') {  }
-            else if(note[1] == '#') {}
-            else {}
+                if(note[1] == '-') { adjustment.wrap = A_9_WRAP; adjustment.divider = A_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As9_Bb9_WRAP; adjustment.divider = As9_Bb9_DIVIDER; }
+            else                    { adjustment.wrap = Gs9_Ab9_WRAP; adjustment.divider = Gs9_Ab9_DIVIDER; }
         }
         else if(note[0] == 'B'){
-            if(note[1] == '-') {}
-            else if(note[1] == '#') {}
-            else {}
+            if(note[1] == '-')      { adjustment.wrap = B_9_WRAP; adjustment.divider = B_9_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs9_WRAP; adjustment.divider = Bs9_DIVIDER; }
+            else                    { adjustment.wrap = As9_Bb9_WRAP; adjustment.divider = As9_Bb9_DIVIDER; }
+        }
+
+    }    
+
+
+    else if(note[2] == '8')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_8_WRAP; adjustment.divider = C_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs8_Db8_WRAP; adjustment.divider = Cs8_Db8_DIVIDER; }
+            else                    { adjustment.wrap = Cb8_WRAP; adjustment.divider = Cb8_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_8_WRAP; adjustment.divider = D_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds8_Eb8_WRAP; adjustment.divider = Ds8_Eb8_DIVIDER; }
+            else                    { adjustment.wrap = Cs8_Db8_WRAP; adjustment.divider = Cs8_Db8_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_8_WRAP; adjustment.divider = E_8_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es8_WRAP; adjustment.divider = Es8_DIVIDER; }
+            else                    { adjustment.wrap = Ds8_Eb8_WRAP; adjustment.divider = Ds8_Eb8_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_8_WRAP; adjustment.divider = F_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs8_Gb8_WRAP; adjustment.divider = Fs8_Gb8_DIVIDER; }
+            else                    { adjustment.wrap = Fb8_WRAP; adjustment.divider = Fb8_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_8_WRAP; adjustment.divider = G_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs8_Ab8_WRAP; adjustment.divider = Gs8_Ab8_DIVIDER; }
+            else                    { adjustment.wrap = Fs8_Gb8_WRAP; adjustment.divider = Fs8_Gb8_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_8_WRAP; adjustment.divider = A_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As8_Bb8_WRAP; adjustment.divider = As8_Bb8_DIVIDER; }
+            else                    { adjustment.wrap = Gs8_Ab8_WRAP; adjustment.divider = Gs8_Ab8_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_8_WRAP; adjustment.divider = B_8_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs8_WRAP; adjustment.divider = Bs8_DIVIDER; }
+            else                    { adjustment.wrap = As8_Bb8_WRAP; adjustment.divider = As8_Bb8_DIVIDER; }
+        }
+
+    }    
+
+    else if(note[2] == '7')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_7_WRAP; adjustment.divider = C_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs7_Db7_WRAP; adjustment.divider = Cs7_Db7_DIVIDER; }
+            else                    { adjustment.wrap = Cb7_WRAP; adjustment.divider = Cb7_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_7_WRAP; adjustment.divider = D_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds7_Eb7_WRAP; adjustment.divider = Ds7_Eb7_DIVIDER; }
+            else                    { adjustment.wrap = Cs7_Db7_WRAP; adjustment.divider = Cs7_Db7_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_7_WRAP; adjustment.divider = E_7_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es7_WRAP; adjustment.divider = Es7_DIVIDER; }
+            else                    { adjustment.wrap = Ds7_Eb7_WRAP; adjustment.divider = Ds7_Eb7_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_7_WRAP; adjustment.divider = F_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs7_Gb7_WRAP; adjustment.divider = Fs7_Gb7_DIVIDER; }
+            else                    { adjustment.wrap = Fb7_WRAP; adjustment.divider = Fb7_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_7_WRAP; adjustment.divider = G_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs7_Ab7_WRAP; adjustment.divider = Gs7_Ab7_DIVIDER; }
+            else                    { adjustment.wrap = Fs7_Gb7_WRAP; adjustment.divider = Fs7_Gb7_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_7_WRAP; adjustment.divider = A_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As7_Bb7_WRAP; adjustment.divider = As7_Bb7_DIVIDER; }
+            else                    { adjustment.wrap = Gs7_Ab7_WRAP; adjustment.divider = Gs7_Ab7_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_7_WRAP; adjustment.divider = B_7_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs7_WRAP; adjustment.divider = Bs7_DIVIDER; }
+            else                    { adjustment.wrap = As7_Bb7_WRAP; adjustment.divider = As7_Bb7_DIVIDER; }
+        }
+
+    }    
+
+
+    else if(note[2] == '6')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_6_WRAP; adjustment.divider = C_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs6_Db6_WRAP; adjustment.divider = Cs6_Db6_DIVIDER; }
+            else                    { adjustment.wrap = Cb6_WRAP; adjustment.divider = Cb6_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_6_WRAP; adjustment.divider = D_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds6_Eb6_WRAP; adjustment.divider = Ds6_Eb6_DIVIDER; }
+            else                    { adjustment.wrap = Cs6_Db6_WRAP; adjustment.divider = Cs6_Db6_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_6_WRAP; adjustment.divider = E_6_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es6_WRAP; adjustment.divider = Es6_DIVIDER; }
+            else                    { adjustment.wrap = Ds6_Eb6_WRAP; adjustment.divider = Ds6_Eb6_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_6_WRAP; adjustment.divider = F_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs6_Gb6_WRAP; adjustment.divider = Fs6_Gb6_DIVIDER; }
+            else                    { adjustment.wrap = Fb6_WRAP; adjustment.divider = Fb6_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_6_WRAP; adjustment.divider = G_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs6_Ab6_WRAP; adjustment.divider = Gs6_Ab6_DIVIDER; }
+            else                    { adjustment.wrap = Fs6_Gb6_WRAP; adjustment.divider = Fs6_Gb6_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_6_WRAP; adjustment.divider = A_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As6_Bb6_WRAP; adjustment.divider = As6_Bb6_DIVIDER; }
+            else                    { adjustment.wrap = Gs6_Ab6_WRAP; adjustment.divider = Gs6_Ab6_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_6_WRAP; adjustment.divider = B_6_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs6_WRAP; adjustment.divider = Bs6_DIVIDER; }
+            else                    { adjustment.wrap = As6_Bb6_WRAP; adjustment.divider = As6_Bb6_DIVIDER; }
         }
 
     }    
@@ -146,7 +267,6 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
 
     }    
 
-
     else if(note[2] == '3')
     {
         if(note[0] == 'C'){
@@ -186,6 +306,128 @@ Adjustment get_divisor_wrap_from_note(char note[3]){
         }
 
     } 
+
+    else if(note[2] == '2')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_2_WRAP; adjustment.divider = C_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs2_Db2_WRAP; adjustment.divider = Cs2_Db2_DIVIDER; }
+            else                    { adjustment.wrap = Cb2_WRAP; adjustment.divider = Cb2_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_2_WRAP; adjustment.divider = D_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds2_Eb2_WRAP; adjustment.divider = Ds2_Eb2_DIVIDER; }
+            else                    { adjustment.wrap = Cs2_Db2_WRAP; adjustment.divider = Cs2_Db2_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_2_WRAP; adjustment.divider = E_2_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es2_WRAP; adjustment.divider = Es2_DIVIDER; }
+            else                    { adjustment.wrap = Ds2_Eb2_WRAP; adjustment.divider = Ds2_Eb2_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_2_WRAP; adjustment.divider = F_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs2_Gb2_WRAP; adjustment.divider = Fs2_Gb2_DIVIDER; }
+            else                    { adjustment.wrap = Fb2_WRAP; adjustment.divider = Fb2_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_2_WRAP; adjustment.divider = G_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs2_Ab2_WRAP; adjustment.divider = Gs2_Ab2_DIVIDER; }
+            else                    { adjustment.wrap = Fs2_Gb2_WRAP; adjustment.divider = Fs2_Gb2_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_2_WRAP; adjustment.divider = A_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As2_Bb2_WRAP; adjustment.divider = As2_Bb2_DIVIDER; }
+            else                    { adjustment.wrap = Gs2_Ab2_WRAP; adjustment.divider = Gs2_Ab2_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_2_WRAP; adjustment.divider = B_2_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs2_WRAP; adjustment.divider = Bs2_DIVIDER; }
+            else                    { adjustment.wrap = As2_Bb2_WRAP; adjustment.divider = As2_Bb2_DIVIDER; }
+        }
+
+    }  
+
+
+    else if(note[2] == '1')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_1_WRAP; adjustment.divider = C_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs1_Db1_WRAP; adjustment.divider = Cs1_Db1_DIVIDER; }
+            else                    { adjustment.wrap = Cb1_WRAP; adjustment.divider = Cb1_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_1_WRAP; adjustment.divider = D_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds1_Eb1_WRAP; adjustment.divider = Ds1_Eb1_DIVIDER; }
+            else                    { adjustment.wrap = Cs1_Db1_WRAP; adjustment.divider = Cs1_Db1_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_1_WRAP; adjustment.divider = E_1_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es1_WRAP; adjustment.divider = Es1_DIVIDER; }
+            else                    { adjustment.wrap = Ds1_Eb1_WRAP; adjustment.divider = Ds1_Eb1_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_1_WRAP; adjustment.divider = F_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs1_Gb1_WRAP; adjustment.divider = Fs1_Gb1_DIVIDER; }
+            else                    { adjustment.wrap = Fb1_WRAP; adjustment.divider = Fb1_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_1_WRAP; adjustment.divider = G_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs1_Ab1_WRAP; adjustment.divider = Gs1_Ab1_DIVIDER; }
+            else                    { adjustment.wrap = Fs1_Gb1_WRAP; adjustment.divider = Fs1_Gb1_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_1_WRAP; adjustment.divider = A_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As1_Bb1_WRAP; adjustment.divider = As1_Bb1_DIVIDER; }
+            else                    { adjustment.wrap = Gs1_Ab1_WRAP; adjustment.divider = Gs1_Ab1_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_1_WRAP; adjustment.divider = B_1_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs1_WRAP; adjustment.divider = Bs1_DIVIDER; }
+            else                    { adjustment.wrap = As1_Bb1_WRAP; adjustment.divider = As1_Bb1_DIVIDER; }
+        }
+
+    }  
+
+    else if(note[2] == '0')
+    {
+        if(note[0] == 'C'){
+                if(note[1] == '-')  { adjustment.wrap = C_0_WRAP; adjustment.divider = C_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Cs0_Db0_WRAP; adjustment.divider = Cs0_Db0_DIVIDER; }
+            else                    { adjustment.wrap = Cb0_WRAP; adjustment.divider = Cb0_DIVIDER; }
+        }
+        else if(note[0] == 'D'){
+                 if(note[1] == '-') { adjustment.wrap = D_0_WRAP; adjustment.divider = D_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Ds0_Eb0_WRAP; adjustment.divider = Ds0_Eb0_DIVIDER; }
+            else                    { adjustment.wrap = Cs0_Db0_WRAP; adjustment.divider = Cs0_Db0_DIVIDER; }
+        }
+        else if(note[0] == 'E') {
+            if(note[1] == '-')      { adjustment.wrap = E_0_WRAP; adjustment.divider = E_0_DIVIDER;}
+            else if(note[1] == '#') { adjustment.wrap = Es0_WRAP; adjustment.divider = Es0_DIVIDER; }
+            else                    { adjustment.wrap = Ds0_Eb0_WRAP; adjustment.divider = Ds0_Eb0_DIVIDER; }
+        }
+        else if(note[0] == 'F'){
+            if(note[1] == '-')      { adjustment.wrap = F_0_WRAP; adjustment.divider = F_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Fs0_Gb0_WRAP; adjustment.divider = Fs0_Gb0_DIVIDER; }
+            else                    { adjustment.wrap = Fb0_WRAP; adjustment.divider = Fb0_DIVIDER; }
+        }
+        else if(note[0] == 'G'){
+            if(note[1] == '-')      { adjustment.wrap = G_0_WRAP; adjustment.divider = G_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Gs0_Ab0_WRAP; adjustment.divider = Gs0_Ab0_DIVIDER; }
+            else                    { adjustment.wrap = Fs0_Gb0_WRAP; adjustment.divider = Fs0_Gb0_DIVIDER; }
+        }
+        else if(note[0] == 'A'){
+                if(note[1] == '-') { adjustment.wrap = A_0_WRAP; adjustment.divider = A_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = As0_Bb0_WRAP; adjustment.divider = As0_Bb0_DIVIDER; }
+            else                    { adjustment.wrap = Gs0_Ab0_WRAP; adjustment.divider = Gs0_Ab0_DIVIDER; }
+        }
+        else if(note[0] == 'B'){
+            if(note[1] == '-')      { adjustment.wrap = B_0_WRAP; adjustment.divider = B_0_DIVIDER; }
+            else if(note[1] == '#') { adjustment.wrap = Bs0_WRAP; adjustment.divider = Bs0_DIVIDER; }
+            else                    { adjustment.wrap = As0_Bb0_WRAP; adjustment.divider = As0_Bb0_DIVIDER; }
+        }
+
+    }  
+    
 
     //printf("adjustment.divider = %.3f - adjustment.wrap = %d \n", adjustment.divider , adjustment.wrap);
 

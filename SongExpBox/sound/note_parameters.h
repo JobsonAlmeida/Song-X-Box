@@ -133,18 +133,18 @@
 #define Bs8_DIVIDER C_9_DIVIDER
 
 // B_8
-#define B_8_FREQUENCY 7458.620	//Best Frequency Found: = 7458.6230
-#define B_8_WRAP 14896
+#define B_8_FREQUENCY 7902.133 //Best Frequency Found: = 7902.1401
+#define B_8_WRAP 14887
 #define B_8_INTEGER 1
-#define B_8_FRACTIONAL 2.0000
-#define B_8_DIVIDER 1.1250
+#define B_8_FRACTIONAL 1.0000
+#define B_8_DIVIDER 1.0625
 
 // As8 - Bb8
-#define As8_Bb8_FREQUENCY 
-#define As8_Bb8_WRAP 
-#define As8_Bb8_INTEGER 
-#define As8_Bb8_FRACTIONAL 
-#define As8_Bb8_DIVIDER  
+#define As8_Bb8_FREQUENCY 7458.620	//Best Frequency Found: = 7458.6230 
+#define As8_Bb8_WRAP 14896
+#define As8_Bb8_INTEGER 1
+#define As8_Bb8_FRACTIONAL 2.0000
+#define As8_Bb8_DIVIDER 1.1250 
 
 // A_8
 #define A_8_FREQUENCY 7040.000 //Best Frequency Found: = 7039.9976
@@ -235,7 +235,7 @@
 #define Cb8_WRAP B_7_WRAP
 #define Cb8_INTEGER B_7_INTEGER
 #define Cb8_FRACTIONAL B_7_FRACTIONAL
-#define Cb8_DIVIDER B_37_DIVIDER
+#define Cb8_DIVIDER B_7_DIVIDER
 
 //--------------------------------------------------------------------
 
