@@ -237,10 +237,10 @@ void screen0(){
     npWrite();
     sleep_ms(1000);
 
-
     npClear();
     npWrite();  
     sleep_ms(500);
+
 
     screen = 1;
 

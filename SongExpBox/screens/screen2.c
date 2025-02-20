@@ -212,7 +212,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
     //limpa o frame buffer
     memset(ssd, 0, ssd1306_buffer_length);
      
-    if (first_page == 1){
+    if (first_page == 1){ // Somente 4 oitava
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "-");
@@ -227,12 +227,12 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "25"); // numero máximo de notas a ser acertadas com 2 ALGARIMOS
+        strcpy(page.maximum_correct_note_number, "21"); //numero máximo de notas a ser acertadas com 2 ALGARIMOS
         strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "2"); //numero máximo de erros permitidos com 1 ALGARIMOS
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos com 1 ALGARIMOS
 
     }
-    else if(first_page == 2){
+    else if(first_page == 2){ // 4 oitava e #
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "#");
@@ -247,13 +247,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "42"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
         
 
     }
-    else if(first_page == 3){
+    else if(first_page == 3){ // 4 oitava, # e b
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "b");
@@ -268,13 +268,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "07"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "63"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
            
         
     }
-    else if(first_page == 4){
+    else if(first_page == 4){ //somente 5 oitava
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "-");
@@ -289,14 +289,14 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "05"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "21"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "2"); //numero máximo de erros permitidos
+        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
      
         
     }
-    else if(first_page == 5){
+    else if(first_page == 5){ //5 oitava e #
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "#");
@@ -311,14 +311,14 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "06"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "42"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
    
         
     }
-    else if(first_page == 6){
+    else if(first_page == 6){ // 5 oitava # e bemol
 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "b");
@@ -333,13 +333,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "63"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
         
     }
-    else if(first_page == 7){
+    else if(first_page == 7){ //somente 3 oitava
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "-");
         strcpy(page.initial_octave, "3");
@@ -353,14 +353,14 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "21"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
    
         
     }
-    else if(first_page == 8){
+    else if(first_page == 8){ //3 oitava e #
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "#");
         strcpy(page.initial_octave, "3");
@@ -374,13 +374,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "42"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
         
     }
-    else if(first_page == 9){
+    else if(first_page == 9){ //3 oitava # e bemol 
         strcpy(page.initial_note, "C");
         strcpy(page.initial_accident, "b");
         strcpy(page.initial_octave, "3");
@@ -394,13 +394,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "63"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
         strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
 
      
     }
-    else if(first_page == 10){
+    else if(first_page == 10){ // 4 e 5 oitava completa
 
         strcpy(page.initial_note, "A");
         strcpy(page.initial_accident, "-");
@@ -415,15 +415,15 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "90"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+        strcpy(page.maximum_incorrect_note_number, "7"); //numero máximo de erros permitidos
 
  
         
     }
 
-    else if(first_page == 11){
+    else if(first_page == 11){ // 3 e 5 oitava completa
 
         strcpy(page.initial_note, "A");
         strcpy(page.initial_accident, "#");
@@ -438,15 +438,15 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "90"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+        strcpy(page.maximum_incorrect_note_number, "7"); //numero máximo de erros permitidos
 
  
         
     }
 
-    else if(first_page == 11){
+    else if(first_page == 12){ // 3, 4 e 5 oitava completa
 
         strcpy(page.initial_note, "A");
         strcpy(page.initial_accident, "b");
@@ -461,33 +461,13 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         strcpy(page.maximum_levels, string_aux1);
 
         strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
+        strcpy(page.maximum_correct_note_number, "90"); // numero máximo de notas a ser acertadas
         strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
+        strcpy(page.maximum_incorrect_note_number, "7"); //numero máximo de erros permitidos
         
     }
 
-    else if(first_page == 12){
-
-        strcpy(page.initial_note, "A");
-        strcpy(page.initial_accident, "b");
-        strcpy(page.initial_octave, "4");
-
-        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
-        sprintf(string_aux1, "%02d", level);  // Formato com zero à esquerda        
-        strcpy(page.initial_level, string_aux1);
-
-        memset(string_aux1, 0, sizeof(string_aux1));  // Define todos os bytes como 0
-        sprintf(string_aux1, "%02d", maximum_levels);  // Formato com zero à esquerda        
-        strcpy(page.maximum_levels, string_aux1);
-
-        strcpy(page.initial_correct_note_number, "00");
-        strcpy(page.maximum_correct_note_number, "03"); // numero máximo de notas a ser acertadas
-        strcpy(page.initial_incorrect_note_number, "0");
-        strcpy(page.maximum_incorrect_note_number, "5"); //numero máximo de erros permitidos
-        
-    }
-   
+      
 
     //page 0 
     strcpy(string_aux1,  " QUAL E A NOTA? ");
@@ -1558,6 +1538,7 @@ int play_levels(){
                 ssd1306_draw_string(ssd, 0, 16, string_message);
                 ssd1306_draw_string(ssd, 48, 56, string_hit_counter);
 
+                
                 memset(string_message, 0, sizeof(string_message));  // Define todos os bytes como 0
                 snprintf(string_message, sizeof(string_message), "%s%c", string_message, drawn_note.note_name);
                 snprintf(string_message, sizeof(string_message), "%s%c", string_message, drawn_note.accident);
@@ -1575,7 +1556,8 @@ int play_levels(){
                 strcat(string_message, "]}]");
                 ssd1306_draw_string(ssd, 24, 40, string_message);
 
-                render_on_display(ssd, &frame_area);  
+                render_on_display(ssd, &frame_area); 
+            
 
                 if (hit_counter < maximum_correct_note_number) {
 
@@ -1601,7 +1583,7 @@ int play_levels(){
                         ssd1306_draw_string(ssd, 0, 40, "OUVIDO ABSOLUTO");                        
                         render_on_display(ssd, &frame_area);
 
-                        sleep_ms(5000);
+                        sleep_ms(15000);
 
                         level = 1;
                         error_counter = 0;
@@ -1624,7 +1606,7 @@ int play_levels(){
                     ssd1306_draw_string(ssd, 0, 24, "  VOCE PERDEU!  ");                        
                     render_on_display(ssd, &frame_area);
 
-                    sleep_ms(1500);
+                    sleep_ms(2000);
 
                     level = 1;
                     error_counter = 0;
