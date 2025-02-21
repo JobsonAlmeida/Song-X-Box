@@ -304,21 +304,7 @@ int compare_notes(){
 
 
     while (screen == 3){
-
-        if (level == 1 && sortear ) {
-
-            char note_names[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
-            u_char accidents[] = {'-', '#', 'b'};
-            int octaves[] = {4,5};
-
-            int note_names_size = sizeof(note_names) / sizeof(note_names[0]);
-            int accidents_size = sizeof(accidents) / sizeof(accidents[0]);
-            int octaves_size = sizeof(octaves) / sizeof(octaves[0]);
-
-            sortear = false;
-
-        };
-     
+    
         joystick_data = velocity_and_direction(x_axis_buffer, y_axis_buffer);
 
         if(joystick_data.velocity_x==0){

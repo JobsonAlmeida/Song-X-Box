@@ -45,9 +45,7 @@ add_executable(SongExpBox
                screens/screen3.c
                peripherals/GPIO_BUTTONS_A_B/GPIO_BUTTONS_A_B.c
                sound/sound.c
-               peripherals/MATRIZ_RGB/matriz_rgb.c
-               ########## Passo 2 ########## sources/play_note.c
-               
+               peripherals/MATRIZ_RGB/matriz_rgb.c              
 )
 
 pico_set_program_name(SongExpBox "SongExpBox")

@@ -10,7 +10,7 @@ int best_inteiro = 0;
 float best_frac = 0;
 float best_fpwm = 0;
 
-int  wrap_limit = 0;
+int  wrap_limit = 65535;
 
 void calcular(){
 

@@ -5,8 +5,7 @@
 #include "hardware/timer.h"
 #include "../../screens/screens.h"
 
-#define TIME_FOR_NEXT_PRESSURE 2000
-
+#define TIME_FOR_NEXT_PRESSURE 1000
 
 extern int screen;
 extern bool check;

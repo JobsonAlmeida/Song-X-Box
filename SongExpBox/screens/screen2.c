@@ -25,7 +25,7 @@ int maximum_levels = 12 ;
 int level = 1 ;
 
 float base_volume_level = 0.3; 
-float volume_level = 0.01;
+float volume_level = 0.07;
 float time_note_duration_ms = 1500;
 
 extern uint16_t x_axis_buffer[];
@@ -423,7 +423,7 @@ initial_page_parameters load_first_page(int first_page, uint8_t* ssd, struct ren
         
     }
 
-    else if(first_page == 11){ // 3 e 5 oitava completa
+    else if(first_page == 11){ // 3 e 4 oitava completa
 
         strcpy(page.initial_note, "A");
         strcpy(page.initial_accident, "#");
@@ -1583,7 +1583,7 @@ int play_levels(){
                         ssd1306_draw_string(ssd, 0, 40, "OUVIDO ABSOLUTO");                        
                         render_on_display(ssd, &frame_area);
 
-                        sleep_ms(15000);
+                        sleep_ms(10000);
 
                         level = 1;
                         error_counter = 0;
